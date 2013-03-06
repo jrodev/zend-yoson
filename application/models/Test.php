@@ -12,6 +12,7 @@
  */
 class Application_Model_Test {
     //put your code here
+    echo "hi!!";
 }
 
 ?>
