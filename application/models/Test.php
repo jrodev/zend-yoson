@@ -12,7 +12,9 @@
  */
 class Application_Model_Test {
     //put your code here
-    echo "hi!!";
+    function test(){
+        echo "hi!!";
+    }
 }
 
 ?>
