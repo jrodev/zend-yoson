@@ -7,7 +7,6 @@ class Portal_IndexController extends Zend_Controller_Action
     {
         /* Initialize action controller here */
         //$this->_helper->removeHelper($name)
-        echo "INI!<br>";
     }
 
     public function indexAction()
