@@ -16,7 +16,18 @@ class Portal_IndexController extends Zend_Controller_Action
         $this->view->assign('var', "indexAction");
         
     }
+    
+    public function uploadAction()
+    {
+        $this->view->headScript()->appendFile(JS_URL.'/library/jquery/plugins/jq.FileReader'.MIN.'.js');
+    }
 
+    public function foojsonAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $response = Zend_Controller_Front::getInstance()->getResponse();
+        $response->setHeader('Content-Type', 'application/json', true);
+        return Zend_Json::encode(array('val1'=>'value1', 'val2'=>'value2'));
+    }
 
 }
-

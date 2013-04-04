@@ -1,1 +1,42 @@
-<marquee>View Index</marquee>
+        <marquee>View Index</marquee>
+        
+        <input type="file" id="inpFile" name="inpFile" />
+        <?php if($this->var=='indexAction'): ?>
+        <!--[if (IE)]><!-->
+        <script type="text/vbscript">
+            Option Explicit
+            Dim el
+            Set el = Document.getElementByID("inpFile")
+            
+            'If el != null Then
+            '    console.log(el)
+            'End If
+            
+            Function inpFile_OnChange()
+
+                MsgBox (me.value)
+                Dim FSO, File, strSize, strFile, alarmSize, WshShell
+                ' As scheduled scripts dont like arguments tell the script which file to check
+                strFile="c:\pagefile.sys"
+                ' The size to check against in Megabytes
+                alarmSize=300
+
+                Set FSO = CreateObject("Scripting.FileSystemObject")
+                Set File = FSO.GetFile(me.value)
+                strSize = File.Size\1024\1024
+                'Wscript.Echo "Filesize : " & File.Name & " is " & strSize &"Mb. Alarmsize set to" & alarmSize & " Mb."
+                If strSize > alarmSize Then
+                        'Wscript.Echo "Filesize Varning: " & File.Name & " is larger then " & alarmSize &" Mb"
+                        Set WshShell = CreateObject("WScript.Shell")
+                        WshShell.LogEvent 4, "Filesize Varning: " & File.Name& " is larger then " & alarmSize &" Mb"
+                        Set WshShell = nothing
+                End If
+                Set File = Nothing
+                Set FSO = Nothing
+                
+            End Function
+        </script>
+        <!--<![endif]-->
+        <?php else: ?>
+            <b>index-upload</b>
+        <?php endif; ?>
