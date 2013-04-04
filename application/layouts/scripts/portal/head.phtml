@@ -19,10 +19,12 @@
         <meta name="DC.Description" content="aquí va la descripción del portal alrededor no debe exceder los 350 caracteres, lo recomendable es usar los primeros 150 caracteres en una idea concisa ya que estos primeros 150 caracteres serán mostrados en los resultados de búsqueda de google"/>
         <meta name="DC.Publisher" content="nombrePortal.dominio"/>
         <meta name="DC.Language" content="es"/>
+        
         <!-- Crea elementos HTML5 mediante javascript para que las versiones de IE menores a la 9, puedan reconocer dichos elementos. -->
-        <!--[if lt IE 9]><script src="js/libs/html5shiv.js?v=version" type="text/javascript"></script><![endif]-->
-        <!-- Hoja de estilos - se carga primero para que muestre rapidamente nuestra estructura html y css -->
-        <link href="css/main.css?v=version" rel="stylesheet" type="text/css">
+        <!--[if lt IE 9]>
+        <script src="js/otherArch/library/html5shiv.js?v=version" type="text/javascript"></script>
+        <![endif]-->
+        
         <!-- open graph -->
         <meta property="og:title" content="texto de ejemplo usar máximo 70 caracteres | nombrePortal.dominio"/>
         <meta property="og:description" content="aquí va la descripción del portal alrededor no debe exceder los 350 caracteres, lo recomendable es usar los primeros 150 caracteres en una idea concisa ya que estos primeros 150 caracteres serán mostrados en los resultados de búsqueda de google"/>
@@ -36,12 +38,16 @@
         <link href="favicon.ico" rel="icon" type="image/vnd.microsoft.icon">
         <!-- Standard -->
         <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+        
+        <!-- Hoja de estilos - se carga primero para que muestre rapidamente nuestra estructura html y css -->
+        <link href="<?php echo CSS_URL ?>/bootstrap/bootstrap<?php echo MIN ?>.css?v=version" rel="stylesheet" type="text/css" />
+        <script src="<?php echo JS_URL ?>/library/jquery/jquery<?php echo MIN ?>.js"></script>
+        <script src="<?php echo JS_URL ?>/library/bootstrap/bootstrap<?php echo MIN ?>.js"></script>
+        
         <!-- Código de Google Analytics: cambie UA-XXXXX-X por su GA site ID. -->
-        <script src="<?php echo URL ?>library/js/<?php echo MIN ?>bootstrap.js"></script>
         <script type="text/javascript">
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
-        
