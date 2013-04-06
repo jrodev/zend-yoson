@@ -19,7 +19,7 @@ class Portal_IndexController extends Zend_Controller_Action
     
     public function uploadAction()
     {
-        $this->view->headScript()->appendFile(JS_URL.'/library/jquery/plugins/jq.FileReader'.MIN.'.js');
+        $this->view->headScript()->appendFile(JS_URL.'/library/class/jq.FileReader'.MIN.'.js');
     }
 
     public function foojsonAction()
