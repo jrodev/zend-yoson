@@ -12,100 +12,11 @@
     </head>
     <body>
         <div class="container">
-
-            <div class="row-fluid">
-                <div class="span3">LOGO</div>
-                <div class="offset9">---foo---</div>
-            </div>
-
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="container">
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar">s</span>
-                            <span class="icon-bar">s</span>
-                            <span class="icon-bar">s</span>
-                        </a>
-                        <a class="brand" href="#">Buscador inmobiliario</a>
-                        <div class="nav-collapse">
-                            <ul class="nav">
-                                <li class="active"><a href="#">Inicio</a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inmuebles <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Casa</a></li>
-                                        <li><a href="#">Departamento</a></li>
-                                        <li><a href="#">oficina</a></li>
-                                        <li><a href="#">Terreno</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Alquiler</a></li>
-                                        <li><a href="#">Construcci&oacute;n</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Contactenos</a></li>
-                            </ul>
-                            <ul class="nav pull-right">
-                                <li class="divider-vertical"></li>
-                                <li>
-                                    <form class="navbar-search pull-left" action="">
-                                        <input type="text" class="search-query span2" placeholder="Search">
-                                    </form>
-                                </li>
-                            </ul>
-                        </div><!-- /.nav-collapse -->
-                    </div>
-                </div><!-- /navbar-inner -->
-            </div>
-
-            <div class="row-fluid">
-                
-                <div class="span9">
-                    <div class="tabbable">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#1" data-toggle="tab"><b>Busqueda por Mapa</b></a></li>
-                            <li><a href="#2" data-toggle="tab"><b>Busqueda General</b></a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <!-- Busqueda por Mapa -->
-                            <div class="tab-pane active" id="1">
-                                <p>I'm in Section 1.</p>
-                            </div>
-                            <!-- Busqueda General -->
-                            <div class="tab-pane" id="2">
-                                <p>Howdy, I'm in Section 2.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="span3">
-                    <?php echo $this->partial('render/_footer.phtml', array('MIN'=>$MIN, 'm'=>$m, 'c'=>$c, 'a'=>$a)) ?>
-                </div>
-            </div>
-            
-            
-            
-            <!--div class="row-fluid">
-                <div class="span10">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">...</a></li>
-                        <li><a href="#">...</a></li>
-                    </ul>
-                </div>
-                <div class="span2">venganza</div>
-            </div-->
-            
-            
-            <!--div class="row-fluid">
-                <div class="span4">...</div>
-                <div class="span8">...</div>
-            </div-->
+            <?php echo $this->partial('portal/header.phtml', array()) ?>
+            <!-- Contenido de la web -->
+            <?php echo $this->layout()->content ?>
+            <!-- Fin de contenido de la web -->
+            <? echo $this->partial('portal/footer.phtml', array('foo2'=>'')) ?>
         </div>
-        <!-- Contenido de la web -->
-        <?php echo $this->layout()->content ?>
-        
-        <!-- Fin de contenido de la web -->
-        <? echo $this->partial('portal/footer.phtml', array('foo2'=>'')) ?>
     </body>
 </html>

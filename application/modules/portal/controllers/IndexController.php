@@ -7,6 +7,9 @@ class Portal_IndexController extends Zend_Controller_Action
     {
         /* Initialize action controller here */
         //$this->_helper->removeHelper($name)
+        $ctrlDir = $this->getFrontController()->getControllerDirectory('portal');
+        echo "ctrlDir->".$ctrlDir;
+        //$this->view->addBasePath($ctrlDir . '/../views');
     }
 
     public function indexAction()
@@ -14,7 +17,7 @@ class Portal_IndexController extends Zend_Controller_Action
         // action body
         Zend_Debug::dump($this->getRequest()->getParams());
         $this->view->assign('var', "indexAction");
-        
+
     }
     
     public function uploadAction()
