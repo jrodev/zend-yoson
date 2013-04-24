@@ -1,5 +1,5 @@
 <?php
- //echo "hello!!!";
+ echo "hello!!!";
  error_reporting(E_ALL | E_ERROR | E_STRICT & ~E_NOTICE);
 // Define path to application directory
 defined('APPLICATION_PATH')
