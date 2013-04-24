@@ -1,7 +1,0 @@
-﻿2013-03-23 09:28:00, Info                  CBS    Starting TrustedInstaller initialization.
-2013-03-23 09:28:00, Info                  CBS    Loaded Servicing Stack v6.1.7601.17592 with Core: C:\windows\winsxs\amd64_microsoft-windows-servicingstack_31bf3856ad364e35_6.1.7601.17592_none_672ce6c3de2cb17f\cbscore.dll
-2013-03-23 09:28:03, Info                  CSI    00000001@2013/3/23:14:28:03.239 WcpInitialize (wcp.dll version 0.0.0.6) called (stack @0x7feebe7f0ad @0x7fef6a49849 @0x7fef6a134e3 @0xff97e97c @0xff97d799 @0xff97db2f)
-2013-03-23 09:28:03, Info                  CSI    00000002@2013/3/23:14:28:03.777 WcpInitialize (wcp.dll version 0.0.0.6) called (stack @0x7feebe7f0ad @0x7fef6a96816 @0x7fef6a62aac @0x7fef6a135b9 @0xff97e97c @0xff97d799)
-2013-03-23 09:28:03, Info                  CSI    00000003@2013/3/23:14:28:03.955 WcpInitialize (wcp.dll version 0.0.0.6) called (stack @0x7feebe7f0ad @0x7fefaeb8738 @0x7fefaeb8866 @0xff97e474 @0xff97d7de @0xff97db2f)
-2013-03-23 09:28:03, Info                  CBS    Ending TrustedInstaller initialization.
-2013-03-23 09:28:03, Info                  CBS    S
