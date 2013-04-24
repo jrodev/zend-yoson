@@ -41,9 +41,12 @@
         
         <!-- Hoja de estilos - se carga primero para que muestre rapidamente nuestra estructura html y css -->
         <link href="<?php echo CSS_URL ?>/bootstrap/bootstrap<?php echo MIN ?>.css?v=version" rel="stylesheet" type="text/css" />
+        <link href="<?php echo CSS_URL ?>/main<?php echo MIN ?>.css?v=version" rel="stylesheet" type="text/css" />
+        <?php echo "\n".$this->headLink() ?>
         <script src="<?php echo JS_URL ?>/library/jquery/jquery<?php echo MIN ?>.js"></script>
         <script src="<?php echo JS_URL ?>/library/bootstrap/bootstrap<?php echo MIN ?>.js"></script>
-        <?php echo $this->headScript() ?> 
+        <?php echo "\n".$this->headScript() ?>
+        <script src="http://local.zendyoson.pe/static/js/otherArch/application/modules/portal/pages/index.min.js"></script> 
         <!-- Código de Google Analytics: cambie UA-XXXXX-X por su GA site ID. -->
         <script type="text/javascript">
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];

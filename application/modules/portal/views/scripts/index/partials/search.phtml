@@ -6,7 +6,53 @@
                         <div class="tab-content">
                             <!-- Busqueda por Mapa -->
                             <div class="tab-pane active" id="1">
-                                <p>I'm in Section 1.</p>
+                                <form id="frm-search-gral" class="form-horizontal">
+                                    <div class="row-fluid">
+                                        <div class="span12">                                          
+                                            <label class="lbl-search">Provincia: </label>
+                                            <select id="search-prov" name="search-prov">	    
+                                                <option value="11">Callao</option>
+                                                <option value="12">Bellavista</option>
+                                                <option value="13">Ventanilla</option>
+                                                <option value="14">La Punta</option>
+                                                <option value="15">La Perla</option>
+                                            </select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span4">
+                                            <label class="lbl-search">Distrito1: </label>
+                                            <select id="dist1" name="dist1" class="distritos">	    
+                                                <option value="">Seleccionar</option>
+                                            </select>
+                                            <!--span class="help-inline">Error! corrija el texto!.</span-->
+                                        </div>
+                                        <div class="span4">
+                                            <label class="lbl-search">Distrito2: </label>
+                                            <select id="dist2" name="dist2" class="distritos">	    
+                                                <option value="">Seleccionar</option>
+                                            </select> 
+                                        </div>
+                                        <div class="span4">
+                                            <label class="lbl-search">Distrito3: </label>
+                                            <select id="dist3" name="dist3" class="distritos" disabled="">	    
+                                                <option value="">Seleccionar</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span12" style="border: 1px solid #f00">
+                                            <div id="widget">
+                                                <div id="widgetField">
+                                                    <span>14 March, 2013 ÷ 07 May, 2013</span>
+                                                    <a href="#">Select date range</a>
+                                                </div>
+                                                <div id="widgetCalendar" style="height: 0px; display: block;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
                             <!-- Busqueda General -->
                             <div class="tab-pane" id="2">

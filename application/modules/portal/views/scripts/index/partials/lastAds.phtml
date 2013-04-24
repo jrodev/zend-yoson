@@ -1,5 +1,5 @@
                     
-                    <b class="last-ad">Ultimos Avisos</b>
+                    <h3 class="tit-last-ad">Ultimos Avisos</h3>
                     <div class="accordion" id="ultsInm">
                         <?php 
                         $list = array("Departamento - lima","Casa - La Molina","Oficina - La Victoria","Terreno - Sta. Anita","Casa campo - Huaral","Oficina - Breña","Casa - Ate Vitarte","Terreno - Sta. Anita","Estacionamiento - Huaral");
@@ -14,7 +14,9 @@
                             </div>
                             <div id="list<?php echo $i ?>" class="accordion-body collapse<?php echo ($i==0)?" in":"" ?>" style="height: <?php echo ($i++==0)?"auto":"0px" ?>;">
                                 <div class="accordion-inner">
-                                    texto descripcion <?php echo $i ?>
+                                    <img src="<?php echo STAT_URL?>/img/design/no_disponible.jpg" width="100%" />
+                                    <p>texto descripcion <?php echo $i ?></p>
+                                    <a href="#">Mas detalles...</a>
                                 </div>
                             </div>
                         </div>

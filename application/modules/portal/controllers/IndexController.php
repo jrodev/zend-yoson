@@ -8,14 +8,18 @@ class Portal_IndexController extends Zend_Controller_Action
         /* Initialize action controller here */
         //$this->_helper->removeHelper($name)
         $ctrlDir = $this->getFrontController()->getControllerDirectory('portal');
-        echo "ctrlDir->".$ctrlDir;
-        //$this->view->addBasePath($ctrlDir . '/../views');
+        //echo "ctrlDir->".$ctrlDir;
+        $this->view->addBasePath($ctrlDir . '/../views');
     }
 
     public function indexAction()
     {
         // action body
-        Zend_Debug::dump($this->getRequest()->getParams());
+        $this->view->headLink()->appendStylesheet(CSS_URL.'/datepicker'.MIN.'.css');
+        //$this->view->headScript()->appendFile(JS_URL.'/library/class/jq.FileReader'.MIN.'.js');
+        $this->view->headScript()->appendFile(JS_URL.'/library/datepicker'.MIN.'.js');
+        //$this->view->headScript()->appendFile(JS_URL.'/application/modules/portal/pages/index'.MIN.'.js');
+        //Zend_Debug::dump($this->getRequest()->getParams());
         $this->view->assign('var', "indexAction");
 
     }
