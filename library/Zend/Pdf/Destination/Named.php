@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Destination
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Named.php 23651 2011-01-21 21:51:00Z mikaelkael $
+ * @version    $Id: Named.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** Internally used classes */
@@ -39,7 +39,7 @@ require_once 'Zend/Pdf/Destination.php';
  *
  * @package    Zend_Pdf
  * @subpackage Destination
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Destination_Named extends Zend_Pdf_Destination

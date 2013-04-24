@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,9 +23,9 @@
  *
  * @category   Zend
  * @package    Zend_Form
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DisplayGroup.php 23484 2010-12-10 03:57:59Z mjh_ca $
+ * @version    $Id: DisplayGroup.php 25093 2012-11-07 20:08:05Z rob $
  */
 class Zend_Form_DisplayGroup implements Iterator,Countable
 {
@@ -657,7 +657,7 @@ class Zend_Form_DisplayGroup implements Iterator,Countable
     /**
      * Load default decorators
      *
-     * @return void
+     * @return Zend_Form_DisplayGroup
      */
     public function loadDefaultDecorators()
     {
@@ -974,6 +974,16 @@ class Zend_Form_DisplayGroup implements Iterator,Countable
         }
 
         return $this->_translator;
+    }
+
+    /**
+     * Does this display group have its own specific translator?
+     *
+     * @return bool
+     */
+    public function hasTranslator()
+    {
+        return (bool) $this->getTranslator();
     }
 
     /**

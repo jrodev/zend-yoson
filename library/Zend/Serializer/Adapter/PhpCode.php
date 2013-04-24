@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PhpCode.php 23484 2010-12-10 03:57:59Z mjh_ca $
+ * @version    $Id: PhpCode.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** @see Zend_Serializer_Adapter_AdapterAbstract */
@@ -27,7 +27,7 @@ require_once 'Zend/Serializer/Adapter/AdapterAbstract.php';
  * @category   Zend
  * @package    Zend_Serializer
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Serializer_Adapter_PhpCode extends Zend_Serializer_Adapter_AdapterAbstract

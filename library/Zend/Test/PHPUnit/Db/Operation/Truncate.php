@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Truncate.php 23656 2011-01-22 14:15:50Z ramon $
+ * @version    $Id: Truncate.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -52,7 +52,7 @@ require_once "Zend/Test/PHPUnit/Db/Connection.php";
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_PHPUnit_Db_Operation_Truncate implements PHPUnit_Extensions_Database_Operation_IDatabaseOperation

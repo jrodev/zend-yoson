@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Module
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Bootstrap.php 23484 2010-12-10 03:57:59Z mjh_ca $
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Bootstrap.php 25024 2012-07-30 15:08:15Z rob $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ require_once 'Zend/Application/Bootstrap/Bootstrap.php';
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Module
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Application_Module_Bootstrap

@@ -9,7 +9,7 @@ class Portal_IndexController extends Zend_Controller_Action
         //$this->_helper->removeHelper($name)
         $ctrlDir = $this->getFrontController()->getControllerDirectory('portal');
         //echo "ctrlDir->".$ctrlDir;
-        $this->view->addBasePath($ctrlDir . '/../views');
+        $this->view->addBasePath($ctrlDir . '/../views');//echo "INIT";
     }
 
     public function indexAction()
