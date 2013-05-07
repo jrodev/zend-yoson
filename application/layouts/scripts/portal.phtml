@@ -8,12 +8,12 @@
         <? echo "\n".$this->partial('portal/head.phtml', array('foo'=>'')) ?>
     </head>
     <body>
+        <?php echo $this->partial('portal/header.phtml', array()) ?>
         <div class="container">
-            <?php echo $this->partial('portal/header.phtml', array()) ?>
             <!-- Contenido de la web -->
             <?php echo $this->layout()->content ?>
             <!-- Fin de contenido de la web -->
-            <? echo $this->partial('portal/footer.phtml', array('foo2'=>'')) ?>
         </div>
+        <? echo $this->partial('portal/footer.phtml', array('foo2'=>'')) ?>
     </body>
 </html>

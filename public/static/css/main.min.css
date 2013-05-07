@@ -12,3 +12,13 @@ h3.tit-last-ad{  font-size: 17px; margin: 0; padding: 0; }
 
 /*Tuneo bootstrapT0*/
 .iniRow{margin-left: 0 !important;}
+
+/*Busqueda gral tuneo bootstrap*/
+#search .tab-content{
+    overflow: inherit !important;
+}
+#search #frm-search-gral .row-fluid{
+    border: 1px solid #DDD;
+    width: 96% !important;
+    padding: 10px;
+}

@@ -1,9 +1,9 @@
             <?php /* Busqueda General, Busqueda por mapa y ultimos inmuebles */ ?>
             <div class="row-fluid">
-                <div class="span9">
+                <div id="search" class="span9">
                     <?php echo $this->partial('index/partials/search.phtml', array()) //Buscador General y por mapa ?>
                 </div>
-                <div class="span3">
+                <div id="lastAds" class="span3">
                     <?php echo $this->partial('index/partials/lastAds.phtml', array()) //Ultimos avisos agregados ?>
                 </div>
             </div>

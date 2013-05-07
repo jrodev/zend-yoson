@@ -15,7 +15,8 @@ class Portal_IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
-        $this->view->headLink()->appendStylesheet(CSS_URL.'/datepicker'.MIN.'.css');
+        $this->view->headLink()->appendStylesheet(CSS_URL.'/bst.datepicker/base'.MIN.'.css');
+        $this->view->headLink()->appendStylesheet(CSS_URL.'/bst.datepicker/clean'.MIN.'.css');
         //$this->view->headScript()->appendFile(JS_URL.'/library/class/jq.FileReader'.MIN.'.js');
         $this->view->headScript()->appendFile(JS_URL.'/library/datepicker'.MIN.'.js');
         //$this->view->headScript()->appendFile(JS_URL.'/application/modules/portal/pages/index'.MIN.'.js');
