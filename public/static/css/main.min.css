@@ -22,3 +22,14 @@ h3.tit-last-ad{  font-size: 17px; margin: 0; padding: 0; }
     width: 96% !important;
     padding: 10px;
 }
+
+/*Date range - tuneo*/
+#date-range .alert-info{
+    margin-bottom: 0;
+    width: 312px;
+    padding: 3px 35px 3px 14px;
+    float: right;
+}
+#date-range #date-range-field{
+    float: left;
+}
