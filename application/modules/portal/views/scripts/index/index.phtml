@@ -7,18 +7,38 @@
                     <?php echo $this->partial('index/partials/lastAds.phtml', array()) //Ultimos avisos agregados ?>
                 </div>
             </div>
-            <div class="row-fluid">CASAS <hr /></div>
+            <div class="row-fluid"><h3 class="tit-blue-h3">CASAS</h3></div>
             <div class="row-fluid">
                 <span class="span12">
                     <ul class="thumbnails">
-                        <?php $i=1; while($i<=12): //echo "-*-*->".(12%($i-1));?>
-                        <li class="span3 <?php if($i>1 and ($i-1)%4==0):?>iniRow<? endif;?>">
+                        <?php $i=1; while($i<=4): ?>
+                        <li class="span3 <?php if($i>1 and ($i-1)%4==0){?>iniRow<?php } ?> witget">
                             <div class="thumbnail">
                                 <img src="http://placehold.it/260x180" alt="">
                                 <div class="caption">
                                     <h5>Etiqueta Thumbnail</h5>
                                     <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                                    <p><a href="#" class="btn btn-primary">Acción</a> <a href="#" class="btn">Acción</a></p>
+                                    <p><a href="#" class="btn">Vista previa</a><a href="#" class="btn btn-primary">Detalle...</a></p>
+                                </div>
+                            </div>
+                        </li>
+                        <?php $i++; endwhile;?>
+                    </ul>
+                </span>
+            </div>
+            
+            <div class="row-fluid"><h3 class="tit-blue-h3">DEPARTAMENTOS</h3></div>
+            <div class="row-fluid">
+                <span class="span12">
+                    <ul class="thumbnails">
+                        <?php $i=1; while($i<=4): ?>
+                        <li class="span3 <?php if($i>1 and ($i-1)%4==0){?>iniRow<?php } ?> witget">
+                            <div class="thumbnail">
+                                <img src="http://placehold.it/260x180" alt="">
+                                <div class="caption">
+                                    <h5>Etiqueta Thumbnail</h5>
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                                    <p><a href="#" class="btn">Vista previa</a><a href="#" class="btn btn-primary">Detalles...</a></p>
                                 </div>
                             </div>
                         </li>

@@ -1,11 +1,15 @@
+/*globals*/
+.row-end{margin-bottom: 0 !important;}
 /*HOME*/
 .span3.logo{padding: 10px;}
-h3.tit-last-ad{  font-size: 17px; margin: 0; padding: 0; }
+h3.tit-blue-h3{  font-size: 17px; margin: 0; padding: 0; }  /*tit-last-ad*/
 .accordion-inner p{margin: 5px 0 0; font-size: 12px}
 .accordion-inner a{font-size: 10px}
 #ultsInm .accordion-toggle:hover{text-decoration: none}
 
 #frm-search-gral{ margin: 0 0 0 5px;}
+#frm-search-gral .row{margin-left: auto !important;}
+#frm-search-gral .span12 > label{font-weight: bold; }
 #frm-search-gral .row-fluid{margin-bottom: 15px;}
 .lbl-search{display: inline-block;} /*usado en lbl de: home - search - sel provincia*/
 #search-prov, .distritos{ width: 150px; }
@@ -32,4 +36,42 @@ h3.tit-last-ad{  font-size: 17px; margin: 0; padding: 0; }
 }
 #date-range #date-range-field{
     float: left;
+}
+
+/*Home: Tipo inmueble*/
+#tipoInm .span2{
+    width: 19% !important;
+}
+#tipoInm .span2:first-child{
+    width: 15% !important;
+}
+
+/*Home: Estado de inmueble*/
+#estadoInm select{ width: 50px !important; }
+
+/*Home: boton submit*/
+#estadoInm div.span2{ padding-top: 15px !important; }
+
+/*Home - Mapa*/
+#gmap{ width:700px; height:450px; /*float:left;*/ }
+#tblMap{ border: 0px solid #333; }
+#tblMap td{ /*padding:3px;*/ }
+
+/*Home - width combox*/
+select#dist, select#opc, select#tipo, select#prec{ width: 100px; }
+
+/*Home - witget*/
+.witget .caption h5{ margin: 0 !important;}
+.witget .caption{padding:8px 2px 0 !important;}
+.witget .caption p{ margin: 5px 0 !important; line-height:15px !important; font-size: 12px !important; }
+.witget a.btn-primary{float:right !important;}
+/*Home - footer*/
+footer{
+  text-align: center !important;
+  color: #fff !important;
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+  min-height: auto !important;
+  padding: 15px 0 !important;
 }

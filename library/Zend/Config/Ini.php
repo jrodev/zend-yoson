@@ -124,7 +124,9 @@ class Zend_Config_Ini extends Zend_Config
         }
 
         $iniArray = $this->_loadIniFile($filename);
-
+        //echo "filename: =============="; var_dump($filename);
+        //echo "iniArray: =============="; var_dump($iniArray);
+        //echo "section: =============="; var_dump($section);
         if (null === $section) {
             // Load entire file
             $dataArray = array();

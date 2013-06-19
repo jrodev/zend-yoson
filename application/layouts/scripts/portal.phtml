@@ -5,15 +5,15 @@
 <!--[if IE 9]><html class="ie9" lang="es"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="es"><!--<![endif]-->
     <head>
-        <? echo "\n".$this->partial('portal/head.phtml', array('foo'=>'')) ?>
+        <?php echo $this->partial('portal/head.phtml', array('foo'=>'')); ?>
     </head>
     <body>
-        <?php echo $this->partial('portal/header.phtml', array()) ?>
+        <?php echo $this->partial('portal/header.phtml', array()); ?>
         <div class="container">
             <!-- Contenido de la web -->
             <?php echo $this->layout()->content ?>
             <!-- Fin de contenido de la web -->
         </div>
-        <? echo $this->partial('portal/footer.phtml', array('foo2'=>'')) ?>
+        <?php echo $this->partial('portal/footer.phtml', array('foo2'=>'')); ?>
     </body>
 </html>

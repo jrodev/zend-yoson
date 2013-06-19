@@ -16,5 +16,28 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $pars=$this->getOption('pars'); defined('MIN')||define('MIN',$pars['min']);
         
     }
+    
+    /**
+     * Ruteo de urls 990974967
+     */
+    function _initRoute() {
+        $config = new Zend_Config_Ini(APPLICATION_PATH . "/configs/routes.ini");
+        $routerExternal = new Zend_Controller_Router_Rewrite();
+        $routerExternal->addConfig($config->main,'routes');
+        Zend_Controller_Front::getInstance()->setRouter($routerExternal);
+        /*
+        $options = $this->getOptions();
+        $host = substr($options['resources']['ZExtraLib_Application_Resource_Server']['content']['host'],7,-1);
+
+        $routeMaster = $this->bootstrap('frontController')->getResource('frontController')->getRouter();
+        $hostnameRoute = new Zend_Controller_Router_Route_Hostname(':tienda.' . $host,
+                array('controller' => 'tienda'));
+        $routeMaster->addRoute('tienda', $hostnameRoute);
+
+        $routerShop = new Zend_Controller_Router_Rewrite();
+        $routerShop->addConfig($config->shop,'routes');
+        foreach($routerShop->getRoutes() as $key => $route)
+            $routeMaster->addRoute('hostname' . $key , $hostnameRoute->chain($route));*/
+    }
 
 }
