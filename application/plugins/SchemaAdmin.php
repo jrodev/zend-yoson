@@ -18,7 +18,7 @@ class Application_Plugin_SchemaAdmin extends Zend_Controller_Plugin_Abstract {
                     'text'  => 'Inicio',
                     'acts' => array(
                         'index' => array('text'=>'Iniciar sesion' ,'menu'=>true, 'active'=>false),
-                        'login' => array('text'=>'Iniciar sesion' ,'menu'=>true, 'active'=>false),
+                        //'login' => array('text'=>'Iniciar sesion' ,'menu'=>true, 'active'=>false),
                         'passw' => array('text'=>'Recuperar clave','menu'=>true, 'active'=>false),
                     ),
                     'active'=> false,
