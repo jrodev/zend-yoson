@@ -7,7 +7,7 @@
 class Application_Plugin_SetLayout extends Zend_Controller_Plugin_Abstract {
     
     public function __construct() {
-        echo "<br>Application_Plugin_SetLayout CREATE!";
+        //echo "<br>Application_Plugin_SetLayout CREATE!";
     }
 
     public function preDispatch (Zend_Controller_Request_Abstract $request)
@@ -15,6 +15,7 @@ class Application_Plugin_SetLayout extends Zend_Controller_Plugin_Abstract {
         /*Usando: 'layouts' registrado en el bootstrap principal*/
         //$errors = $request->getParam('error_handler'); var_dump($errors); exit;
         $layouts = Zend_Registry::get('layouts');
+        //echo "----- ".$request->getParam('module');
         Zend_Layout::getMvcInstance()->setLayout($layouts[$request->getParam('module')]);
     }
 }
