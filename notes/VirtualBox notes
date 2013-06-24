@@ -1,0 +1,38 @@
+/*******************************************************************/
+/*ERROR VITUALBOX (update kernel linux y error virtualvox)
+I also encountered this issue several times once I upgrade my linux kernel.
+error: VirtualBox '/etc/init.d/vboxdrv setup' issue
+
+ERROR:Kernel driver not installed (rc=-1908)
+The VirtualBox Linux kernel driver (vboxdrv) is either not loaded or there is a permission 
+problem with /dev/vboxdrv. Please reinstall the kernel module by executing
+'/etc/init.d/vboxdrv setup'*/
+
+
+//SOLUC:
+//What I did:
+
+sudo apt-get install linux-headers-`uname -r`
+//Reconfigure dkms and load module:
+
+dpkg-reconfigure virtualbox-dkms  
+modprobe vboxdrv
+//Then VirtualBox works. No computer reboot needed.
+
+/*********************************************************************/
+//CLONADO UN DISCO PARA UNA MISMO VIRTUALBOX
+//Al copiar y pegar un mismo disco para reutilizarlo para instalarle
+//otras cosas (como un disk winxp con ie7 y la copia con i8), te lanza el
+//error de que el disco ya esta registrado
+//VirtualBox – Cannot Register the Hard Drive Because a Hard Drive with UUID Already Exists
+
+//SOLUC:
+//Ejecute este comando
+VBoxManage internalcommands sethduuid /media/jro/Nuevo\ vol/VBdiscs/winxp_ie8/winxp_ie8.vdi
+//UUID changed to: ebc8abaa-7706-41c3-9a2a-93e017af0f00
+
+
+
+
+
+

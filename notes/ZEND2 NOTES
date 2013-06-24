@@ -1,0 +1,56 @@
+//Creando un proyecto zend2 con composer
+composer.phar create-project --repository-url="http://packages.zendframework.com" 
+zendframework/skeleton-application /Projects/PHP/Zend2/zf2
+
+//ERROR1
+[InvalidArgumentException] Could not find package zendframework/skeleton-application with stability stable.
+
+//SOLUC2
+composer.phar create-project --repository-url="http://packages.zendframework.com" zendframework/skeleton-application:dev-master /home/jro/Projects/PHP/Zend2/zf2
+
+//ERROR2
+Permission denied 
+
+//SOLUC PROXY or BAD REQUEST -------------------------------------------------------------------
+#configurar el proxy
+export http_proxy="http://172.21.0.12:3128"
+export https_proxy="https://172.21.0.12:3128"
+export ftp_proxy="ftp://172.21.0.12:3128"
+ 
+#configurar variable "HTTP_PROXY_REQUEST_FULLURI"
+ 
+export HTTP_PROXY_REQUEST_FULLURI="false"
+#nota agregar para que no lo agregen constantemente lo pueden agregar al achivo .bashrc de su usuario
+ 
+ 
+#configurar git para que trabaje por proxy
+ 
+git config --global http.proxy $http_proxy
+git config --global https.proxy $https_proxy
+ 
+# ejecutar 
+composer.phar diagnose
+
+//ZFTOOLS FOR ZEND2 ----------------------------------------------------------------------------
+//Ingresamos a nuestro proyecto y ejecutamos la sgte linea:
+composer.php require zendframework/zftool:dev-master
+//Se instala dentro de vendor/bin zf.php  moverlo a la raiz de nuestro proyecto
+#http://framework.zend.com/manual/2.1/en/modules/zendtool.introduction.html   <---- COMANDOS
+//Una vez pasado el zf.php a la raiz de tu proyecto se puede por ejm crear otro modulo
+zf.php create module neomodule
+//Exite un bug aca, cambiar el module.config.php del modulo Application	que vino con el
+//esqueleton. La solucion es reeplazar la linea 'aliases'=>''translator' ...
+//por : 'factories'=>array( 'translator'=>'Zend\I18n\Translator\TranslatorServiceFactory' ),
+
+
+
+// EJECUTAR PROYECTO EN UN LOCALHOST TEMPORAL CON PHP ------------------------------------------
+php -S localhost:8080
+
+
+
+
+
+
+
+

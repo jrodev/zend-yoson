@@ -1,0 +1,76 @@
+# ------------------------ los ssh ---------------------------
+/home/jro/.ssh
+/root/.ssh
+
+# ------------------------ PERMISOS -------------------------- 
+chmod 600 id_rsa
+chmod 600 id_rsa.pub
+#para poder levantar repositorios en local en ubuntu
+
+#--------------------------- SSH -----------------------------
+# chequeamos si existen id_rsa 
+# https://help.github.com/articles/generating-ssh-keys
+cd ~/.ssh  
+#Creando clave SSH
+ssh-keygen -t rsa -C "your_email@example.com"
+
+#--------------------- CREANDO VIRTUALHOST -------------------
+#creando archivo VH
+/etc/apache2/sites-available cp default local.miweb.pe
+
+#habilitamos site p.e:
+sudo a2ensite local.miweb.com.pe
+
+# apache: manipulando estados
+/etc/init.d/apache2 stop     OR    sudo /etc/init.d/apache2 stop
+/etc/init.d/apache2 start    OR    sudo /etc/init.d/apache2 start
+/etc/init.d/apache2 restart
+
+#tambien
+sudo service apache2 (restart?reload?)|stop|start
+
+#editando archivo host
+gedit /etc/hosts 
+#127.0.0.1	local.miweb.pe
+
+#NOTA 
+#podria ocurrir un posible error al tener mas de 1 site configurado
+# el cual te pide un serverName, para lo cual editar el archivo
+#/etc/apache2/apache2.conf y agregar al final serverName 127.0.0.1
+
+#LOG DE ERRORS
+var/log/apache2/sitename-error.log
+
+#RESET CHANGES -----------------------------------------------
+git reset --hard HEAD~1
+
+# INSTALL GOOGLE CHROME ========================================================
+# To get started, press Ctrl – Alt – T to open Terminal. When it opens, run the 
+# command below to add Linux-repository public key from Google..
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+
+#When added, run the command below.
+sudo gedit /etc/apt/sources.list.d/google.list
+
+#Then copy and paste the line below into the file and save.
+deb http://dl.google.com/linux/chrome/deb/ stable main
+
+#After saving the file, run the commands below to update your system.
+sudo apt-get update
+
+#Finally,  run the commands below to install Google Chrome Stable version.
+sudo apt-get install google-chrome-stable
+
+#To install the beta version (latest version) run the commands below:
+sudo apt-get install google-chrome-beta
+
+#---------------------------------------------------------------------------------
+
+que doc emitio un cli al momento de publicar un aviso ?  ngn nrodoc 0?
+
+#DELETE DIRECTORY ALL CONTENT ----------------------------------------------------
+sudo rm -rf /Projects/
+
+
+#NOTA :TERMINAL TERMINATOR:   crt+shift+x (Maximizar panel del terminal)   ctrl+shift+z (regresar de pantalla completa)
+

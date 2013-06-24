@@ -1,1 +1,0 @@
-(function(){namespace("css.foo")}).call(this);

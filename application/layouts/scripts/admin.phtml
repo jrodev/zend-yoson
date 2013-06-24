@@ -1,1 +1,44 @@
-<?php echo $this->layout()->content; ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Transdmin Light</title>
+        <link href="<?php echo CSS_URL ?>/admin/main.css" rel="stylesheet" type="text/css" media="screen" />
+        <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="<?php echo CSS_URL ?>/admin/ie6.css" /><![endif]-->
+        <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php echo CSS_URL ?>/admin/ie7.css" /><![endif]-->
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1><a href="#"><span>Micasa mi depa</span></a></h1>
+            <ul id="mainNav">
+                <?php if($this->plg_secc and !isset($this->errCode)): ?>
+                    <?php foreach($this->plg_secc as $sec=>$aVal): $act=''; ?>
+                    <?php if($aVal['active']){$act='class="active"';} ?>
+                    <li><a href="#" <?php echo $act; ?>><?php echo $aVal['text']; ?></a></li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <li class="logout"><a href="#">Cerrar sesi&oacute;n</a></li>
+            </ul>
+            <div id="containerHolder">
+                <div id="container">
+                    <div id="sidebar">
+                        <ul class="sideNav">
+                            <?php if($this->plg_acci and !isset($this->errCode)): ?>
+                                <?php foreach($this->plg_acci as $acci=>$aVal): $act='';?>
+                                <?php if($aVal['active']){$act='class="active"';} ?>
+                                <li><a href="#" <?php echo $act; ?>><?php echo $aVal['text']; ?></a></li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </ul>
+                    </div>    
+                    <!--h2><a href="#">Dashboard</a> &raquo; <a href="#" class="active">Print resources</a></h2-->
+                    <div id="main">
+                        <?php echo $this->layout()->content ?>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <p id="footer" style="text-align: center;">Web Developer - <a href="mailto:jrodev@yahoo.es">jrodev@yahoo.es</a></p>
+        </div>
+    </body>
+</html>

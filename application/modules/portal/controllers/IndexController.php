@@ -53,6 +53,10 @@ class Portal_IndexController extends Zend_Controller_Action
     }
 
     public function depsAction(){
+        
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        
         $dist=$this->getRequest()->getParam("dist"); 
         $opc =$this->getRequest()->getParam("opc"); 
         $tipo=$this->getRequest()->getParam("tipo"); 

@@ -1,0 +1,86 @@
+sudo apt-get update
+
+sudo apt-get install git-all  // instala hasta el apache
+
+sudo apt-get install mysql-server
+
+sudo apt-get install php5
+
+//ver lo que tienes instalado con php
+php --ini
+
+sudo apt-get install php5-mysql php5-curl php5-gd php5-xdebug
+
+// bajarse netbeans ;  para ejecutar un sh otorgar permisos con chmod +x nombrearchivo
+// luego ./nombrearchivo.sh
+
+crear un directorio /usr/lib/jvm/   , bajar el jdk de descomprimirlo en ese directorio
+sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.7.0.13/bin/java 0
+
+//dar accesos remotos a mysql 
+Vamos a indicarle que escuche por todas las ip que tenga la máquina ():
+
+Abriremos el fichero de configuración:
+
+nano /etc/mysql/my.cnf
+
+Una vez en el fichero localizaremos el bind-address y lo dejaremos así:
+
+# Instead of skip-networking the default is now to listen only on
+#localhost which is more compatible and is not less secure.
+#bind-address = 127.0.0.1  // comentar y reinciar mysql
+bind-adress = 0.0.0.0
+
+
+PERMISOS
+A continuación le daremos permiso de acceso total al usuario juanillo para que acceda desde cualquier ip a la base de datos llamada juansbase:
+
+mysql> GRANT ALL ON juansbase.* TO juanillo@'%' IDENTIFIED BY 'password_juanillo';
+
+Cambiando el % (que significa desde cualquier ip) por una ip concreta, podemos hacer más seguro nuestro sistema. Aquí si no existe el usuario juanillo lo crea el sistema. En IDENTIFIED BY abrá que poner el password para el usuario juanillo.
+
+Y con esto solucionamos el problema.
+
+ con el usuario root para que acceda a TODO desde cualquier parte, haremos:
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'passworddelroot' WITH GRANT OPTION;
+
+
++***********************************
+Detener el servidor
+#> service mysqld stop|start|reload
+o
+#> /etc/rc.d/init.d/mysqld stop|start|restart
+
+Iniciar en modo FULL o abierto
+#> mysqld_safe --skip-grant-tables --skip-networking&
+--skip-grant-tables esta opción causa que el servidor no use el sistema de privilegios lo que le da acceso ilimitado a todas las bases de datos a todos los usuarios de la base de datos.
+NOTA: Si MySQL fue configurado y compilado con la opción '--disable-grant-options' entonces lo anterior no funcionará y no hay mucho que se pueda hacer entonces y no se podrá cambiar la contraseña, aunque en la práctica realmente esta opción casi no se usa.
+--skip-networking deja de escuchar (LISTEN) conexiones TCP/IP provenientes de la red, es decir MySQL trabajaría en un ambiente totalmente local.
+
+Iniciar el monitor
+#>mysql -u root
+Como no hay sistema de privilegios en este momento, no se preguntara por la contraseña.
+
+Usamos la base de datos del sistema mysql
+mysql> use mysql;
+
+Actualizamos el campo que cambiará la contraseña de 'root'
+mysql> UPDATE user SET password=PASSWORD('nuevo_pass') WHERE user='root';
+Query OK, 1 rows affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> exit
+
+
+/*NOTA*/
+
+LINUX: en ordenadores con sistema operativo GNU/Linux, como Ubuntu ( Fedora o Debian solo con escritorio GNOME ).
+
+Para obtener la letra, caracter, signo o símbolo "\" : ( Barra invertida , contrabarra , barra inversa ) en computadoras con sistema operativo GNU / Linux con escritorio GNOME como UBUNTU :
+
+    1) Presiona las teclas "CTRL+SHIFT+u " en tu teclado, y no las sueltes.
+    2) Sin dejar de presionar "CTRL+SHIFT+u", presiona en el teclado " 5c ", que es el valor hexadecimal de la letra o símbolo "\" en el código ASCII.
+    3) Luego deja de presionar la tecla "CTRL+SHIFT+u" y... ¡ Ya está listo ! (215) .
+
+

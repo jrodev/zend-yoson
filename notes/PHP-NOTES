@@ -1,0 +1,30 @@
+/* --- PHP 5.4 --- */
+//Evitar errores en modo estricto por defecto en php 5.4
+error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
+
+/*---- url netbeans install ------*/
+/usr/local/netbeans-7.3/bin/netbeans
+
+
+/*--------------------- INSTALL ZEND ---------------------*/
+//Copiamos el zip en un directorio (usr/local)
+sudo cp /home/jro/Downloads/ZendFramework-1.12.3.zip /usr/local/
+
+//Vamos al directorio donde esta nuestra copia del zip y lo descomprimimos
+cd /usr/local/
+/usr/local$ sudo tar -xzvf ZendFramework-1.12.3.tar.gz  //para archivo tar
+/usr/local$ sudo unzip ZendFramework-1.12.3.zip         //Para archivo zip
+/usr/local$ sudo mv ZendFramework-1.12.3 zf1.12.3       //Renombramos el directorio
+
+//Habilitando en zf tool
+sudo ln -s /usr/local/zf1.12.3/bin/zf.sh /usr/bin/zf
+
+//Probando ...
+zf show version
+
+//Adicionando la libreria al path de php ini
+sudo gedit /etc/php5/apache2/php.ini
+include_path = ".:/usr/share/php:/usr/local/zf1.12.3/library"
+
+//restart apache
+sudo /etc/init.d/apache2 restart
