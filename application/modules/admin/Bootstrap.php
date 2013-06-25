@@ -2,7 +2,7 @@
 
 class Admin_Bootstrap extends Zend_Application_Module_Bootstrap
 {
-    public function __construct($appIni){ //echo "APP:"; var_dump($app); exit();
+    public function __construct($appIni){
         parent::__construct($appIni);
         /*$paths = $this->getOption('paths');
         defined('STAT_URL')     || define('STAT_URL'    , $paths['statUrl']);
