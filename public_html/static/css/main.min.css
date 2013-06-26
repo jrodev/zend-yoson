@@ -54,6 +54,8 @@ h3.tit-blue-h3{  font-size: 17px; margin: 0; padding: 0; }  /*tit-last-ad*/
 
 /*Home - Mapa*/
 #gmap{ width:700px; height:450px; /*float:left;*/ }
+#gmap img { max-width: none !important; vertical-align: baseline !important; }
+#gmap label{width: auto; display:inline;}
 #tblMap{ border: 0px solid #333; }
 #tblMap td{ /*padding:3px;*/ }
 
