@@ -1,9 +1,3 @@
-                        
-                        <form action="" class="jNice">
-                            <h3>Iniciar sesion</h3>
-                            <fieldset>
-                                <p><label>Usuario:</label><input type="text" class="text-long" /></p>
-                                <p><label>Contrase&nacute;a:</label><input type="text" class="text-long" /></p>
-                                <input type="submit" value="Entrar" />
-                            </fieldset>
-                        </form>
+
+                        <?php if($this->loginMsg)echo "<center>$this->loginMsg</center>"; ?>
+                        <?php echo $this->form; ?>

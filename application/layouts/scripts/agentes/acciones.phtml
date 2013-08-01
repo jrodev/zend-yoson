@@ -1,0 +1,16 @@
+                    
+                    <div class="mnu-acc well">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Acciones</li>
+                            <li class="divider"></li>
+                            <?php /* $this->plg_acci generado en /plugin/SchemAdmin.php */
+                                if($this->plg_acci and !isset($this->errCode)): ?>
+                                <?php foreach($this->plg_acci as $acci=>$aVal): $act='';?>
+                                <?php if($aVal['active']){$act='class="active"';} echo "\n"; ?>
+                                <li <?php echo $act; ?>>
+                                    <a href="/agentes/<?php echo "$this->ctrl/$acci" ?>"><?php echo $aVal['text']; ?></a>
+                                </li>
+                                <?php endforeach; ?>
+                            <?php endif; echo "\n"; ?>
+                        </ul>
+                    </div>

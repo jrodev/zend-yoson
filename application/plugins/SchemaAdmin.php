@@ -15,16 +15,16 @@ class Application_Plugin_SchemaAdmin extends Zend_Controller_Plugin_Abstract {
         $SeccAcc = array(
             'admin' => array(
                 'index' => array(
-                    'text'  => 'Inicio',
+                    'text' => 'Inicio',
                     'acts' => array(
                         'index' => array('text'=>'Iniciar sesion' ,'menu'=>true, 'active'=>false),
                         //'login' => array('text'=>'Iniciar sesion' ,'menu'=>true, 'active'=>false),
                         'passw' => array('text'=>'Recuperar clave','menu'=>true, 'active'=>false),
                     ),
-                    'active'=> false,
+                    'active' => false,
                 ),
                 'agentes' => array(
-                    'text'   => 'Listado Agentes',
+                    'text' => 'Listado Agentes',
                     'acts' => array(
                         'index'  => array('text'=>'Listar agentes' ,'menu'=>true , 'active'=>false),
                         'create' => array('text'=>'Nuevo agente'   ,'menu'=>true , 'active'=>false),
@@ -34,18 +34,39 @@ class Application_Plugin_SchemaAdmin extends Zend_Controller_Plugin_Abstract {
                     'active' => false,
                 ),
                 'inmuebles'=> array(
-                    'text'   => 'Listado Inmuebles',
-                    'acts'   => array(
+                    'text' => 'Listado Inmuebles',
+                    'acts' => array(
                         'index' => array('text'=>'Listar inmuebles' ,'menu'=>true , 'active'=>false),
                         'order' => array('text'=>'Ordenar por'      ,'menu'=>false, 'active'=>false),                        
                     ),
                     'active' => false,
                 ),
             ),
-            'agente' => array(
-                'index'    => array(),
-                'perfil'   => array(),
-                'inmueble' => array(),
+            'agentes' => array(
+                'index' => array(
+                    'text' => 'Inicio',
+                    'acts' => array(
+                        'index' => array('text'=>'Iniciar sesion' ,'menu'=>true, 'active'=>false),
+                        'passw' => array('text'=>'Recuperar clave','menu'=>true, 'active'=>false),
+                    ),
+                    'active' => false,
+                ),
+                'inmuebles'=> array(
+                    'text' => 'Listado Inmuebles',
+                    'acts' => array(
+                        'index'  => array('text'=>'Listar inmuebles' ,'menu'=>true , 'active'=>false),
+                        'create' => array('text'=>'Nuevo inmueble'   ,'menu'=>false, 'active'=>false),                        
+                    ),
+                    'active' => false,
+                ),
+                'perfil'   => array(
+                    'text' => 'Perfil',
+                    'acts' => array(
+                        'index'  => array('text'=>'Editar perfil' ,'menu'=>true , 'active'=>false),                   
+                    ),
+                    'active' => false,
+                ),
+                
             ),
         );
         
@@ -56,10 +77,12 @@ class Application_Plugin_SchemaAdmin extends Zend_Controller_Plugin_Abstract {
         
         //var_dump($modu); var_dump($ctrl); var_dump($request->getActionName()); exit;  
         $modu=$request->getModuleName();    
-        if($modu=='admin'){
-             $ctrl=$request->getControllerName(); $acti=$request->getActionName();
+        if($modu!='portal'){
+            //echo "<br>modu: $modu";
+            $ctrl=$request->getControllerName(); $acti=$request->getActionName();
             $SeccAcc[$modu][$ctrl]['active']=true;         //adicionando seccion activa
             $SeccAcc[$modu][$ctrl]['acts'][$acti]['active']=true;  //adicionando accion activa
+            $this->_view->ctrl = $ctrl;
             $this->_view->plg_secc=$SeccAcc[$modu];
             $this->_view->plg_acci=$SeccAcc[$modu][$ctrl]['acts'];
             //var_dump($this->_view->plg_acci); exit;

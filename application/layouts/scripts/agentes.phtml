@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6" lang="es"><![endif]-->
+<!--[if IE 7]><html class="ie7" lang="es"><![endif]-->
+<!--[if IE 8]><html class="ie8" lang="es"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="es"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="es"><!--<![endif]-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Adminstrador - MiCasaMiDepa.com</title>
+        <link href="<?php echo CSS_URL ?>/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
+        <style>
+            .mnu-acc{max-width: 340px; padding: 8px 0}
+            .adm-log{padding: 5px;} /*.mnu-acc .nav-list{ padding-left: 8px; padding-right: 8px; }*/
+            .content center{ padding:4px; border: 1px solid #B94A48; color: #B94A48; margin: 0px 5px 10px 5px; }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <div class="span3 offset9 adm-log"><img src="<?php echo BASE_URL?>/static/img/design/logo.fw.png" alt="" /></div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <!--- Menu principal -->
+                    <?php $parsSecc = array('plg_secc'=>$this->plg_secc, 'ctrl'=>$this->ctrl, 'errCode'=>$this->errCode); ?>
+                    <?php echo $this->partial('agentes/secciones.phtml', $parsSecc); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <!--- Menu de acciones -->
+                    <?php $parsAcc = array('plg_acci'=>$this->plg_acci, 'ctrl'=>$this->ctrl, 'errCode'=>$this->errCode); ?>
+                    <?php echo $this->partial('agentes/acciones.phtml', $parsAcc); ?>
+                </div>
+                <div class="span10 content">
+                    <!--- Contenidos -->
+                    <?php echo $this->layout()->content ?>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12" style="text-align: center;">Web Developer - <a href="mailto:jrodev@yahoo.es">jrodev@yahoo.es</a></div>
+            </div>
+        </div>
+
+    </body>
+</html>

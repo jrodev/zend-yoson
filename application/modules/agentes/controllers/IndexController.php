@@ -2,29 +2,77 @@
 /*
  * 
  */
-class Admin_IndexController extends Zend_Controller_Action
+class Agentes_IndexController extends Zend_Controller_Action
 {
+    private $defAdp;
+    private $autAdp;
+    private $auth;
+    private $rowUser = false;
+    
     public function init()
     {
-        Zend_Layout::getMvcInstance()->setLayout('admin');
-        $ctrlDir = $this->getFrontController()->getControllerDirectory('admin');
-        //echo "ctrlDir->".$ctrlDir;
-        $this->view->addBasePath($ctrlDir . '/../views');//echo "INIT";
+        $this->defAdp  = Zend_Db_Table::getDefaultAdapter();
+        $this->autAdp  = new Zend_Auth_Adapter_DbTable($this->defAdp, 'user');
+        $this->auth    = Zend_Auth::getInstance(); 
+        $this->rowUser = null;        //Zend_Controller_Action_Helper_Redirector::    $this->_redirect($url);
     }
 
     public function indexAction()
     {
-        echo "<br>Action_Index";
-        // action body
-        $this->view->headLink()->appendStylesheet(CSS_URL.'/bst.datepicker/base'.MIN.'.css');
-        $this->view->headLink()->appendStylesheet(CSS_URL.'/bst.datepicker/clean'.MIN.'.css');
-        //$this->view->headScript()->appendFile(JS_URL.'/library/class/jq.FileReader'.MIN.'.js');
-        $this->view->headScript()->appendFile(JS_URL.'/library/datepicker'.MIN.'.js');
-        $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false');
-        $this->view->headScript()->appendFile(JS_URL.'/library/class/utilMaps.js');
-        //Zend_Debug::dump($this->getRequest()->getParams());
-        $this->view->assign('var', "indexAction");
+        //echo "hasIdentity: |"; var_dump($this->auth->hasIdentity()); echo "|";
+        if($this->auth->hasIdentity()){
+            $data = $this->auth->getStorage()->read();
+            if($data->rol=='admin') $this->_redirect('/admin/index/index');
+            echo "<br>Role:$data->rol - User: $data->username | <b>[sesion]</b>";
+            return;
+        }
+        //$user = new Application_Model_Admin_User(); //$user->getAdapter() <> $this->defAdp
+        $form = new Application_Form_Login();
+        $rqst = $this->getRequest();
+        $this->view->form = $form;
+
+        if( $rqst->isPost() && $form->isValid($rqst->getPost()) ){
+            
+            $this->auth->clearIdentity(); // Cerrando sesion si existiese
+            $data = $form->getValues(); //$auth = Zend_Auth::getInstance();
+            $this->autAdp->setIdentityColumn('username')
+                         ->setCredentialColumn('password');
+            $this->autAdp->setIdentity($data['username'])
+                         ->setCredential($data['password']);
+
+            $result = $this->auth->authenticate($this->autAdp);
+
+            if($result->isValid()){
+                
+                $this->rowUser = $this->autAdp->getResultRowObject(null, 'password');
+                //Si no es del rol asociado
+                if($this->rowUser->rol!='agente'){
+                    $this->logout();
+                    $this->view->loginMsg = "Usuario o password invalido.";
+                    return;
+                }
+                $this->auth->getStorage()->write($this->rowUser);
+                $this->_redirect('/admin/index/index');
+            } else {
+                $this->view->loginMsg = "Usuario o password invalido";
+            }         
+        }
+    }
+    
+    public function passwAction()
+    {
 
     }
-
+    
+    public function logoutAction()
+    {
+        $this->logout();
+        $this->_redirect('/admin/index/index');
+    }
+    
+    private function logout()
+    {
+        $this->auth->clearIdentity();
+        $this->auth->getStorage()->clear();
+    }
 }

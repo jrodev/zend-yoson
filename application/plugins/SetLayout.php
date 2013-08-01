@@ -14,8 +14,8 @@ class Application_Plugin_SetLayout extends Zend_Controller_Plugin_Abstract {
     {
         /*Usando: 'layouts' registrado en el bootstrap principal*/
         //$errors = $request->getParam('error_handler'); var_dump($errors); exit;
-        $layouts = Zend_Registry::get('layouts');
-        //echo "----- ".$request->getParam('module');
+        $layouts = Zend_Registry::get('layouts');        //var_dump($layouts);
+        //echo "----->>>>>>>>>".$request->getParam('module');
         Zend_Layout::getMvcInstance()->setLayout($layouts[$request->getParam('module')]);
     }
 }

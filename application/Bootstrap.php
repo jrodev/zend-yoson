@@ -9,6 +9,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $paths     = $this->getOption('paths'); //var_dump($paths); exit;
         $resources = $this->getOption('resources'); //var_dump($paths); exit;
         
+        // Definiendo constantes globales
         defined('STAT_URL')     || define('STAT_URL'    , $paths['statUrl']);
         defined('BASE_URL')     || define('BASE_URL'    , $paths['baseUrl']);
         defined('CSS_URL')      || define('CSS_URL'     , $paths['cssUrl']);
@@ -17,7 +18,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         $pars=$this->getOption('pars'); defined('MIN')||define('MIN',$pars['min']);
 
-        Zend_Registry::set('layouts', array('portal'=>$resources['layout']['layout'], 'admin'=>$resources['layout']['admin']));
+        // Registrando ruta de layouts
+        Zend_Registry::set('layouts', array(
+            'portal'  => $resources['layout']['layout'], 
+            'admin'   => $resources['layout']['admin'],
+            'agentes' => $resources['layout']['agentes']
+        ));
     }
 
     /*Registrando los plugin que vayamos creando*/
@@ -25,9 +31,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         /*Registrando plugin de : application/plugins*/
         Zend_Controller_Front::getInstance()->registerPlugin(new Application_Plugin_SetLayout());
         Zend_Controller_Front::getInstance()->registerPlugin(new Application_Plugin_SchemaAdmin());
-        Zend_Controller_Front::getInstance()->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(
+        Zend_Controller_Front::getInstance()->registerPlugin(new Application_Plugin_Proclogin());
+        /*Zend_Controller_Front::getInstance()->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(
             array('module'=>'admin', 'controller' =>'error', 'action'=>'error')
-        ));
+        ));*/
     }
     
     /**

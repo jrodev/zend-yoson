@@ -1,0 +1,19 @@
+                    
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <a class="brand" href="#">AGENTES</a>
+                            <ul class="nav">
+                                <?php if($this->plg_secc and !isset($this->errCode)): ?>
+                                    <?php foreach($this->plg_secc as $sec=>$aVal):  ?>
+                                    <?php $act=''; if($aVal['active']){$act='class="active"';} echo "\n";?>
+                                    <li <?php echo $act; ?>>
+                                        <a href="/agentes/<?php echo $sec ?>/index"><?php echo $aVal['text']; ?></a>
+                                    </li>
+                                    <?php endforeach; ?>
+                                <?php endif; echo "\n"; ?>
+                            </ul>
+                            <ul class="nav pull-right">
+                                <li class="logout"><a href="/agentes/index/logout">Cerrar sesi&oacute;n</a></li>
+                            </ul>
+                        </div>
+                    </div>

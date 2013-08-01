@@ -2,39 +2,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Transdmin Light</title>
+        <title>Adminstrador - MiCasaMiDepa.com</title>
+        <link href="<?php echo CSS_URL ?>/admin/bootstrap.css" rel="stylesheet" type="text/css" media="screen" />
         <link href="<?php echo CSS_URL ?>/admin/main.css" rel="stylesheet" type="text/css" media="screen" />
         <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="<?php echo CSS_URL ?>/admin/ie6.css" /><![endif]-->
         <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php echo CSS_URL ?>/admin/ie7.css" /><![endif]-->
+        <style>
+            .mnu-acc{max-width: 340px; padding: 8px 0}
+            .adm-log{padding: 5px;} /*.mnu-acc .nav-list{ padding-left: 8px; padding-right: 8px; }*/
+            #main center{ padding:4px; border: 1px solid #B94A48; color: #B94A48; margin: 0px 5px 10px 5px; }
+        </style>
     </head>
     <body>
         <div id="wrapper">
             <h1><a href="#"><span>Micasa mi depa</span></a></h1>
             <ul id="mainNav">
-                <?php if($this->plg_secc and !isset($this->errCode)): ?>
+                <?php /* $this->plg_secc generado en /plugin/SchemAdmin.php */
+                    if($this->plg_secc and !isset($this->errCode)): ?>
                     <?php foreach($this->plg_secc as $sec=>$aVal): $act=''; ?>
                     <?php if($aVal['active']){$act='class="active"';} ?>
-                    <li><a href="#" <?php echo $act; ?>><?php echo $aVal['text']; ?></a></li>
+                    <li><a href="/admin/<?php echo $sec ?>/index" <?php echo $act; ?>><?php echo $aVal['text']; ?></a></li>
                     <?php endforeach; ?>
                 <?php endif; ?>
-                <li class="logout"><a href="#">Cerrar sesi&oacute;n</a></li>
+                <li class="logout"><a href="/admin/index/logout">Cerrar sesi&oacute;n</a></li>
             </ul>
             <div id="containerHolder">
                 <div id="container">
                     <div id="sidebar">
                         <ul class="sideNav">
-                            <?php if($this->plg_acci and !isset($this->errCode)): ?>
+                            <?php /* $this->plg_acci generado en /plugin/SchemAdmin.php */
+                                if($this->plg_acci and !isset($this->errCode)): ?>
                                 <?php foreach($this->plg_acci as $acci=>$aVal): $act='';?>
                                 <?php if($aVal['active']){$act='class="active"';} ?>
-                                <li><a href="#" <?php echo $act; ?>><?php echo $aVal['text']; ?></a></li>
+                                <li><a href="/admin/<?php echo "$this->ctrl/$acci" ?>" <?php echo $act; ?>><?php echo $aVal['text']; ?></a></li>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </ul>
                     </div>    
-                    <!--h2><a href="#">Dashboard</a> &raquo; <a href="#" class="active">Print resources</a></h2-->
-                    <div id="main">
-                        <?php echo $this->layout()->content ?>
-                    </div>
+                    <div id="main"><?php echo $this->layout()->content ?></div>
                     <div class="clear"></div>
                 </div>
             </div>
