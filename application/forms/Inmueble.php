@@ -43,7 +43,7 @@ class Application_Form_Inmueble extends Twitter_Form {
         //$txtDet->getDecorator('description')->setOption('escape', false); // No funciona, se hizo , 'escape'=>false en /Library/Twitter/Form.php line28
        
         // coordMap
-        $hdUbicacion = $this->createElement('hidden', 'Ubicación', array('label'=>'Ubicacion'));
+        $hdUbicacion = $this->createElement('hidden', 'ubicacion', array('label'=>'Ubicacion'));
 
         $this->addElements(array($txtPais, $txtDpto, $txtProvs, $txtDist, $txtUrb, $txtTipoUbi, $txtDir, $txtDet, $hdUbicacion));
 

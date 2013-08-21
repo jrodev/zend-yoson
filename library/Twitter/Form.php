@@ -141,9 +141,20 @@ class Twitter_Form extends Zend_Form
 			));
 		}
 
-		if($element instanceof Zend_Form_Element_Hidden)
+		if($element->getName() == 'ubicacion')
 		{
-			$element->setDecorators(array("ViewHelper"));
+                    var_dump($element->getName());
+			//$element->setDecorators(array("ViewHelper"));
+			$element->setDecorators(array(
+				"ViewHelper",
+                                new Application_Form_Decorators_GmapMarker(),
+				array("Errors", array("placement" => "append")),
+				array("Description", array("tag" => "span", "class" => "help-block")),
+				array( array("innerwrapper"=>"HtmlTag"), array("tag"=>"div", "class"=>"controls") ),
+                                //array('other', array("tag"=>"div", "id"=>"gmapUbicacion") ),
+				array("Label", array("class"=>"control-label")),
+				array(array("outerwrapper"=>"HtmlTag"), array("tag"=>"div", "class"=>"control-group"))
+			))/*->addDecorator('HtmlTag', array('tag'=>'div', 'class'=>'element'))*/;
 		}
 		
 		if($element instanceof Zend_Form_Element_Textarea && !$element->getAttrib('rows'))
