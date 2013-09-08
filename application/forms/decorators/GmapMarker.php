@@ -5,7 +5,7 @@
  */
 class Application_Form_Decorators_GmapMarker extends Zend_Form_Decorator_Abstract
 {
-    protected $_format = '<div id="gmap_%s" class="%s"></div><input type="hidden" id="%s" value="" name="%s" />';
+    protected $_format = '<div id="gmap_%s" class="%s" style="width: 550px;height: 400px;"></div><div id="gmapAddr"></div><input type="hidden" id="%s" value="" name="%s" />';
     
     public function render($content)
     {

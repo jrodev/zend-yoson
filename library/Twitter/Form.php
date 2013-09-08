@@ -134,7 +134,7 @@ class Twitter_Form extends Zend_Form
 			$element->setDecorators(array(
 				"ViewHelper",
 				array("Errors", array("placement" => "append")),
-				array("Description", array("tag" => "span", "class" => "help-block")),
+				array("Description", array("tag" => "span", "class" => "help-block", 'escape'=>false)),
 				array(array("innerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "controls")),
 				array("Label", array("class" => "control-label")),
 				array(array("outerwrapper" => "HtmlTag"), array("tag" => "div", "class" => "control-group"))

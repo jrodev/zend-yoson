@@ -41,12 +41,21 @@ class Application_Form_Inmueble extends Twitter_Form {
             'description'=>'Ej. "Int. A"; o  "Dpto 305" o "piso 3". Si son varios <br>pisos de costo similar, indicar el nivel mas bajo y <br />ampliar en comentarios'
         ));
         //$txtDet->getDecorator('description')->setOption('escape', false); // No funciona, se hizo , 'escape'=>false en /Library/Twitter/Form.php line28
-       
+        $rdoEst = new Zend_Form_Element_Radio('estado', array(
+            'label'=>'Estado', 'description'=>'Todo listado caduca autmomaticamente a los 120 dias de activacion.<br>Si ha caducado, no se reactiva',
+            'multiOptions'=>array('activo'=>'Activo', 'retirado'=>'Retirado', 'Reactivado'=>'Reactivado', 'Caducado'=>'Caducado'),
+        ));
         // coordMap
         $hdUbicacion = $this->createElement('hidden', 'ubicacion', array('label'=>'Ubicacion'));
 
-        $this->addElements(array($txtPais, $txtDpto, $txtProvs, $txtDist, $txtUrb, $txtTipoUbi, $txtDir, $txtDet, $hdUbicacion));
+       
+        $this->addElements(array($txtPais, $txtDpto, $txtProvs, $txtDist, $txtUrb, $txtTipoUbi, $txtDir, $txtDet, $rdoEst, $hdUbicacion));
 
+        
+        
+        
+        
+        
         $this->addElement('password', 'password', array(
             'label' => 'Password',
             'description' => 'Please enter a nice password.',
