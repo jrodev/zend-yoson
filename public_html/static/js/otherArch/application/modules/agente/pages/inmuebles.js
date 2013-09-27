@@ -72,6 +72,29 @@ function runMap(VAL) {
     });
 }
 
-window.onload = function(){ 
+//window.onload = function(){ 
+$(function(){
+    
+    $('label[for="fechEntrega"]').parent().css('display','none');
+    $('input[id*="transaccion-"]').bind('click', function(){
+        if($(this).val()=="3") $('label[for="fechEntrega"]').parent().slideDown(400);
+        else $('label[for="fechEntrega"]').parent().slideUp(400);
+    });    
+    
+    $('label[for="pisosNiveles"]').parent().css('display','none');
+    $("#tipoImn").bind('change', function(){
+        var sIndex = $(this).prop('selectedIndex'); 
+        if(sIndex>=3 && sIndex<=7) $('label[for="pisosNiveles"]').parent().slideDown(400);
+        else $('label[for="pisosNiveles"]').parent().slideUp(400);
+    });
+    
+    $('#pisosNiveles').bind('keyup', function(e){
+        //var regExp = /[^a-zA-Z0-9\-\_\.\@\s\¿\?!¡áéíóúÁÉÍÓÚüÜñÑ\#\(\)\/"'<>]/gi;
+        var regExp = /[^0-9\,]/gi;  var isComas = /\,\,+/gi;
+        if(regExp.test(this.value)) this.value=this.value.replace(regExp,''); //Si encuentra caracteres especial los quita.
+        /*if(isComas.test(this.value))*/ this.value=this.value.replace(/\,\,+/gi,',');
+    });
+
     runMap('-12.084471260776178/-77.04129791259766');
-};
+});
+//};

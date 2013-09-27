@@ -1,0 +1,6 @@
+.mnu-acc{max-width: 340px; padding: 8px 0}
+.adm-log{padding: 5px;} /*.mnu-acc .nav-list{ padding-left: 8px; padding-right: 8px; }*/
+.content center{ padding:4px; border: 1px solid #B94A48; color: #B94A48; margin: 0px 5px 10px 5px; }
+
+select.tipo-moneda{width: 70px;}
+select.parking{width: 70px;}
