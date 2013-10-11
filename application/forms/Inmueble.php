@@ -46,8 +46,8 @@ class Application_Form_Inmueble extends Twitter_Form {
         // No funciona, se hizo , 'escape'=>false en /Library/Twitter/Form.php line28
         
         $rdoEst = new Zend_Form_Element_Radio('estado', array(
-            'label'=>'Estado', 'description'=>'Todo listado caduca autmomaticamente a los 120 dias de 
-                                               activacion.<br>Si ha caducado, no se reactiva',
+            'label'=>'Estado', 'inline'=>true,
+            'description'=>'Todo listado caduca autmomaticamente a los 120 dias de activacion.<br>Si ha caducado, no se reactiva',
             'multiOptions'=>array('0'=>'Retirado', '1'=>'Activo', '2'=>'Reactivado', '3'=>'Caducado'),
         ));
         // coordMap
@@ -58,7 +58,7 @@ class Application_Form_Inmueble extends Twitter_Form {
         $txtParking = $this->createElement('text', 'parking', array('label'=>'Estacionamiento','class'=>'parking'));
         // transaccion
         $rdoTransaccion = new Zend_Form_Element_Radio('transaccion', array(
-            'label'=>'Transacción', 'description'=>'Tipo de transaccion del inmueble',
+            'label'=>'Transacción', 'description'=>'Tipo de transaccion del inmueble', 'inline'=>true,
             'multiOptions'=>array('1'=>'Estreno', '2'=>'Reventa', '3'=>'En construcción', '4'=>'Alquiler'),
         ));
         // Precio
@@ -79,6 +79,11 @@ class Application_Form_Inmueble extends Twitter_Form {
         ));
         // imagen
         $fileImage = new Zend_Form_Element_File('imageInm', array('label'=>'Imagen','class'=>'image-inm'));
+         // Niveles
+        $txtNiveles = $this->createElement('text', 'niveles', array(
+            'label'=>'niveles','class'=>'niveles', 'maxlength'=>3,
+            'description'=>'Niveles de casa o cantidad de pisos en edifico',
+        ));
          // Area total
         $txtAreaTotal = $this->createElement('text', 'areaTotal', array(
             'label'=>'Area total(m2)','class'=>'area-total', 
@@ -91,35 +96,184 @@ class Application_Form_Inmueble extends Twitter_Form {
         ));
         // Antiguedad
         $selAntiguedad = $this->createElement('select', 'antiguedad', array(
-            'label'=>'Tipo de inmueble', 'description'=>'Selecione un tipo de inmueble', 'multiOptions'=>array(
-                1=>'No aplicable', 2=>'En Construccion', 3=>'Estreno', 4=>'Hasta 3 años', 5=>'Hasta 5 años',
-                6=>'Hasta 10 años', 7=>'Hasta 15 años', 8=>'Hasta 20 años', 9=>'hasta 20+ años', 
+            'label'=>'Antiguedad', 'description'=>'Elija la antiguedad del inmueble', 'multiOptions'=>array(
+                ''=>'No aplicable', 1=>'En Construccion', 2=>'Estreno', 3=>'Hasta 3 años', 4=>'Hasta 5 años',
+                5=>'Hasta 10 años', 6=>'Hasta 15 años', 7=>'Hasta 20 años', 8=>'hasta 20+ años', 
             ),
         ))/*->setAttrib('placeholder', 'foo')*/;
+        // Precio
+        $txtCantDorm = $this->createElement('text', 'cantDorm', array(
+            'label'=>'Dormitorios','class'=>'cant-dist','maxlength'=>2,'description'=>'<b>*</b>'
+        ));
+        // Precio
+        $txtCantBanCom = $this->createElement('text', 'cantBanCom', array(
+            'label'=>'Baño completos','class'=>'cant-dist','maxlength'=>1,'description'=>'<b>*</b>'
+        ));
+        // Precio
+        $txtCantBanMed = $this->createElement('text', 'cantBanMed', array(
+            'label'=>'Baños medios','class'=>'cant-dist','maxlength'=>1,'description'=>'<b>*</b>'
+        ));
+        // Precio
+        $txtCantCuarServ = $this->createElement('text', 'cantCuarServ', array(
+            'label'=>'Cuarto de servicio','class'=>'cant-dist','maxlength'=>1,'description'=>'<b>*</b>'
+        ));
+        // Precio
+        $txtCantBanServ = $this->createElement('text', 'cantBanServ', array(
+            'label'=>'Baños de servicio','class'=>'cant-dist','maxlength'=>1,'description'=>'<b>*</b>'
+        ));
         
-        
-        
-        
-        
-        
-        
-        
-        
+        // Comedor independiente
+        $rdoComIndep = new Zend_Form_Element_Radio('comIndep', array(
+            'label'=>'Comedor independiente', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),//'checked'=>true,
+        ));
+        // Sala comedor
+        $rdoSalaCome = new Zend_Form_Element_Radio('salaCome', array(
+            'label'=>'Sala comedor', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Terraza
+        $rdoTerraza = new Zend_Form_Element_Radio('terraza', array(
+            'label'=>'Terraza', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Ascensor
+        $rdoAscensor = new Zend_Form_Element_Radio('ascensor', array(
+            'label'=>'Sala comedor', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Piscina
+        $rdoPiscina = new Zend_Form_Element_Radio('piscina', array(
+            'label'=>'Piscina', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Deposito
+        $rdoDeposito = new Zend_Form_Element_Radio('deposito', array(
+            'label'=>'Deposito C/S costo extra', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Gardin exterior
+        $rdoGardinExt = new Zend_Form_Element_Radio('gardinExt', array(
+            'label'=>'Gardin exterior', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Gardin interior
+        $rdoGardinInt = new Zend_Form_Element_Radio('gardinInt', array(
+            'label'=>'Gardin interior', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
 
+        // Garages
+        $rdoGarages = new Zend_Form_Element_Radio('garages', array(
+            'label'=>'Garages', 'description'=>'', 'inline'=>true, 'multiOptions'=>array(0,1,2,3,'4+'),
+        ));
+        // Estacionamientos
+        $rdoEstac = new Zend_Form_Element_Radio('estac', array(
+            'label'=>'Estacionamientos', 'description'=>'', 'inline'=>true, 'multiOptions'=>array(0,1,2,3,'4+'),
+        ));       
+        // Estacionamientos area publica
+        $rdoEstacPub = new Zend_Form_Element_Radio('estacPub', array(
+            'label'=>'Estac. area publica', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));    
+        // Inmueble condominio
+        $rdoEstacCond = new Zend_Form_Element_Radio('estacPub', array(
+            'label'=>'Estac. area publica', 'description'=>'', 'inline'=>true, 'multiOptions'=>array('0'=>'No aplicable', '1'=>'Si', '2'=>'No'),
+        )); 
+        // Inmueble Clase de dpto
+        $rdoClassDpto = $this->createElement('select', 'classDpto', array(
+            'label'=>'Clase de departamento', 'multiOptions'=>array(
+                ''=>'No aplicable', 1=>'Flat', 2=>'Duplex', 3=>'Triplex', 4=>'Pent House', 5=>'Otros',
+            ),
+        ))/*->setAttrib('placeholder', 'foo')*/;
+        // Zonificion
+        $rdoZonific = $this->createElement('select', 'zonificacion', array(
+            'label'=>'Zonificación', 'multiOptions'=>array(
+                'Elegir', 'Residencial', 'Comercial', 'Oficinas Admin.', 'Industrial', 'Otra',
+            ),
+        ))/*->setAttrib('placeholder', 'foo')*/;
+        // Pisos max. autorizacion
+        $txtPisosAut = $this->createElement('text', 'pisosAut', array(
+            'label'=>'Max. pisos autorizacion','class'=>'max-pisos-aut', 
+            'description'=>'pisos',
+        ));
+        //Condiciones del inmueble
+        $txtCondInm = $this->createElement('text', 'condInm', array(
+            'label'=>'Condiciones del Inmueble','class'=>'cond-inm', 
+            'multiOptions'=>array('No aplicable', 'xremodelar', 'Regular', 'Buena', 'Muy Buena', 'Excelente'),
+        ));
+        // Proteccion con rejas
+        $rdoRejas = new Zend_Form_Element_Radio('rejas', array(
+            'label'=>'Area protegida por rejas', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Vigilancia 24 horas
+        $rdoVig24h = new Zend_Form_Element_Radio('vig24h', array(
+            'label'=>'Vigilancia  24 horas ', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Frente al mar
+        $rdoFrenteMar = new Zend_Form_Element_Radio('frenteMar', array(
+            'label'=>'Frente al mar', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Vista al mar
+        $rdoVistaMar = new Zend_Form_Element_Radio('vistaMar', array(
+            'label'=>'Vista al mar', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Frente al parque
+        $rdoFrenteParq = new Zend_Form_Element_Radio('frenteParq', array(
+            'label'=>'Frente al parque', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // EDIFICIOS - Caso de Departamentos - Opcional
+        // Area de Recepcion
+        $rdoAreaRecep = new Zend_Form_Element_Radio('areaRecep', array(
+            'label'=>'Area de Recepcion', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Sala de recepciones
+        $rdoSalaRecep = new Zend_Form_Element_Radio('salaRecep', array(
+            'label'=>'Sala de recepciones', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Area de Esparcimiento
+        $rdoAreaEspar = new Zend_Form_Element_Radio('areaEspar', array(
+            'label'=>'Area de Esparcimiento', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Area para BBQ
+        $rdoAreaBbq = new Zend_Form_Element_Radio('areaBbq', array(
+            'label'=>'Area para BBQ', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Area Deportiva
+        $rdoAreaDepor = new Zend_Form_Element_Radio('areaDepor', array(
+            'label'=>'Area Deportiva', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Mascotas - Permitido
+        $rdoPermMasc = new Zend_Form_Element_Radio('permMasc', array(
+            'label'=>'Mascotas - Permitido', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
         
-        
+        // Agua
+        $rdoServAgua = new Zend_Form_Element_Radio('servAgua', array(
+            'label'=>'Agua', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));
+        // Desagüe 
+        $rdoServDesague = new Zend_Form_Element_Radio('servDesague', array(
+            'label'=>'Desagüe', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));        
+        // Electricidad
+        $rdoServElectr = new Zend_Form_Element_Radio('servElectr', array(
+            'label'=>'Electricidad', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));        
+        // Gas - Calidda
+        $rdoServGas = new Zend_Form_Element_Radio('servGas', array(
+            'label'=>'Gas - Calidda', 'inline'=>true, 'multiOptions'=>array('1'=>'Si', '2'=>'No'),
+        ));        
+        // Precio
+        //$txtCantDorm = $this->createElement('text', 'cantDorm', array('label'=>'Dormitorios','class'=>'cant-dorm','maxlength'=>1));
         $this->addElements(array(
             $txtPais, $txtDpto, $txtProvs, $txtDist, $txtUrb, $txtTipoUbi, $txtDir, $txtDet, $rdoEst, $hdUbicacion, 
             $txtPrecio, $txtParking, $rdoTransaccion, $txtFchEntega, $txtTipoInm, $txtPisosNiveles, $fileImage, 
-            $txtAreaTotal, $txtAreaConst, 
+            $txtAreaTotal, $txtAreaConst, $selAntiguedad, $txtNiveles,
+            $txtCantDorm, $txtCantBanCom, $txtCantBanMed, $txtCantCuarServ, $txtCantBanServ, $txtCantDorm,
+            
+            $rdoComIndep->setValue('2'), $rdoSalaCome->setValue('2'), $rdoTerraza->setValue('2'), $rdoAscensor->setValue('2'), 
+            $rdoPiscina->setValue('2'), $rdoDeposito->setValue('2'), $rdoGardinExt->setValue('2'), $rdoGardinInt->setValue('2'),
+            $rdoGarages->setValue(0), $rdoEstac->setValue(0), $rdoEstacPub->setValue(2), $rdoEstacCond->setValue(2), 
+            $rdoClassDpto->setValue(1), $rdoZonific, $txtPisosAut, $txtCondInm, $rdoRejas->setValue('2'), $rdoVig24h->setValue('2'), 
+            $rdoFrenteMar->setValue('2'), $rdoVistaMar->setValue('2'), $rdoFrenteParq->setValue('2'), $rdoAreaRecep, $rdoSalaRecep, 
+            $rdoAreaEspar, $rdoAreaBbq, $rdoAreaDepor, $rdoPermMasc, $rdoServAgua->setValue('1'), $rdoServDesague->setValue('1'), 
+            $rdoServElectr->setValue('1'), $rdoServGas->setValue('2'),
         ));
         
-
-        
-        
-        
-        
-        
+        return;
+        /*
         $this->addElement('password', 'password', array(
             'label' => 'Password',
             'description' => 'Please enter a nice password.',
@@ -192,7 +346,7 @@ class Application_Form_Inmueble extends Twitter_Form {
         $this->addElement('button', 'custom', array(
             'class' => 'success',
             'label' => 'Custom classes, too!'
-        ));
+        ));*/
     }
 
 }

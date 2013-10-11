@@ -125,7 +125,7 @@ class Twitter_Form extends Zend_Form {
                 'parking'  => new Application_Form_Decorators_ParkingPrice(),
             );
             
-            var_dump($element->getName()); //$element->setDecorators(array("ViewHelper"));
+            //var_dump($element->getName()); //$element->setDecorators(array("ViewHelper"));
             $element->setDecorators(array(
                 "ViewHelper",
                 $deco[$name],

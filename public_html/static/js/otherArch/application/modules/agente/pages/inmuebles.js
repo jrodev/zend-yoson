@@ -88,13 +88,18 @@ $(function(){
         else $('label[for="pisosNiveles"]').parent().slideUp(400);
     });
     
-    $('#pisosNiveles').bind('keyup', function(e){
+    $('#pisosNiveles, #pisosAut').bind('keyup', function(e){
         //var regExp = /[^a-zA-Z0-9\-\_\.\@\s\¿\?!¡áéíóúÁÉÍÓÚüÜñÑ\#\(\)\/"'<>]/gi;
         var regExp = /[^0-9\,]/gi;  var isComas = /\,\,+/gi;
         if(regExp.test(this.value)) this.value=this.value.replace(regExp,''); //Si encuentra caracteres especial los quita.
         /*if(isComas.test(this.value))*/ this.value=this.value.replace(/\,\,+/gi,',');
     });
-
+    $('#niveles, .cant-dist').bind('keyup', function(e){  // Solo numeros
+        //var regExp = /[^a-zA-Z0-9\-\_\.\@\s\¿\?!¡áéíóúÁÉÍÓÚüÜñÑ\#\(\)\/"'<>]/gi;
+        var regExp = /[^0-9]/gi;
+        if(regExp.test(this.value)) this.value=this.value.replace(regExp,''); //Si encuentra caracteres especial los quita.
+        /*if(isComas.test(this.value))*/ this.value=this.value.replace(/\,\,+/gi,',');
+    });
     runMap('-12.084471260776178/-77.04129791259766');
 });
 //};

@@ -17,7 +17,6 @@ class Agentes_InmueblesController extends Zend_Controller_Action
     
     public function createAction()
     {
-        var_dump(array());
         $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false','text/javascript',array('async'=>true));
         $this->view->headScript()->appendFile(JS_URL.'/application/modules/agente/pages/inmuebles.js');
         //$this->view->headScript()->appendFile(JS_URL.'/library/class/utilMaps.js');
