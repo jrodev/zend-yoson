@@ -12,7 +12,7 @@ class Agentes_InmueblesController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        
+
     }
     
     public function createAction()
@@ -23,6 +23,23 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         $frmInm = new Application_Form_Inmueble();
         //var_dump($this->ubigeo->getCountriesList());
         $this->view->form = $frmInm;
+
+        if ($this->getRequest()->isPost()) {
+            $fm = $this->_helper->getHelper('FlashMessenger');
+            $fm->addMessage('Ins post!');
+            $this->view->msgs = $this->_helper->flashMessenger->getMessages();
+            $formData = $this->getRequest()->getPost();
+            var_dump($formData); exit;
+            if ($form->isValid($formData)) {
+                $artist = $form->getValue('artist');
+                $title = $form->getValue('title');
+                $albums = new Application_Model_DbTable_Albums();
+                $albums->addAlbum($artist, $title);
+                $this->_helper->redirector('index');
+            } else {
+                $form->populate($formData);
+            }
+        }
     }
     
     public function editAction()

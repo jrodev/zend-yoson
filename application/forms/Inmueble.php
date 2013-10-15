@@ -180,7 +180,7 @@ class Application_Form_Inmueble extends Twitter_Form {
         // Zonificion
         $rdoZonific = $this->createElement('select', 'zonificacion', array(
             'label'=>'Zonificación', 'multiOptions'=>array(
-                'Elegir', 'Residencial', 'Comercial', 'Oficinas Admin.', 'Industrial', 'Otra',
+                ''=>'Elegir', 'Residencial', 'Comercial', 'Oficinas Admin.', 'Industrial', 'Otra',
             ),
         ))/*->setAttrib('placeholder', 'foo')*/;
         // Pisos max. autorizacion
@@ -271,6 +271,9 @@ class Application_Form_Inmueble extends Twitter_Form {
             $rdoAreaEspar, $rdoAreaBbq, $rdoAreaDepor, $rdoPermMasc, $rdoServAgua->setValue('1'), $rdoServDesague->setValue('1'), 
             $rdoServElectr->setValue('1'), $rdoServGas->setValue('2'),
         ));
+        
+        $this->addElement('submit', 'guardar', array('label' => 'Guardar'));
+        $this->addElement('reset', 'limpiar', array('label' => 'Limpiar'));
         
         return;
         /*
