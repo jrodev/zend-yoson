@@ -1,2 +1,8 @@
-
+                    
+                    <?php if (count($this->msgs)): ?>
+                        <?php foreach ($this->msgs as $v): ?>
+                        <div><b><?php echo $v?></b></div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                     <?php echo $this->form ?>
+                    

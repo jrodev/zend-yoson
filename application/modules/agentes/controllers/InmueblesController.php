@@ -26,19 +26,21 @@ class Agentes_InmueblesController extends Zend_Controller_Action
 
         if ($this->getRequest()->isPost()) {
             $fm = $this->_helper->getHelper('FlashMessenger');
-            $fm->addMessage('Ins post!');
-            $this->view->msgs = $this->_helper->flashMessenger->getMessages();
+            $fm->addMessage('nuevo post!');
+            
             $formData = $this->getRequest()->getPost();
-            var_dump($formData); exit;
-            if ($form->isValid($formData)) {
-                $artist = $form->getValue('artist');
-                $title = $form->getValue('title');
-                $albums = new Application_Model_DbTable_Albums();
-                $albums->addAlbum($artist, $title);
-                $this->_helper->redirector('index');
-            } else {
-                $form->populate($formData);
-            }
+            //var_dump($formData); exit;
+            if ($frmInm->isValid($formData)) {
+                $fm->addMessage('formulario valido!');
+                $inm = new Application_Model_Agentes_Inmueble();
+                unset($formData["MAX_FILE_SIZE"]);
+                unset($formData["guardar"]);
+                $inm->add($formData);
+                //$this->_helper->redirector('index');
+            } else
+                $frmInm->populate($formData);
+            
+            $this->view->msgs = $fm->getMessages();
         }
     }
     

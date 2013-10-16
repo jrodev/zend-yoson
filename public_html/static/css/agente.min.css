@@ -6,3 +6,5 @@ select.tipo-moneda{width: 70px;}
 select.parking{width: 70px;}
 .controls .niveles{width: 50px;}
 .controls .cant-dist{width: 30px;}
+.help-inline b, .controls .help-block b{color: red; font-weight: bold; font-size: 16px;}
+/*.controls .help-block{display:inline;}*/
