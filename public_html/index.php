@@ -1,5 +1,4 @@
 <?php
- //echo "hello!!!";
  error_reporting(E_ALL | E_ERROR | E_STRICT & ~E_NOTICE);
 // Define path to application directory
 defined('APPLICATION_PATH')
@@ -12,8 +11,11 @@ defined('APPLICATION_ENV')
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
-    get_include_path(),
+    //get_include_path(),
 )));
+//var_dump(implode(PATH_SEPARATOR, array(realpath(APPLICATION_PATH . '/../library'), get_include_path(),)));
+set_include_path( APPLICATION_PATH.'/../library'.PATH_SEPARATOR. APPLICATION_PATH.'/../library/Zend' );
+//var_dump(APPLICATION_PATH.'/../library'.PATH_SEPARATOR. APPLICATION_PATH.'/../library/Zend');
 
 /** Zend_Application */
 require_once 'Zend/Application.php';

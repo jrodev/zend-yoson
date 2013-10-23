@@ -15,6 +15,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         defined('CSS_URL')      || define('CSS_URL'     , $paths['cssUrl']);
         defined('JS_URL')       || define('JS_URL'      , $paths['jsUrl']);
         defined('PORTAL_VIEWS') || define('PORTAL_VIEWS', $paths['portalViews']);
+        defined('PATH_UPL')     || define('PATH_UPL'    , $paths['uploads']);
         
         $pars=$this->getOption('pars'); defined('MIN')||define('MIN',$pars['min']);
 

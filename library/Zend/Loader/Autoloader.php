@@ -64,7 +64,7 @@ class Zend_Loader_Autoloader
      */
     protected $_namespaces = array(
         'Zend_'  => true,
-        'ZendX_' => true,
+        'ZendX_' => false,
     );
 
     /**

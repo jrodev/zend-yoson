@@ -186,7 +186,7 @@ class Zend_Loader
             // return false immediately
             return false;
         }
-
+        if(!is_readable(dirname($filename)))
         foreach (self::explodeIncludePath() as $path) {
             if ($path == '.') {
                 if (is_readable($filename)) {

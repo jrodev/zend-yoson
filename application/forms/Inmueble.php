@@ -8,6 +8,7 @@ class Application_Form_Inmueble extends Twitter_Form {
         $ubigeo = new Application_Model_Agentes_Ubigeo();
  
         $this->setAttrib('horizontal', true);
+        $this->setAttrib('enctype', 'multipart/form-data');
         $this->setLegend('Nuevo inmueble');
         
         $txtPais = $this->createElement('select', 'pais', array(
@@ -82,7 +83,15 @@ class Application_Form_Inmueble extends Twitter_Form {
             'description'=>'Indicar varios si tiene el mismo precio<br>separados por comas Ej: 1,5,12.',
         ));
         // imagen
-        $fileImage = new Zend_Form_Element_File('imageInm', array('label'=>'Imagen','class'=>'image-inm'));
+        $fileImage = new Zend_Form_Element_File('imageInm', 
+            array('label'=>'Imagen','class'=>'image-inm','required'=>true,)
+        );
+        $fileImage->setDestination(PATH_UPL."/inm/");  //realpath(APPLICATION_PATH . self::DIR_TMP)
+        $fileImage->addValidators(array(
+            array('count', TRUE, 1),
+            array('extension', TRUE, array('jpg,jpeg,gif,png')),
+            array('size', FALSE, 1024*1024*10),
+        ))->setMaxFileSize(1024*1024*10);
          // Niveles
         $txtNiveles = $this->createElement('text', 'niveles', array(
             'label'=>'niveles','class'=>'niveles', 'maxlength'=>3,
