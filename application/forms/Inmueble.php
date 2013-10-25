@@ -91,7 +91,7 @@ class Application_Form_Inmueble extends Twitter_Form {
             array('count', TRUE, 1),
             array('extension', TRUE, array('jpg,jpeg,gif,png')),
             array('size', FALSE, 1024*1024*10),
-        ))->setMaxFileSize(1024*1024*10);
+        ));//->setMaxFileSize(1024*1024*10);
          // Niveles
         $txtNiveles = $this->createElement('text', 'niveles', array(
             'label'=>'niveles','class'=>'niveles', 'maxlength'=>3,

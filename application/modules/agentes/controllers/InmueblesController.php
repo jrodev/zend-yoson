@@ -16,7 +16,7 @@ class Agentes_InmueblesController extends Zend_Controller_Action
     }
     
     public function createAction()
-    {
+    {        //var_dump(rand(1,100) . time() . ".jpg"); new Filter exit;
         $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false','text/javascript',array('async'=>true));
         $this->view->headScript()->appendFile(JS_URL.'/application/modules/agente/pages/inmuebles.js');
         //$this->view->headScript()->appendFile(JS_URL.'/library/class/utilMaps.js');
@@ -31,51 +31,32 @@ class Agentes_InmueblesController extends Zend_Controller_Action
             $formData = $this->getRequest()->getPost();
             //var_dump($formData); exit;
             if ($frmInm->isValid($formData)) {
-                
                 $upload = new Zend_File_Transfer_Adapter_Http(); //$upload->setDestination(PATH_UPL."/inm/");
-                try { // upload received file(s)
-                    $upload->receive();
-                } catch (Zend_File_Transfer_Exception $e) {
-                    $e->getMessage();
-                }
-                
-                
-                
-                // you MUST use following functions for knowing about uploaded file 
-                # Returns the file name for 'doc_path' named file element
+                try{ $upload->receive(); }
+                catch(Zend_File_Transfer_Exception $e){ $e->getMessage(); }
+                //var_dump($frmInm->getElement('imageInm')->getDestination()); exit;
                 $name = $upload->getFileName('imageInm', FALSE);
-
-                # Returns the size for 'doc_path' named file element 
-                # Switches of the SI notation to return plain numbers
-                //$upload->setOption(array('useByteString' => false));
+                /*
                 $size = $upload->getFileSize('imageInm');
-
-                # Returns the mimetype for the 'doc_path' form element
                 $mimeType = $upload->getMimeType('imageInm');
-
-                // following lines are just for being sure that we got data
                 print "<br>Url of uploaded file: $name ";
                 print "<br>File Size: $size ";
                 print "<br>File's Mime Type: $mimeType";
                 print "<br>ext: ".$this->getFileExtension($name);
-
-                // New Code For Zend Framework :: Rename Uploaded File
-                $renameFile = 'newName.jpg';
-
-                exit; //$fullFilePath = '/images/'.$renameFile;
-                
-                
-                
-                
+                */
                 $fm->addMessage('formulario valido!');
                 $inm = new Application_Model_Agentes_Inmueble();
+                $formData["imageInm"] = /*rand(1,100).*/time().$this->getFileExtension($name);
                 unset($formData["MAX_FILE_SIZE"]);
                 unset($formData["guardar"]);
-                $inm->add($formData);
-                //$this->_helper->redirector('index');
-            } else
+
+                $inm->add($formData); //$this->_helper->redirector('index');
+                $fm->addMessage('Se guardo correctamente!');
+                $frmInm->reset();
+            } else{
                 $frmInm->populate($formData);
-            
+                $fm->addMessage('Error al guardar!');
+            }
             $this->view->msgs = $fm->getMessages();
         }
     }

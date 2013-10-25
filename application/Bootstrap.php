@@ -32,7 +32,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         /*Registrando plugin de : application/plugins*/
         Zend_Controller_Front::getInstance()->registerPlugin(new Application_Plugin_SetLayout());
         Zend_Controller_Front::getInstance()->registerPlugin(new Application_Plugin_SchemaAdmin());
-        Zend_Controller_Front::getInstance()->registerPlugin(new Application_Plugin_Proclogin());
+        Zend_Controller_Front::getInstance()->registerPlugin(new Application_Plugin_ProcLogin());
         /*Zend_Controller_Front::getInstance()->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(
             array('module'=>'admin', 'controller' =>'error', 'action'=>'error')
         ));*/

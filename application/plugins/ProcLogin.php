@@ -27,6 +27,7 @@ class Application_Plugin_Proclogin extends Zend_Controller_Plugin_Abstract {
             // si no verificamos 
             $auth = Zend_Auth::getInstance();
             $data = $auth->getStorage()->read();
+            //var_dump($data); exit;
             // Rol admin desea entrar a agentes o Rol agente desea entrar a admin
             if( ($data->rol=='admin' && $MOD=='agentes')||($data->rol=='agente' && $MOD=='admin') ){ 
                 $rsp->setRedirect("/$MOD/index/index")->sendResponse(); // que se logue
