@@ -4,7 +4,6 @@ class Application_Form_Inmueble extends Twitter_Form {
 
     public function init() {
         // Make this form horizontal
-        
         $ubigeo = new Application_Model_Agentes_Ubigeo();
  
         $this->setAttrib('horizontal', true);
