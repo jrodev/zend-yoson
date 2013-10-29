@@ -20,16 +20,15 @@ class Application_Plugin_Proclogin extends Zend_Controller_Plugin_Abstract {
         
         // Condicion de bloqueo para modulo admin si no esta logueado
         if($MOD=='admin' || $MOD=='agentes'){
-           
+
             // Si ya se esta en /index/index ya no verficamos logueo
             if($CTR=='index' && $ACT=='index') return;
-            
+
             // si no verificamos 
             $auth = Zend_Auth::getInstance();
-            $data = $auth->getStorage()->read();
-            //var_dump($data); exit;
+            $data = $auth->getStorage()->read();  //var_dump($data); exit;
             // Rol admin desea entrar a agentes o Rol agente desea entrar a admin
-            if( ($data->rol=='admin' && $MOD=='agentes')||($data->rol=='agente' && $MOD=='admin') ){ 
+            if(!is_null($data) && ( ($data->rol=='admin'&&$MOD=='agentes')||($data->rol=='agente'&&$MOD=='admin') ) ){ 
                 $rsp->setRedirect("/$MOD/index/index")->sendResponse(); // que se logue
             }
 

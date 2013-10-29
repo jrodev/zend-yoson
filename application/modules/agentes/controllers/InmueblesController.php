@@ -27,15 +27,22 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $fm = $this->_helper->getHelper('FlashMessenger');
             $fm->addMessage('nuevo post!');
+
             
             $formData = $this->getRequest()->getPost();
             //var_dump($formData); exit;
             if ($frmInm->isValid($formData)) {
                 $upload = new Zend_File_Transfer_Adapter_Http(); //$upload->setDestination(PATH_UPL."/inm/");
+                
+                // File uploading
+                $nameImg = $upload->getFileName('imageInm', FALSE);
+                $neoName = time().'.'.$this->getFileExtension($nameImg);
+                $path = $frmInm->getElement('imageInm')->getDestination();
+                $upload->addFilter('Rename', array('target'=>"$path/$neoName", 'overwrite'=>true));                
+                var_dump("$path/$neoName");
                 try{ $upload->receive(); }
                 catch(Zend_File_Transfer_Exception $e){ $e->getMessage(); }
-                //var_dump($frmInm->getElement('imageInm')->getDestination()); exit;
-                $name = $upload->getFileName('imageInm', FALSE);
+                //$path = $frmInm->getElement('imageInm')->getDestination();
                 /*
                 $size = $upload->getFileSize('imageInm');
                 $mimeType = $upload->getMimeType('imageInm');
@@ -46,7 +53,7 @@ class Agentes_InmueblesController extends Zend_Controller_Action
                 */
                 $fm->addMessage('formulario valido!');
                 $inm = new Application_Model_Agentes_Inmueble();
-                $formData["imageInm"] = /*rand(1,100).*/time().$this->getFileExtension($name);
+                $formData["imageInm"] = /*rand(1,100).*/$neoName;
                 unset($formData["MAX_FILE_SIZE"]);
                 unset($formData["guardar"]);
 
