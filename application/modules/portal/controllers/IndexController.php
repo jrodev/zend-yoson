@@ -24,7 +24,9 @@ class Portal_IndexController extends Zend_Controller_Action
         $this->view->headScript()->appendFile(JS_URL.'/application/modules/portal/pages/index.min.js');
         //Zend_Debug::dump($this->getRequest()->getParams());
         $this->view->assign('var', "indexAction");
-
+        
+        $inmueble = new Application_Model_Agentes_Inmueble();
+        $this->view->rows = $inmueble->fetchAll(); 
     }
     
     public function resultmapAction()

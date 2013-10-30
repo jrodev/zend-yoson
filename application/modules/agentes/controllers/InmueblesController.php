@@ -16,7 +16,7 @@ class Agentes_InmueblesController extends Zend_Controller_Action
     }
     
     public function createAction()
-    {        //var_dump(rand(1,100) . time() . ".jpg"); new Filter exit;
+    {   //var_dump(rand(1,100) . time() . ".jpg"); new Filter exit;
         $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false','text/javascript',array('async'=>true));
         $this->view->headScript()->appendFile(JS_URL.'/application/modules/agente/pages/inmuebles.js');
         //$this->view->headScript()->appendFile(JS_URL.'/library/class/utilMaps.js');
@@ -42,15 +42,7 @@ class Agentes_InmueblesController extends Zend_Controller_Action
                 var_dump("$path/$neoName");
                 try{ $upload->receive(); }
                 catch(Zend_File_Transfer_Exception $e){ $e->getMessage(); }
-                //$path = $frmInm->getElement('imageInm')->getDestination();
-                /*
-                $size = $upload->getFileSize('imageInm');
-                $mimeType = $upload->getMimeType('imageInm');
-                print "<br>Url of uploaded file: $name ";
-                print "<br>File Size: $size ";
-                print "<br>File's Mime Type: $mimeType";
-                print "<br>ext: ".$this->getFileExtension($name);
-                */
+
                 $fm->addMessage('formulario valido!');
                 $inm = new Application_Model_Agentes_Inmueble();
                 $formData["imageInm"] = /*rand(1,100).*/$neoName;

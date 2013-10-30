@@ -31,10 +31,10 @@
             <div class="row-fluid">
                 <span class="span12">
                     <ul class="thumbnails">
-                        <?php $i=1; while($i<=4): ?>
+                        <?php $i=1; foreach($this->rows as $r): ?>
                         <li class="span3 <?php if($i>1 and ($i-1)%4==0){?>iniRow<?php } ?> witget">
                             <div class="thumbnail">
-                                <img src="http://placehold.it/260x180" alt="">
+                                <img src="<?php echo STAT_URL.'/uploads/inm/'.$r->imageInm?>" alt="">
                                 <div class="caption">
                                     <h5>Etiqueta Thumbnail</h5>
                                     <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                         </li>
-                        <?php $i++; endwhile;?>
+                        <?php $i++; endforeach;?>
                     </ul>
                 </span>
             </div>
