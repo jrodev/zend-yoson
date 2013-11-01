@@ -67,6 +67,7 @@ select#dist, select#opc, select#tipo, select#prec{ width: 100px; }
 .witget .caption{padding:8px 2px 0 !important;}
 .witget .caption p{ margin: 5px 0 !important; line-height:15px !important; font-size: 12px !important; }
 .witget a.btn-primary{float:right !important;}
+
 /*Home - footer*/
 footer{
   text-align: center !important;
@@ -76,4 +77,9 @@ footer{
           border-radius: 0 !important;
   min-height: auto !important;
   padding: 15px 0 !important;
+}
+
+/* Home - departamentos - imagenes */
+.content-dptos .thumbnail img{
+    height: 135px !important;
 }
