@@ -4,10 +4,11 @@
  */
 class Agentes_InmueblesController extends Zend_Controller_Action
 {
-    //private $ubigeo;
+    public $ubigeo;
+    
     public function init()
     {
-        //$this->ubigeo = new Application_Model_Agentes_Ubigeo();
+        $this->ubigeo = new Application_Model_Agentes_Ubigeo();
     }
 
     public function indexAction()
@@ -16,7 +17,9 @@ class Agentes_InmueblesController extends Zend_Controller_Action
     }
     
     public function createAction()
-    {   //var_dump(rand(1,100) . time() . ".jpg"); new Filter exit;
+    {   
+        //var_dump(rand(1,100) . time() . ".jpg"); new Filter exit;
+        //var_dump($this->ubigeo->getDists()); exit;
         $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false','text/javascript',array('async'=>true));
         $this->view->headScript()->appendFile(JS_URL.'/application/modules/agente/pages/inmuebles.js');
         //$this->view->headScript()->appendFile(JS_URL.'/library/class/utilMaps.js');
@@ -64,6 +67,30 @@ class Agentes_InmueblesController extends Zend_Controller_Action
     {
         $fext_tmp = explode('.',$filename);
         return $fext_tmp[(count($fext_tmp) - 1)];
+    }
+    
+    public function dptoAction()
+    {
+        $idPais = $this->_request->getQuery('idPais');
+        $res = $this->ubigeo->getDptos($idPais);
+        echo Zend_Json::encode(array('status'=>'ok', 'data'=>$res));
+        exit;
+    }
+    
+    public function provAction()
+    {
+        $idDpto = $this->_request->getQuery('idDpto');
+        $res = $this->ubigeo->getProvs($idDpto);
+        echo Zend_Json::encode(array('status'=>'ok', 'data'=>$res));
+        exit;
+    }
+    
+    public function distAction()
+    {
+        $idProv = $this->_request->getQuery('idProv');
+        $res = $this->ubigeo->getDists($idProv);
+        echo Zend_Json::encode(array('status'=>'ok', 'data'=>$res));
+        exit;
     }
     
     public function editAction()

@@ -26,7 +26,8 @@ class Portal_IndexController extends Zend_Controller_Action
         $this->view->assign('var', "indexAction");
         
         $inmueble = new Application_Model_Agentes_Inmueble();
-        $this->view->rows = $inmueble->fetchAll(); 
+        //$inmueble->getAll(); exit;
+        $this->view->rows = $inmueble->getAll(); 
     }
     
     public function resultmapAction()

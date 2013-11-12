@@ -34,6 +34,21 @@ class Application_Model_Agentes_Inmueble extends Zend_Db_Table
         $this->delete('id = '.(int)$id);
     }
     
+    public function getAll()
+    {
+        $db = $this->getDefaultAdapter();
+        $sel = $db->select();
+        $sel->from(array('i'=>$this->_name))
+            ->join(array('p' =>'pais'), 'i.pais=p.id' , array('nomPais'=>'nombre'))
+            ->join(array('dp'=>'dpto'), 'i.dpto=dp.id', array('nomDpto'=>'nombre'))
+            ->join(array('pr'=>'prov'), 'i.prov=pr.id', array('nomProv'=>'nombre'))
+            ->join(array('di'=>'dist'), 'i.dist=di.id', array('nomDist'=>'nombre'))
+            ->where('i.activo=1')->order('fechareg DESC')->limitPage(1, 20)
+        ;
+        return $db->fetchAll($sel);
+        //echo $sel;
+    }
+    
 }
 
 ?>

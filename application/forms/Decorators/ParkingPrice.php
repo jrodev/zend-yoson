@@ -17,6 +17,7 @@ class Application_Form_Decorators_ParkingPrice extends Zend_Form_Decorator_Abstr
         $class = htmlentities($ele->getAttrib('class'));
         $type  = htmlentities($ele->getAttrib('type'));
         $name  = htmlentities($ele->getName());
+        $ele->getDecorator('Description')->setEscape(false);
         //var_dump($ele->getType()); exit;
         $markup  = sprintf($this->_format, $class, $id, $name, $class);
         return $markup;

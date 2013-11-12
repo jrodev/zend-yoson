@@ -26,7 +26,14 @@
                     </ul>
                 </span>
             </div>
-            
+           <?php
+           //var_dump($this->rows[0]);
+           $t = array('','Estreno', 'Reventa',  'En construcción', 'Alquiler');
+           $ti = array('',
+               'Casa', 'Casa campo', 'Casa playa', 'dpto', 'dpto playa', 'dpto amoblado', 'offic/edif', 'offic/casa', 'tienda/local', 
+               'local industrial', 'venta aires', 'Estacionam', 'Terreno', 'Terr. playa', 'Terr. en habilitacion', 'terreno agricola'
+           );
+           ?> 
             <div class="row-fluid"><h3 class="tit-blue-h3">DEPARTAMENTOS</h3></div>
             <div class="content-dptos row-fluid">
                 <span class="span12">
@@ -34,10 +41,10 @@
                         <?php $i=1; foreach($this->rows as $r): ?>
                         <li class="span3 <?php if($i>1 and ($i-1)%4==0){?>iniRow<?php } ?> witget">
                             <div class="thumbnail">
-                                <img src="<?php echo STAT_URL.'/uploads/inm/'.$r->imageInm?>" alt="">
+                                <img src="<?php echo STAT_URL.'/uploads/inm/'.$r['imageInm']?>" alt="">
                                 <div class="caption">
-                                    <h5>Etiqueta Thumbnail</h5>
-                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                                    <h5><?php echo $t[$r['transaccion']].' de '.$ti[$r['tipoImn']].' en '.strtolower($r['nomDpto']).'-'.strtolower($r['nomDist'])?></h5>
+                                    <p><?php echo $r['detalle']?></p>
                                     <p><a href="#" class="btn">Vista previa</a><a href="#" class="btn btn-primary">Detalles...</a></p>
                                 </div>
                             </div>

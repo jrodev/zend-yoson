@@ -17,6 +17,7 @@ class Application_Form_Decorators_GmapMarker extends Zend_Form_Decorator_Abstrac
         $class = htmlentities($ele->getAttrib('class'));
         $type  = htmlentities($ele->getAttrib('type'));
         $name  = htmlentities($ele->getName());
+        $ele->getDecorator('Description')->setEscape(false);
         //var_dump($ele->getType()); exit;
         $markup  = sprintf($this->_format, $id, $class, $id, $name);
         return $markup;

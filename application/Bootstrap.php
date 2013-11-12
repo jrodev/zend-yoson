@@ -3,7 +3,7 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
-    public function __construct($appIni){ //echo "APP:"; var_dump($appIni); exit();
+    public function __construct($appIni){ //---->>>>echo "APP:"; var_dump($appIni); exit();
 
         parent::__construct($appIni);
         $paths     = $this->getOption('paths'); //var_dump($paths); exit;

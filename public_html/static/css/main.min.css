@@ -83,3 +83,7 @@ footer{
 .content-dptos .thumbnail img{
     height: 135px !important;
 }
+
+.content-dptos .caption{
+    height: 122px !important;
+}
