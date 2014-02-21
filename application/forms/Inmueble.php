@@ -34,7 +34,7 @@ class Application_Form_Inmueble extends Twitter_Form {
         
         $txtTipoUbi = $this->createElement('text', 'tipoUbi', array(
             'label'=>'Av,Calle,Jiron etc', 'description'=>'<b>*</b> Alam,Av,Calle,Jiron,Malecon,Ovalo,Pasaje,Plaza etc'
-        ))->setRequired(true); 
+        ))->setRequired(true)->addErrorMessage('Este campo es requerido!');; 
         
         // Direccion
         $txtDir = $this->createElement('text', 'direc', array(
@@ -47,7 +47,7 @@ class Application_Form_Inmueble extends Twitter_Form {
             'description'=>'Ej. "Int. A"; o  "Dpto 305" o "piso 3". Si son varios <br>pisos de costo 
                             similar, indicar el nivel mas bajo'
         ));
-        
+        $txtDet->setOptions(array('rows'=>'1'));;
         //$txtDet->getDecorator('description')->setOption('escape', false); 
         // No funciona, se hizo , 'escape'=>false en /Library/Twitter/Form.php line28
         
@@ -97,13 +97,17 @@ class Application_Form_Inmueble extends Twitter_Form {
         // imagen
         $fileImage = new Zend_Form_Element_File('imageInm', 
             array('label'=>'Imagen','class'=>'image-inm','required'=>true,)
-        );
+        ); 
         $fileImage->setDestination(PATH_UPL."/inm/");  //realpath(APPLICATION_PATH . self::DIR_TMP)
+        $count = new Zend_Validate_File_Count(array('min'=>1, 'max'=>8));
         $fileImage->addValidators(array(
-            array('count', TRUE, 1),
+            $count->setMessage('Minimo 1 archivo maximo 8'),
+            //array( 'count', TRUE, array(1,'messages'=>array('countfalse'=>'Ingrese al menos 1 archivo') )),
             array('extension', TRUE, array('jpg,jpeg,gif,png')),
-            array('size', FALSE, 1024*1024*10),
+            //array('size', FALSE, 1024*1024*10),
         ));//->setMaxFileSize(1024*1024*10);
+        
+        //$fileImage->getValidator('Count')->setMessages(array('Es necesario una imagen!'));
          // Niveles
         $txtNiveles = $this->createElement('text', 'niveles', array(
             'label'=>'niveles de casa','class'=>'niveles', 'maxlength'=>3,
