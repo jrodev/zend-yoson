@@ -16,6 +16,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         defined('JS_URL')       || define('JS_URL'      , $paths['jsUrl']);
         defined('PORTAL_VIEWS') || define('PORTAL_VIEWS', $paths['portalViews']);
         defined('PATH_UPL')     || define('PATH_UPL'    , $paths['uploads']);
+        defined('TEMP_UPL')     || define('TEMP_UPL'    , $paths['elementTemp']);
         
         $pars=$this->getOption('pars'); defined('MIN')||define('MIN',$pars['min']);
 
@@ -27,6 +28,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         ));
     }
 
+    /**
+     * Get the autoloader the base path for the module (application), 
+     * add a new resource autoloader for the vendors folder to include vendor classes 
+     * @return void
+     */
+    protected function _initAutoload() 
+    {   
+        return ; // quitar e incluir clase para utilizar  <----------------------------
+        var_dump("_initAutoload");
+        $vendorsAutoloader = new Zend_Loader_Autoloader_Resource(array(
+            'namespace' => 'Firelogger',
+            'basePath' => APPLICATION_PATH.'/../library/Firelogger',
+        ));
+        $vendorsAutoloader->addResourceType('logger', 'Firelogger/', 'Firelogger');
+        Zend_Loader_Autoloader::getInstance()->pushAutoloader($vendorsAutoloader);
+    }    
+    
     /*Registrando los plugin que vayamos creando*/
     function _initPlugins() {
         /*Registrando plugin de : application/plugins*/

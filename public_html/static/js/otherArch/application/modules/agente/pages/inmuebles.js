@@ -127,7 +127,7 @@ var SelDep = (function(Sb){
                 /*@param idB: paramtro cuan*/
                 selA.bind('change', (function(i, selB, errMsg){
                     return function(e, idB){
-                        var valSel  = $('option:selected',this).val().trim();
+                        var valSel  = $.trim($('option:selected',this).val());
                         var objDeps = $( treeDeps["#"+this.id].join(',') );
                         /*IF es val vacio FIN*/ 
                         /*log('valSel:--->',valSel);
@@ -226,7 +226,101 @@ $(function(){
         {ids:['#dpto' ,'#prov'], url:'/agentes/inmuebles/prov?idDpto=$1'},
         {ids:['#prov' ,'#dist'], url:'/agentes/inmuebles/dist?idProv=$1'}
     ]);
-    
     $('#pais').trigger('change',['150000','150100']);
+    
+    /* Upload de imagenes */
+    (function(){
+        // Creando visor de imagenes
+        /*var $ctrlGro = $('<div class="control-group" />');
+        var $imgPrev = $('<div id="imgPrev" class="control" />');
+        $('#imageInm').parents('.control-group').before($ctrlGro);
+        $ctrlGro.html('<label class="control-label optional" />');
+        $ctrlGro.append($imgPrev);*/
+        var $imgPrev = $('#imageInm').parents('.controls'); // Contenedor de imagenes subidas y por subir
+        
+        // we just want to show the result into the div
+        var getFileData = function(base64Image){
+            $.ajax({type:"POST", data:{base64Image:base64Image} })
+             .done(function(strSrc){
+                var srcImg = URL_BASE+'/'+strSrc;
+                var arrSrc = srcImg.split('/');
+                var nomImg = arrSrc[arrSrc.length-1];
+                var images = $.trim($('#imageInm').val())?$.trim($('#imageInm').val()).split('|'):[];
+                
+                images.push(nomImg); console.log('images:',images);
+                $('#imageInm').val(images.join('|'));
+                $imgPrev.append('<img class="img-prev" src="'+srcImg+'" border="0" />')
+             });
+        }
+
+        // check if the FileReader API exists... if not then load the Flash object
+        // window.atob ie10+
+        if (typeof FileReader!=="function" || !window.atob){
+            // it's the function called by the swf file
+            window.Flash = {getFileData:getFileData};
+            // create object element
+            $("#inpImageInm").replaceWith('<object id="inpImageInm"></object>');
+
+            var urlSwfFile = URL_BASE+'/static/js/otherArch/library/class/FileToDataURI.swf';
+            var urlSwfExpr = URL_BASE+'/static/js/otherArch/library/class/expressInstall.swf';
+            
+            // 80px by 23px dimensiones del boton input file html
+            swfobject.embedSWF(urlSwfFile,"inpImageInm","80px","23px","10",urlSwfExpr,{},{},{});
+            return; // end closure
+        }
+
+        $('#inpImageInm').on('change', function(e) {
+            // we use the normal way to read a file with FileReader
+            var files = e.target.files // Archivos cargados
+                ,len = files.length    // cantidad de archivos
+                ,aFR = [];             // array de instancias fileReader
+            
+            if (!files || len==0) return;
+            
+            while(len--){
+                console.log('files('+len+'):', files[len].name);
+                aFR[len] = new FileReader();
+                aFR[len].onload = function(e) {
+                    console.log('e.target:',e.target);
+                    getFileData(e.target.result.split(",")[1]);// split para solo base64 string
+                };
+                console.log('aFR['+len+']:',aFR[len]);
+                aFR[len].readAsDataURL(files[len]);
+            }
+            $(this).val('');
+        });
+
+    })();
+
+    return; 
+
+    // Upload fileReader
+    $("#imageInm").fileReader({
+        id: 'swfFile',
+        filereader:URL_BASE+'/static/js/otherArch/library/jquery/plugins/filereader.swf',
+        callback: function(){ console.log('arguments:',arguments[0]); }
+        //debugMode:true
+    });
+    $("#imageInm").on('change', function(evt) {
+ 
+        for (var i = 0; i < evt.target.files.length; i++) {
+            console.log(evt.target.files[i]);
+        }
+        
+        $(".form-horizontal").ajaxForm({
+            target: '#preview',
+            beforeSubmit: function() {
+                
+                console.log('beforeSubmit:', arguments);
+            },
+            success: function() {
+                console.log('success:', arguments);
+            },
+            error: function() {
+                console.log('error:', arguments);
+            },
+        })/*.submit()*/;
+
+    });
 });
 //};

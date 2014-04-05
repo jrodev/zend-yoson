@@ -15,9 +15,15 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 //var_dump(implode(PATH_SEPARATOR, array(realpath(APPLICATION_PATH . '/../library'), get_include_path(),)));
 //http://stackoverflow.com/questions/5314957/zend-warning-is-readable-function-is-readable-open-basedir-restriction
-set_include_path( APPLICATION_PATH.'/../library'.PATH_SEPARATOR. APPLICATION_PATH.'/../library/Zend' );
+set_include_path(
+    APPLICATION_PATH.'/../library'.PATH_SEPARATOR.
+    //APPLICATION_PATH.'/../library/Firelogger'.PATH_SEPARATOR.
+    APPLICATION_PATH.'/../library/Zend'
+);
 //var_dump(APPLICATION_PATH.'/../library'.PATH_SEPARATOR. APPLICATION_PATH.'/../library/Zend');
 
+/** Firelogger */
+require_once 'Firelogger/Core.php';
 /** Zend_Application */
 require_once 'Zend/Application.php';
 

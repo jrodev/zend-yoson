@@ -66,7 +66,6 @@ class Application_Plugin_SchemaAdmin extends Zend_Controller_Plugin_Abstract {
                     ),
                     'active' => false,
                 ),
-                
             ),
         );
         
@@ -74,23 +73,16 @@ class Application_Plugin_SchemaAdmin extends Zend_Controller_Plugin_Abstract {
         $this->_viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $this->_viewRenderer->initView();
         $this->_view = $this->_viewRenderer->view;
-        
-        //var_dump($modu); var_dump($ctrl); var_dump($request->getActionName()); exit;  
+
         $modu=$request->getModuleName();    
         if($modu!='portal'){
-            //echo "<br>modu: $modu";
             $ctrl=$request->getControllerName(); $acti=$request->getActionName();
             $SeccAcc[$modu][$ctrl]['active']=true;         //adicionando seccion activa
             $SeccAcc[$modu][$ctrl]['acts'][$acti]['active']=true;  //adicionando accion activa
             $this->_view->ctrl = $ctrl;
             $this->_view->plg_secc=$SeccAcc[$modu];
             $this->_view->plg_acci=$SeccAcc[$modu][$ctrl]['acts'];
-            //var_dump($this->_view->plg_acci); exit;
-            //var_dump($ctrl); 
-            //var_dump($acti); 
-            //var_dump($this->_view->plg_acci); 
         }
-
     }
 }
 

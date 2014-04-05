@@ -1,7 +1,7 @@
 <?php
 
 class Application_Form_Inmueble extends Twitter_Form {
-
+    
     public function init() {
         // Make this form horizontal
         $ubigeo = new Application_Model_Agentes_Ubigeo();
@@ -44,8 +44,7 @@ class Application_Form_Inmueble extends Twitter_Form {
         // Detalle
         $txtDet = new Zend_Form_Element_Textarea('detalle', array( //Tambien deveria funionar con createElement
             'label'=>'Interior/Dpto',  
-            'description'=>'Ej. "Int. A"; o  "Dpto 305" o "piso 3". Si son varios <br>pisos de costo 
-                            similar, indicar el nivel mas bajo'
+            'description'=>'Ej. "Int. A"; o  "Dpto 305" o "piso 3". Si son varios <br>pisos de costo similar, indicar el nivel mas bajo'
         ));
         $txtDet->setOptions(array('rows'=>'1'));;
         //$txtDet->getDecorator('description')->setOption('escape', false); 
@@ -94,17 +93,17 @@ class Application_Form_Inmueble extends Twitter_Form {
             'label'=>'Piso(s) o Nivel(es)','class'=>'pisos-niveles', 
             'description'=>'Indicar varios si tiene el mismo precioseparados por <br>comas Ej: 1,5,12. Indicar 0 (cero), de ser pertinente',
         ));
+        // images preview
+        $hdPrevImg = $this->createElement('hidden', 'imageInm', array('label'=>'Imagenes'));
         // imagen
-        $fileImage = new Zend_Form_Element_File('imageInm', 
-            array('label'=>'Imagen','class'=>'image-inm','required'=>true,)
-        ); 
-        $fileImage->setDestination(PATH_UPL."/inm/");  //realpath(APPLICATION_PATH . self::DIR_TMP)
-        $count = new Zend_Validate_File_Count(array('min'=>1, 'max'=>8));
+        $fileImage = new Zend_Form_Element_File('inpImageInm', array('label'=>'') ); 
+        $fileImage->setAttribs(array('name'=>'inpImageInm[]', 'class'=>'image-inm'/*, 'required'=>true*/, 'multiple'=>'')); //imageInm[] important for multiple
+        $fileImage->setDestination(PATH_UPL.'/inm/'); //$fileImage->setMultiFile(8); //crea 8 customs inputsfile
+        $count = new Zend_Validate_File_Count(array('min'=>1,'max'=>8));
+        $exten = new Zend_Validate_File_Extension(array('jpg,jpeg,gif,png'));
         $fileImage->addValidators(array(
-            $count->setMessage('Minimo 1 archivo maximo 8'),
-            //array( 'count', TRUE, array(1,'messages'=>array('countfalse'=>'Ingrese al menos 1 archivo') )),
-            array('extension', TRUE, array('jpg,jpeg,gif,png')),
-            //array('size', FALSE, 1024*1024*10),
+            $count->setMessage('Minimo 1 archivo maximo 8'), //array( 'count', TRUE, array(1,'messages'=>array('countfalse'=>'Ingrese al menos 1 archivo') )),
+            $exten->setMessage('Archivo no es una imagen!'), //array('size', FALSE, 1024*1024*10),
         ));//->setMaxFileSize(1024*1024*10);
         
         //$fileImage->getValidator('Count')->setMessages(array('Es necesario una imagen!'));
@@ -299,10 +298,17 @@ class Application_Form_Inmueble extends Twitter_Form {
         ));        
         // Precio
         //$txtCantDorm = $this->createElement('text', 'cantDorm', array('label'=>'Dormitorios','class'=>'cant-dorm','maxlength'=>1));
+        // Token
+        $myNs = new Zend_Session_Namespace('authtoken');
+        $myNs->setExpirationSeconds(30*60); // 30min
+        $myNs->authtoken = $hash = md5(uniqid(rand(), 1)); //var_dump("form hash:$hash");
+        $hdAuth = new Zend_Form_Element_Hidden('authtoken');
+        $hdAuth->setValue($hash)->setRequired('true')->removeDecorator('HtmlTag')->removeDecorator('Label');
+
         $this->addElements(array(
             $txtPais, $txtDpto, $txtProvs, $txtDist, $txtUrb, $txtTipoUbi, $txtDir, $txtDet, $rdoEst, $hdUbicacion, 
-            $txtPrecio, $txtParking, $rdoTransaccion, $txtFchEntega, $txtTipoInm, $txtFechaEntrega, $txtPisosNiveles, $fileImage, 
-            $txtAreaTotal, $txtAreaConst, $selAntiguedad, $txtNiveles,
+            $txtPrecio, $txtParking, $rdoTransaccion, $txtFchEntega, $txtTipoInm, $txtFechaEntrega, $txtPisosNiveles, $hdPrevImg, 
+            $fileImage, $txtAreaTotal, $txtAreaConst, $selAntiguedad, $txtNiveles,
             $txtCantDorm, $txtCantBanCom, $txtCantBanMed, $txtCantCuarServ, $txtCantBanServ, $txtCantAscensor, $txtCantDorm,
             
             $rdoComIndep->setValue('2'), $rdoSalaCome->setValue('2'), $rdoTerraza->setValue('2'), $rdoAscensor->setValue('2'), 
@@ -311,87 +317,13 @@ class Application_Form_Inmueble extends Twitter_Form {
             $rdoClassDpto->setValue(1), $rdoZonific, $txtPisosAut, $txtCondInm, $rdoRejas->setValue('2'), $rdoVig24h->setValue('2'), 
             $rdoFrenteMar->setValue('2'), $rdoVistaMar->setValue('2'), $rdoFrenteParq->setValue('2'), $rdoAreaRecep, /*$rdoSalaRecep,*/ 
             $rdoAreaEspar, $rdoAreaBbq, $rdoAreaDepor, $rdoPermMasc, $rdoServAgua->setValue('1'), $rdoServDesague->setValue('1'), 
-            $rdoServElectr->setValue('1'), $rdoServGas->setValue('2'),
+            $rdoServElectr->setValue('1'), $rdoServGas->setValue('2'), $hdAuth,
         ));
         
         $this->addElement('submit', 'guardar', array('label' => 'Guardar'));
         $this->addElement('reset', 'limpiar', array('label' => 'Limpiar'));
         
         return;
-        /*
-        $this->addElement('password', 'password', array(
-            'label' => 'Password',
-            'description' => 'Please enter a nice password.',
-            'required' => true,
-        ));
 
-        $this->addElement('password', 'oldpassword', array(
-            'label' => 'Old Password',
-            'value' => '******',
-            'description' => 'This is your old password. Keep going.',
-            'attribs' => array('disabled' => true)
-        ));
-
-        $this->addElement('select', 'Security Question', array(
-            'label' => 'Please select a security question',
-            'multiOptions' => array(
-                'car' => 'What was your first car?',
-                'city' => 'What is your favorite city?'
-        )));
-
-        $this->addElement('checkbox', 'remember_me', array(
-            'label' => 'Remember me for two weeks',
-        ));
-
-        $this->addElement('radio', 'terms', array(
-            'label' => 'I agree to the terms',
-        ));
-
-        $this->addElement('radio', 'terms', array(
-            'label' => 'Terms',
-            'multiOptions' => array(
-                '1' => 'I agree to the terms',
-                '0' => "I don't agree to the terms"
-            )
-        ));
-
-        $this->addElement('multicheckbox', 'multichecks', array(
-            'description' => 'This is a nice thing.',
-            'label' => 'Foobar',
-            'multiOptions' => array(
-                '1' => 'I agree to the terms',
-                '0' => "I don't agree to the terms"
-            )
-        ));
-
-        $this->addElement('multicheckbox', 'multichecks2', array(
-            'label' => 'Inline checkboxes',
-            'inline' => true,
-            'multiOptions' => array('1' => 'One', '0' => 'Two')
-        ));
-
-        $this->addElement('file', 'file', array(
-            'label' => 'Please upload a file',
-            'required' => true
-        ));
-
-        $this->addElement('hidden', 'id', array('value'=>'Test', 'label'=>'Test'));
-
-        $elm = $this->createElement('text', 'foo', array(
-            'label' => 'Element created via createElement'));
-
-        $this->addElement($elm);
-
-        $elm2 = new Zend_Form_Element_Text('foo2', array('label'=>'Via new instance'));
-
-        $this->addElement($elm2);
-
-        $this->addElement('submit', 'register', array('label' => 'Register'));
-        $this->addElement('reset', 'reset', array('label' => 'Reset'));
-        $this->addElement('button', 'custom', array(
-            'class' => 'success',
-            'label' => 'Custom classes, too!'
-        ));*/
     }
-
 }
