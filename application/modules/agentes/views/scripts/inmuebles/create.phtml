@@ -1,8 +1,37 @@
-                    
+
                     <?php if (count($this->msgs)): ?>
                         <?php foreach ($this->msgs as $v): ?>
                         <div><b><?php echo $v?></b></div>
                         <?php endforeach; ?>
-                    <?php endif; ?>
+                    <?php endif; //var_dump('$this->selsVals:',$this->selsVals); ?>
+                    <?php if($this->err=='1'):?>
+                    <div class="alert alert-error">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <h4 class="alert-heading">Error:</h4>
+                        Ha pasado mas de 30 min desde que abrio este formulario. 
+                    </div>
+                    <?php endif;?>
+                    <?php if($this->err=='2'):?>
+                    <div class="alert alert-block">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <h4 class="alert-heading">Advertencia:</h4>
+                        Existen campos requeridos vacios o con data inconsistente.
+                    </div>
+                    <?php endif;?>
+                    <?php if($this->err=='3'):?>
+                    <div class="alert alert-info">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <h4 class="alert-heading">Atención:</h4>
+                        Hubo un error a la hora de guardar dos datos.
+                    </div>
+                    <?php endif;?>
+                    <?php if($this->err=='4' || isset($_GET['save'])):?>
+                    <div class="alert alert-success">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <h4 class="alert-heading">Atención:</h4>
+                        Datos guardados correctamente.
+                    </div>
+                    <?php endif;?>
+                    <!--input type="hidden" id="selsVals" value="<?php //echo implode('|',$this->selsVals)?>" /-->
                     <?php echo $this->form ?>
                     

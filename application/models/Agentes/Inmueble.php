@@ -18,7 +18,7 @@ class Application_Model_Agentes_Inmueble extends Zend_Db_Table
     
     public function add($data)
     {
-        $this->insert($data);
+        return (int)$this->insert($data);
     }
     
     public function upd($data)

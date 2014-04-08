@@ -44,8 +44,8 @@ function runMap(VAL) {
             '<div id="markerAddress"></div></div><input type="hidden" id="coordXY" value="' + (VAL || '-12/-77') + '" />';
     document.getElementById('contentMap').innerHTML = divMap;*/
     var gm = new ClassGmaps(document.getElementById(idDivMap));
-    var inpVal = document.getElementById(idInpHdn).value; //$.trim($('.getXYGmap input').val());
-    var mapLatLng = (inpVal == '') ? gm.map.getCenter() : new google.maps.LatLng(parseFloat(inpVal.split('/')[0]), parseFloat(inpVal.split('/')[1]));
+    var inpVal = $.trim(document.getElementById(idInpHdn).value); //$.trim($('.getXYGmap input').val());
+    var mapLatLng = (inpVal=='') ? gm.map.getCenter() : new google.maps.LatLng(parseFloat(inpVal.split('/')[0]), parseFloat(inpVal.split('/')[1]));
     gm.map.setCenter(mapLatLng);
     var marker = gm.doMarker('Mi marker', gm.map, mapLatLng, true);
     //$('#positionGmap').html('['+[mapLatLng.lat(), mapLatLng.lng()].join(' / ')+']');
@@ -141,8 +141,6 @@ var SelDep = (function(Sb){
                     };
                 })(i++, selB, errMsg)); 
             }
-            
-            /*log('treeDeps: *-*-*-*-*->',treeDeps);*/
         },
         /*
          *@param selB: select dependiente
@@ -176,6 +174,8 @@ var SelDep = (function(Sb){
 
 //window.onload = function(){ 
 $(function(){
+    // adicionado en el controller
+    window.vars = window.vars||{}; 
     // Resolviendo bug de Description inline para los radios buttons en ZendForm
     //$('.radio').parent().find('.help-block').removeClass('help-block').addClass('help-inline');
     $('.help-block').removeClass('help-block').addClass('help-inline');
@@ -186,11 +186,18 @@ $(function(){
         else $('label[for="fechEntrega"]').parent().slideUp(400);
     });    
     
-    $('label[for="pisosNiveles"],label[for="fechaEntrega"]').parent().css('display','none');
+    // Si no tiene valor lo oculta
+    if(!$.trim($('#pisosNiveles').val()))
+        $('label[for="pisosNiveles"]').parent().css('display','none');
+    
+    // Si no tiene valor lo oculta
+    if(!$.trim($('#fechEntrega').val()))
+        $('label[for="fechEntrega"]').parent().css('display','none');
+    
     $("#tipoImn").bind('change', function(){
         var sIndex = $(this).prop('selectedIndex'); 
         var $pNivels = $('label[for="pisosNiveles"]');
-        var $fEntreg = $('label[for="fechaEntrega"]');
+        var $fEntreg = $('label[for="fechEntrega"]');
         console.log("sIndex:",sIndex);
         if(sIndex>=3 && sIndex<=7){
             $fEntreg.parent().slideUp(400);
@@ -218,9 +225,37 @@ $(function(){
         /*if(isComas.test(this.value))*/ this.value=this.value.replace(/\,\,+/gi,',');
     });
     
-    runMap('-12.084471260776178/-77.04129791259766');
+    // MAPA ----------------------------------------------------------------------------------------
+    var antLatLng = $.trim($('#ubicacion').val()); console.log('antLatLng:'+antLatLng   );
+    runMap(antLatLng?antLatLng:'-12.084471260776178/-77.04129791259766');
     
-    // Implemntacion de selects dependientes
+    // SELECTS DEPENDIENTES ------------------------------------------------------------------------
+    var selsVals = window.vars.selsVals||[]; //$.trim($('#selsVals').val())?$.trim($('#selsVals').val()).split('|'):[];
+    console.log('selsVals:',selsVals);
+    // Capturando evento ajaxSend
+    $(document).bind('ajaxSend', (function(selsVals){
+        return function(e,xhr,cnf){
+            // Si ya se escogio los selects y se quiere pedir los predeterminados
+            if(selsVals.length && /inmuebles\/prov/g.test(cnf.url)){
+                console.log('pidiendo prov:cancelao!!');
+                xhr.abort(); // cancelando ajax
+                $(document).unbind('ajaxSend'); // Para que no afecte al sgte ajax
+            }
+        };
+    })(selsVals));
+    // Capturando evento ajaxSuccess
+    $(document).bind('ajaxSuccess', (function(selsVals){
+        return function(e,xhr,cnf){
+            // Si es ajax de peticion de departamentos y ya se eligo previamente
+            if(selsVals.length && /inmuebles\/dpto/g.test(cnf.url)){
+                console.log('cargando predefinido de selsVals');
+                var dpto=selsVals[1], prov=selsVals[2], dist=selsVals[3];
+                $('#dpto option[value="'+dpto+'"]').prop('selected',true)
+                .parent().trigger('change',[prov,dist]);
+            }
+        };
+    })(selsVals));
+    // implementacion selects Dependientes
     SelDep.init([
         {ids:['#pais' ,'#dpto'], url:'/agentes/inmuebles/dpto?idPais=$1'},
         {ids:['#dpto' ,'#prov'], url:'/agentes/inmuebles/prov?idDpto=$1'},
@@ -228,29 +263,42 @@ $(function(){
     ]);
     $('#pais').trigger('change',['150000','150100']);
     
-    /* Upload de imagenes */
+    // UPLOADS DE IMAGENES -------------------------------------------------------------------------
     (function(){
         // Creando visor de imagenes
-        /*var $ctrlGro = $('<div class="control-group" />');
-        var $imgPrev = $('<div id="imgPrev" class="control" />');
-        $('#imageInm').parents('.control-group').before($ctrlGro);
-        $ctrlGro.html('<label class="control-label optional" />');
-        $ctrlGro.append($imgPrev);*/
-        var $imgPrev = $('#imageInm').parents('.controls'); // Contenedor de imagenes subidas y por subir
-        
-        // we just want to show the result into the div
-        var getFileData = function(base64Image){
-            $.ajax({type:"POST", data:{base64Image:base64Image} })
-             .done(function(strSrc){
-                var srcImg = URL_BASE+'/'+strSrc;
+        // Contenedor de imagenes subidas y por subir
+        var $listImg = $('<ul class="thumbnails" />');
+        $('#imageInm').parents('.controls').append($listImg);
+
+        // Crea imagenes pasando como parametro uri de la imagen
+        var createImg = function(nameImg, isAjx){
+            var srcImg = window.vars.uriUpl+'/'+nameImg;
+            // Si es Ajax adicionamos esta imagen al input
+            if(isAjx){
                 var arrSrc = srcImg.split('/');
                 var nomImg = arrSrc[arrSrc.length-1];
                 var images = $.trim($('#imageInm').val())?$.trim($('#imageInm').val()).split('|'):[];
-                
                 images.push(nomImg); console.log('images:',images);
                 $('#imageInm').val(images.join('|'));
-                $imgPrev.append('<img class="img-prev" src="'+srcImg+'" border="0" />')
-             });
+            }
+            // Creando y adicionando imagen
+            $imgLink = $('<a class="thumbnail" href="#" />');
+            $listImg.append($('<li class="span2" />').append($imgLink));
+            $imgLink.append('<img src="'+srcImg+'" border="0" />')
+        };
+
+        // Si existen imagenes previamente ingresado se carga en el visor.
+        var strImgs = $.trim($('#imageInm').val());
+        if(strImgs){
+            var aNamesImgs = strImgs.split('|'); //var imgUri = 'static/uploads/inm/';
+            for(var i=0;i<aNamesImgs.length; i++) createImg(aNamesImgs[i]);
+        }
+
+        // we just want to show the result into the div
+        var getFileData = function(base64Image){
+            $authtoken = $.trim($('#authtoken').val());
+            $.ajax({ type:"POST", data:{base64Image:base64Image,authtoken:$authtoken} })
+             .done(function(nameImg){ createImg(nameImg, true) });
         }
 
         // check if the FileReader API exists... if not then load the Flash object

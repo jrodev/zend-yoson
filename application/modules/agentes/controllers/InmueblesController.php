@@ -5,10 +5,15 @@
 class Agentes_InmueblesController extends Zend_Controller_Action
 {
     public $ubigeo;
-    
+    private $pathUpl;
+    private $tempUpl;
+
     public function init()
     {
-        $this->ubigeo = new Application_Model_Agentes_Ubigeo();
+        $this->ubigeo  = new Application_Model_Agentes_Ubigeo();
+        $this->pathUpl = PATH_UPL.'/inm';
+        $this->tempUpl = TEMP_UPL;
+        $this->idUsu   = Zend_Auth::getInstance()->getStorage()->read()->id;
     }
 
     public function indexAction()
@@ -31,27 +36,44 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         $this->view->headScript()->appendFile( $urlFread, null);
         $this->view->headScript()->appendFile( $urlajxup, null);
         $this->view->headScript()->appendFile( $urlinmjs, null);
+        
+        $sessNs = new Zend_Session_Namespace('authtoken');
 
+        $uriUpl = explode('public_html/',$this->tempUpl);
+        $jsParams = array('selsVals'=>''); // Paramentros javascript que iran en el head
+        
         // NO es POST ----------------------------------------------------------------
         if (!$this->getRequest()->isPost()) {
-            return ($this->view->form = new Application_Form_Inmueble());
+            $this->view->form = new Application_Form_Inmueble();
+            // Creando dirname de imagenes temporalemte subidas
+            if(isset($sessNs->dirnameimg)) {
+                // Eliminando directorio anterior
+                $dirToDel = $this->tempUpl.'/'.$sessNs->dirnameimg; // Eliminando directorio y contenido
+                if (file_exists($dirToDel) && is_dir($dirToDel)) $this->deleteDirectory($dirToDel);
+            }
+            $sessNs->dirnameimg = "temp".md5(uniqid(rand(),1));
+            flog('no post - dirnameimg:',$sessNs->dirnameimg);
+            $jsParams['uriUpl'] = BASE_URL.'/'.$uriUpl[1].'/'.$sessNs->dirnameimg.'/imginm';
+            $this->view->headScript()->appendScript('window.vars='.json_encode($jsParams).';');
+            return ;
         }
         
         // SI es POST ----------------------------------------------------------------
-        $formData = $this->getRequest()->getPost(); //var_dump($formData); exit;
+        $formData = $this->getRequest()->getPost(); //var_dump('$formData:',$formData);
+        $isAjax   = $this->getRequest()->isXmlHttpRequest(); flog('POST-dirnameimg',$sessNs->dirnameimg);
         
         // Si Token diferente
-        $myNs = new Zend_Session_Namespace('authtoken');
-        var_dump($myNs->authtoken,$formData['authtoken']);
-        if ($myNs->authtoken==$formData['authtoken']){
-            return ($this->view->form = new Application_Form_Inmueble());
+        if (!$isAjax && $sessNs->authtoken!=$formData['authtoken']){
+            $this->view->err='1'; flog('Si Token diferente dirnameimg:',$sessNs->dirnameimg);
+            $jsParams['uriUpl'] = BASE_URL.'/'.$uriUpl[1].'/'.$sessNs->dirnameimg.'/imginm';
+            $this->view->headScript()->appendScript('window.vars='.json_encode($jsParams).';');
+            return ($this->view->form = new Application_Form_Inmueble(null,$formData));
         }
-        // Token iguales
-        $frmInm = new Application_Form_Inmueble();
-        $this->view->form = $frmInm;
         
-        // Si es upload de archivos(mediante submit)
+        // Token iguales
         $upload = new Zend_File_Transfer_Adapter_Http(); //$upload->setDestination(PATH_UPL."/inm/");
+
+        // Si es upload de archivos(mediante submit)
         if($upload->isUploaded('inpImageInm')){
             $this->_helper->layout()->disableLayout(); 
             $this->_helper->viewRenderer->setNoRender(true);
@@ -64,37 +86,70 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         }
 
         // se sube el archivo convertido a string en el cliente (mediante ajax)
-        if ($this->getRequest()->isXmlHttpRequest()){
-            $this->_helper->layout()->disableLayout(); 
-            $this->_helper->viewRenderer->setNoRender(true);
+        if ($isAjax){
             $base64Image = $this->getRequest()->getPost('base64Image', FALSE);
-            $extImg  = $this->getTypeBase64Image($base64Image);
-            $nameImg = uniqid().'.'.$extImg;
-            $pathImg = $frmInm->getElement('inpImageInm')->getDestination();
-            $urlImg = $this->base64ToImage($base64Image, "$pathImg/$nameImg");
-            $aUri = explode('public_html/',$urlImg); // dividiendo ruta absoluta
-            echo trim($aUri[1]);
+            //$authtoken   = $this->getRequest()->getPost('authtoken', FALSE);
+            $rutaImg = $this->tempUpl.'/'.$sessNs->dirnameimg.'/imginm';
+            echo $this->ajaxUpload($rutaImg, $base64Image);
             return ;
         }
         
+        // Creado el formulario 
+        $this->view->form = $frmInm = new Application_Form_Inmueble(null,$formData);
+        
         // Si Form invalid
         if (!$frmInm->isValid($formData)) {
+            $this->view->err = '2';         
+            $formData["authtoken"]=$sessNs->authtoken;
+            flog('$formData',$formData);
+            $jsParams['selsVals']=array($formData['pais'],$formData['dpto'],$formData['prov'],$formData['dist']);
+            $jsParams['uriUpl'] = BASE_URL.'/'.$uriUpl[1].'/'.$sessNs->dirnameimg.'/imginm';
+            $this->view->headScript()->appendScript('window.vars='.json_encode($jsParams).';');
             return $frmInm->populate($formData);
         }
         
         // Form valido
+        unset($formData["authtoken"]);
         unset($formData["inpImageInm"]);
         unset($formData["MAX_FILE_SIZE"]);
         unset($formData["guardar"]);
-
         $inm = new Application_Model_Agentes_Inmueble();
-        $inm->add($formData); //$this->_helper->redirector('index');
-        $frmInm->reset();
-        
+        $this->view->headScript()->appendScript('window.vars='.json_encode($jsParams).';');
+        if(!($idInm=$inm->add($formData))) return $this->view->err='3';
+        $tmpDir = $this->tempUpl.'/'.$sessNs->dirnameimg.'/imginm';
+        $endDir = $this->pathUpl.'/usu'.$this->idUsu."/inm$idInm";
+        flog('$tmpDir:',$tmpDir);
+        flog('$endDir:',$endDir);
+        if(!rename($tmpDir, $endDir)) flog('Error en copiar directorio!'); 
+        // Si se guardo correctamente se redirecciona
+        $this->getResponse()->setRedirect(BASE_URL.'/agentes/inmuebles/create?save');
+        //$this->view->err='4'; // Mensaje success!!
+        //$frmInm->reset();
     }
     
     /**
-     * 
+     * @param string $rutaImg Ruta donde se guardara la imagen ($this->tempUpl."/$authtoken")
+     * @return string Nombre de la imagen que se ha subido.
+     */
+    private function ajaxUpload($rutaImg, $base64Image){
+        $this->_helper->layout()->disableLayout(); 
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if (!file_exists($rutaImg) && !is_dir($rutaImg)) {
+            mkdir($rutaImg, 0755, true); flog('ajax-dirCreate:',$rutaImg);
+        }
+
+        $extImg  = $this->getTypeBase64Image($base64Image);
+        $nameImg = uniqid().'.'.$extImg;
+        //$frmInm->getElement('inpImageInm')->getDestination();
+        $urlImg = $this->base64ToImage($base64Image, "$rutaImg/$nameImg");
+        //$aUri = explode('public_html/',$urlImg); // dividiendo ruta absoluta
+        return trim($nameImg);
+    }
+
+    /**
+     * @param string $strImg Imagen cadena en base64
+     * @return string Tipo de imagen
      */
     private function getTypeBase64Image($strImg)
     {
@@ -110,7 +165,9 @@ class Agentes_InmueblesController extends Zend_Controller_Action
     }
 
     /**
-     * 
+     * @param string $base64String Imagen cadena en base64
+     * @param string $outFile Ruta donde guardar archivo
+     * @return string Ruta donde se guardo la imagen
      */
     private function base64ToImage($base64String, $outFile) {
         $ifp = fopen($outFile, "wb"); 
@@ -119,6 +176,19 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         return $outFile; 
     }
     
+    /**
+     * @param string $dir Ruta al directorio
+     * @return bool True si se elimino directorio.
+     */
+    private function deleteDirectory($dir) {
+        foreach (scandir($dir) as $file) {
+            if('.'===$file || '..'===$file) continue;
+            if(is_dir("$dir/$file")) $this->deleteDirectory("$dir/$file");
+            else unlink("$dir/$file");
+        }
+        return rmdir($dir);
+    }
+
     /**
      * 
      */

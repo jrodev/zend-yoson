@@ -1,8 +1,12 @@
 <?php
 
 class Twitter_Form extends Zend_Form {
-
-    public function __construct($options = null) {
+    
+    private $_formValues;
+    
+    public function __construct($options=null, $_formValues) {
+        // Set post values
+        $this->_formValues = $_formValues;
         // Let's load our own decorators
         $this->addPrefixPath("Twitter_Form_Decorator", "Twitter/Form/Decorator/", "decorator");
         // Get rid of all the pre-defined decorators
@@ -118,13 +122,14 @@ class Twitter_Form extends Zend_Form {
         
         /* Agregando decorador gmapMarker*/
         if ($element->getName()=='ubicacion' || $element->getName()=='precio' || $element->getName()=='parking') {
-            $name = $element->getName();
+            $name   = $element->getName();
+            $values = $this->_formValues; //var_dump('form:',$values); 
             $deco = array(
-                'ubicacion'=> new Application_Form_Decorators_GmapMarker(),
-                'precio'   => new Application_Form_Decorators_CoinType(),
-                'parking'  => new Application_Form_Decorators_ParkingPrice(),
+                'ubicacion'=> new Application_Form_Decorators_GmapMarker($values),
+                'precio'   => new Application_Form_Decorators_CoinType($values),
+                'parking'  => new Application_Form_Decorators_ParkingPrice($values),
             );
-            
+            $this->getValues();
             //var_dump($element->getName()); //$element->setDecorators(array("ViewHelper"));
             $element->setDecorators(array(
                 "ViewHelper",

@@ -2,6 +2,12 @@
 
 class Application_Form_Inmueble extends Twitter_Form {
     
+    private $_formValues = array();
+    
+    public function __construct($options=null, $_formValues=null) {
+        parent::__construct($options, $_formValues);
+    }
+
     public function init() {
         // Make this form horizontal
         $ubigeo = new Application_Model_Agentes_Ubigeo();
@@ -63,7 +69,7 @@ class Application_Form_Inmueble extends Twitter_Form {
             'description'=>'<b>*</b>', 'label'=>'Precio', 'class'=>'tipo-moneda', 'inline'=>true
         ));
         
-        // Estacionamiento
+        // Estacionamiento (usando decorador)
         $txtParking = $this->createElement('text', 'parking', array('description'=>'<b>*</b>', 'label'=>'Estacionamiento','class'=>'parking'));
         
         // transaccion
@@ -84,7 +90,7 @@ class Application_Form_Inmueble extends Twitter_Form {
             ),
         ))/*->setAttrib('placeholder', 'foo')*/;
         // Fecha de entrega
-        $txtFechaEntrega = $this->createElement('text', 'fechaEntrega', array(
+        $txtFechEntrega = $this->createElement('text', 'fechEntrega', array(
             'label'=>'Fecha de entrega','class'=>'fecha-Entrega', 
             'description'=>'Indicar fecha de Entrega, de ser el caso.',
         ));
@@ -94,15 +100,15 @@ class Application_Form_Inmueble extends Twitter_Form {
             'description'=>'Indicar varios si tiene el mismo precioseparados por <br>comas Ej: 1,5,12. Indicar 0 (cero), de ser pertinente',
         ));
         // images preview
-        $hdPrevImg = $this->createElement('hidden', 'imageInm', array('label'=>'Imagenes'));
+        $hdPrevImg = $this->createElement('hidden', 'imageInm', array('label'=>'Imagenes'))->setRequired(true);
         // imagen
         $fileImage = new Zend_Form_Element_File('inpImageInm', array('label'=>'') ); 
         $fileImage->setAttribs(array('name'=>'inpImageInm[]', 'class'=>'image-inm'/*, 'required'=>true*/, 'multiple'=>'')); //imageInm[] important for multiple
         $fileImage->setDestination(PATH_UPL.'/inm/'); //$fileImage->setMultiFile(8); //crea 8 customs inputsfile
-        $count = new Zend_Validate_File_Count(array('min'=>1,'max'=>8));
+        //$count = new Zend_Validate_File_Count(array('min'=>1,'max'=>8));
         $exten = new Zend_Validate_File_Extension(array('jpg,jpeg,gif,png'));
         $fileImage->addValidators(array(
-            $count->setMessage('Minimo 1 archivo maximo 8'), //array( 'count', TRUE, array(1,'messages'=>array('countfalse'=>'Ingrese al menos 1 archivo') )),
+            //$count->setMessage('Minimo 1 archivo maximo 8'), //array( 'count', TRUE, array(1,'messages'=>array('countfalse'=>'Ingrese al menos 1 archivo') )),
             $exten->setMessage('Archivo no es una imagen!'), //array('size', FALSE, 1024*1024*10),
         ));//->setMaxFileSize(1024*1024*10);
         
@@ -300,14 +306,14 @@ class Application_Form_Inmueble extends Twitter_Form {
         //$txtCantDorm = $this->createElement('text', 'cantDorm', array('label'=>'Dormitorios','class'=>'cant-dorm','maxlength'=>1));
         // Token
         $myNs = new Zend_Session_Namespace('authtoken');
-        $myNs->setExpirationSeconds(30*60); // 30min
-        $myNs->authtoken = $hash = md5(uniqid(rand(), 1)); //var_dump("form hash:$hash");
+        $myNs->setExpirationSeconds(1800); // 30min
+        $myNs->authtoken = $hash = md5(uniqid(rand(), 1)); flog("form hash:",$hash);
         $hdAuth = new Zend_Form_Element_Hidden('authtoken');
         $hdAuth->setValue($hash)->setRequired('true')->removeDecorator('HtmlTag')->removeDecorator('Label');
 
         $this->addElements(array(
             $txtPais, $txtDpto, $txtProvs, $txtDist, $txtUrb, $txtTipoUbi, $txtDir, $txtDet, $rdoEst, $hdUbicacion, 
-            $txtPrecio, $txtParking, $rdoTransaccion, $txtFchEntega, $txtTipoInm, $txtFechaEntrega, $txtPisosNiveles, $hdPrevImg, 
+            $txtPrecio, $txtParking, $rdoTransaccion, $txtFchEntega, $txtTipoInm, $txtFechEntrega, $txtPisosNiveles, $hdPrevImg, 
             $fileImage, $txtAreaTotal, $txtAreaConst, $selAntiguedad, $txtNiveles,
             $txtCantDorm, $txtCantBanCom, $txtCantBanMed, $txtCantCuarServ, $txtCantBanServ, $txtCantAscensor, $txtCantDorm,
             
