@@ -27,7 +27,7 @@ class Agentes_IndexController extends Zend_Controller_Action
             return;
         }
         //$user = new Application_Model_Admin_User(); //$user->getAdapter() <> $this->defAdp
-        $form = new Application_Form_Login();
+        $form = new Application_Form_Login(null,array());
         $rqst = $this->getRequest();
         $this->view->form = $form;
 

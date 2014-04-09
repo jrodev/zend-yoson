@@ -22,7 +22,18 @@ class Agentes_InmueblesController extends Zend_Controller_Action
     }
     
     public function createAction()
-    {
+    {/*
+        $pathOrig = $this->tempUpl.'/dirOrig/fooDir';
+        $pathFile = $pathOrig."/foo.ext";
+        if(!file_exists($pathFile) && !file_exists($pathOrig) && !is_dir($pathOrig) && mkdir($pathFile, 0755, true)) 
+            echo "se creo: $pathFile";
+        else echo "Ya existe: $pathFile";
+        
+        $pathCopy = $this->pathUpl.'/dirCopy/';
+        if(rename($pathOrig, $pathCopy)) echo "rename ok!";
+        else  echo "rename ERROR!";
+        exit;*/
+        
         $urlGmap  = 'http://maps.google.com/maps/api/js?sensor=false';
         $urlswfo  = JS_URL.'/library/class/swfobject.js';
         $urljqui  = JS_URL.'/library/jquery/jquery.ui/jq.ui.core.js';
@@ -49,7 +60,8 @@ class Agentes_InmueblesController extends Zend_Controller_Action
             if(isset($sessNs->dirnameimg)) {
                 // Eliminando directorio anterior
                 $dirToDel = $this->tempUpl.'/'.$sessNs->dirnameimg; // Eliminando directorio y contenido
-                if (file_exists($dirToDel) && is_dir($dirToDel)) $this->deleteDirectory($dirToDel);
+                if (file_exists($dirToDel) && is_dir($dirToDel)) 
+                    flog("elinando dir $dirToDel:",$this->deleteDirectory($dirToDel));
             }
             $sessNs->dirnameimg = "temp".md5(uniqid(rand(),1));
             flog('no post - dirnameimg:',$sessNs->dirnameimg);
@@ -113,15 +125,19 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         unset($formData["inpImageInm"]);
         unset($formData["MAX_FILE_SIZE"]);
         unset($formData["guardar"]);
+        $formData["idUsu"] = $this->idUsu; // Aosciando registro a este usuario
         $inm = new Application_Model_Agentes_Inmueble();
         $this->view->headScript()->appendScript('window.vars='.json_encode($jsParams).';');
         if(!($idInm=$inm->add($formData))) return $this->view->err='3';
         $tmpDir = $this->tempUpl.'/'.$sessNs->dirnameimg.'/imginm';
-        $endDir = $this->pathUpl.'/usu'.$this->idUsu."/inm$idInm";
+        $endDir = $this->pathUpl.'/usu'.$this->idUsu."/inm$idInm"; 
+        ///if(mkdir($endDir, 0755, true)) flog('se creo endDir!');
         flog('$tmpDir:',$tmpDir);
         flog('$endDir:',$endDir);
-        if(!rename($tmpDir, $endDir)) flog('Error en copiar directorio!'); 
+        $this->copyDir($tmpDir, $endDir, true);
+        //if(!rename($tmpDir, $endDir)) flog('Error en copiar directorio!'); 
         // Si se guardo correctamente se redirecciona
+        flog('redirigiendo:',BASE_URL.'/agentes/inmuebles/create?save');
         $this->getResponse()->setRedirect(BASE_URL.'/agentes/inmuebles/create?save');
         //$this->view->err='4'; // Mensaje success!!
         //$frmInm->reset();
@@ -187,6 +203,32 @@ class Agentes_InmueblesController extends Zend_Controller_Action
             else unlink("$dir/$file");
         }
         return rmdir($dir);
+    }
+
+    /**
+     * 
+     */
+    private function copyDir($src, $dst, $redi=false) 
+    {
+        $dir = opendir($src);
+        if(mkdir($dst, 0755, true)) flog("se creo destino:$dst"); // con permisos y creacion de subdirectorios
+        while( false!==($file=readdir($dir)) )
+            if($file!='.' && $file!='..')
+                if(is_dir("$src/$file")) $this->copyDir("$src/$file", "$dst/$file");
+                else{
+                    $urlEnd = "$dst/big-$file";
+                    copy("$src/$file", $urlEnd);
+                    $aFile = explode('.', $file);
+                    if($redi){
+                        $img = new Extra_Image($urlEnd);
+                        $img->resize(583,440,'crop');
+                        $img->save("medium-".$aFile[0], $dst);
+                        $img->resize(265,200,'crop');
+                        $img->save("small-".$aFile[0], $dst);
+                        flog('create:medium-small');
+                    }
+                }
+        closedir($dir);
     }
 
     /**

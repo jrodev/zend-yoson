@@ -84,6 +84,17 @@ footer{
     height: 135px !important;
 }
 
-.content-dptos .caption{
+.content-casas .caption, .content-dptos .caption{
     height: 122px !important;
+}
+
+.content-casas ul.thumbnails li:hover,
+.content-dptos ul.thumbnails li:hover {
+    box-shadow: 0px 5px 20px 3px rgba(0,0,0,0.1) !important;
+    -webkit-transition: all .2s;
+    -webkit-transform: scale(1.10, 1.10);
+    -moz-transition: all .2s;
+    -moz-transform: scale(1.10, 1.10);
+    transition: all .2s;
+    transform: scale(1.10);
 }

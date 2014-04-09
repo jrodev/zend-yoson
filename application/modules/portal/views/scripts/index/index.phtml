@@ -1,4 +1,13 @@
             <?php /* Busqueda General, Busqueda por mapa y ultimos inmuebles */ ?>
+            <?php
+            //var_dump($this->rows[0]);
+            $t = array('','Estreno', 'Reventa',  'En construcción', 'Alquiler');
+            $ti = array('',
+                'Casa', 'Casa campo', 'Casa playa', 'dpto', 'dpto playa', 'dpto amoblado', 'offic/edif', 
+                'offic/casa', 'tienda/local', 'local industrial', 'venta aires', 'Estacionam', 'Terreno', 
+                'Terr. playa', 'Terr. en habilitacion', 'terreno agricola'
+            );
+            ?>
             <div class="row-fluid">
                 <div id="search" class="span9">
                     <?php echo $this->partial('index/partials/search.phtml', array()) //Buscador General y por mapa ?>
@@ -11,37 +20,41 @@
             <div class="content-casas row-fluid">
                 <span class="span12">
                     <ul class="thumbnails">
-                        <?php $i=1; while($i<=4): ?>
+                        <?php $i=1; foreach($this->rows as $r): ?>
+                        <?php if($r['tipoImn']==1):?>
                         <li class="span3 <?php if($i>1 and ($i-1)%4==0){?>iniRow<?php } ?> witget">
                             <div class="thumbnail">
-                                <img src="http://placehold.it/260x180" alt="">
+                                <?php
+                                $aImg   = explode('|',$r['imageInm']);
+                                $urlImg = STAT_URL.'/uploads/inm/usu'.$r['idUsu'].'/inm'.$r['id'].'/small-'.$aImg[0];
+                                ?>
+                                <img src="<?php echo $urlImg?>" alt="">
                                 <div class="caption">
-                                    <h5>Etiqueta Thumbnail</h5>
-                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                                    <h5><?php echo $t[$r['transaccion']].' de '.$ti[$r['tipoImn']].' en '.strtolower($r['nomDpto']).'-'.strtolower($r['nomDist'])?></h5>
+                                    <p><?php echo $r['detalle']?></p>
                                     <p><a href="#" class="btn">Vista previa</a><a href="#" class="btn btn-primary">Detalle...</a></p>
                                 </div>
                             </div>
                         </li>
-                        <?php $i++; endwhile;?>
+                        <?php $i++; endif;?>
+                        <?php endforeach;?>
                     </ul>
                 </span>
             </div>
-           <?php
-           //var_dump($this->rows[0]);
-           $t = array('','Estreno', 'Reventa',  'En construcción', 'Alquiler');
-           $ti = array('',
-               'Casa', 'Casa campo', 'Casa playa', 'dpto', 'dpto playa', 'dpto amoblado', 'offic/edif', 'offic/casa', 'tienda/local', 
-               'local industrial', 'venta aires', 'Estacionam', 'Terreno', 'Terr. playa', 'Terr. en habilitacion', 'terreno agricola'
-           );
-           ?> 
+
             <div class="row-fluid"><h3 class="tit-blue-h3">DEPARTAMENTOS</h3></div>
             <div class="content-dptos row-fluid">
                 <span class="span12">
                     <ul class="thumbnails">
                         <?php $i=1; foreach($this->rows as $r): ?>
+                        <?php if($r['tipoImn']==4):?>
                         <li class="span3 <?php if($i>1 and ($i-1)%4==0){?>iniRow<?php } ?> witget">
                             <div class="thumbnail">
-                                <img src="<?php echo STAT_URL.'/uploads/inm/'.$r['imageInm']?>" alt="">
+                                <?php
+                                $aImg   = explode('|',$r['imageInm']);
+                                $urlImg = STAT_URL.'/uploads/inm/usu'.$r['idUsu'].'/inm'.$r['id'].'/small-'.$aImg[0];
+                                ?>
+                                <img src="<?php echo $urlImg?>" alt="">
                                 <div class="caption">
                                     <h5><?php echo $t[$r['transaccion']].' de '.$ti[$r['tipoImn']].' en '.strtolower($r['nomDpto']).'-'.strtolower($r['nomDist'])?></h5>
                                     <p><?php echo $r['detalle']?></p>
@@ -49,7 +62,8 @@
                                 </div>
                             </div>
                         </li>
-                        <?php $i++; endforeach;?>
+                        <?php $i++; endif;?>
+                        <?php endforeach;?>
                     </ul>
                 </span>
             </div>

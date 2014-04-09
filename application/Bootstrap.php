@@ -35,14 +35,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initAutoload() 
     {   
-        return ; // quitar e incluir clase para utilizar  <----------------------------
-        var_dump("_initAutoload");
-        $vendorsAutoloader = new Zend_Loader_Autoloader_Resource(array(
-            'namespace' => 'Firelogger',
-            'basePath' => APPLICATION_PATH.'/../library/Firelogger',
+        Zend_Loader_Autoloader::getInstance()->registerNamespace('Extra_');
+        //return ; // quitar e incluir clase para utilizar  <----------------------------
+        /*$vendorsAutoloader = new Zend_Loader_Autoloader_Resource(array(
+            'namespace' => 'Extra',
+            'basePath' => APPLICATION_PATH.'/../library/Extra/',
         ));
-        $vendorsAutoloader->addResourceType('logger', 'Firelogger/', 'Firelogger');
-        Zend_Loader_Autoloader::getInstance()->pushAutoloader($vendorsAutoloader);
+        //$vendorsAutoloader->addResourceType('extra', 'Extra/', 'Extra');
+        Zend_Loader_Autoloader::getInstance()->pushAutoloader($vendorsAutoloader);*/
+        //var_dump("_initAutoload");
     }    
     
     /*Registrando los plugin que vayamos creando*/

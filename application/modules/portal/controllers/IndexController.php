@@ -14,6 +14,7 @@ class Portal_IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        //get_class(new Extra_Image('/sss/ss')); exit;
         // action body
         $this->view->headLink()->appendStylesheet(CSS_URL.'/bst.datepicker/base'.MIN.'.css');
         $this->view->headLink()->appendStylesheet(CSS_URL.'/bst.datepicker/clean'.MIN.'.css');
@@ -26,11 +27,10 @@ class Portal_IndexController extends Zend_Controller_Action
         $this->view->assign('var', "indexAction");
         
         $inmueble = new Application_Model_Agentes_Inmueble();
-        //$inmueble->getAll(); exit;
-        $this->view->rows = $inmueble->getAll();
-        flog("test",[]);
+        //var_dump($inmueble->getAll()); exit;
+        $this->view->rows = $inmueble->getAll(); flog('$inmueble->getAll():',$inmueble->getAll());
     }
-    
+
     public function resultmapAction()
     {
         $this->_helper->viewRenderer->setNoRender();
