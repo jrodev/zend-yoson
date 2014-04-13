@@ -28,6 +28,7 @@ class Application_Model_Agentes_Inmueble extends Zend_Db_Table
         else { $id=$data['id']; unset($data['id']); }
         $affec = $this->update($data, 'id='.(int)$id);
         flog('rows affecs:',$affec);
+        flog('mysql_err:',  mysql_error());
         return $affec;
     }
     
