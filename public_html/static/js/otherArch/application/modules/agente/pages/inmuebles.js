@@ -177,9 +177,6 @@ $(function(){
     // adicionado en el controller
     window.vars = window.vars||{}; 
     
-    // Menu desplegable para listado de cantidad de registros por pagina
-    $('.dropdown-toggle').dropdown();
-    
     // Resolviendo bug de Description inline para los radios buttons en ZendForm
     //$('.radio').parent().find('.help-block').removeClass('help-block').addClass('help-inline');
     $('.help-block').removeClass('help-block').addClass('help-inline');
@@ -231,7 +228,7 @@ $(function(){
     
     // MAPA ----------------------------------------------------------------------------------------
     var antLatLng = $.trim($('#ubicacion').val()); console.log('antLatLng:'+antLatLng   );
-    runMap(antLatLng?antLatLng:'-12.084471260776178/-77.04129791259766');
+    if(typeof(google)!='undefined')runMap(antLatLng?antLatLng:'-12.084471260776178/-77.04129791259766');
     
     // SELECTS DEPENDIENTES ------------------------------------------------------------------------
     var selsVals = window.vars.selsVals||[]; //$.trim($('#selsVals').val())?$.trim($('#selsVals').val()).split('|'):[];
@@ -345,36 +342,25 @@ $(function(){
         });
 
     })();
+    
+    // CAMBIO ESTADO - Listado Inmubles -----------------------------------------------------------
+    $('.inm-status').bind('change', function(){
+        $this = $(this);
+        $imgLoading = $this.parent().find('img');
+        $this.css('display','none');
+        $imgLoading.css('display','block');
+        $.ajax({
+            url:URL_BASE+'/agentes/inmuebles/index',
+            type:"POST",
+            data:{id:$(this).attr('inm-id'),estado:$(this).find('option:selected').val()},
+            success:function(sRowsAffec){
+                $this.css('display','block');
+                $imgLoading.css('display','none');
+                if($.trim(sRowsAffec)=='0') alert('ajax error!');
+            }
+        });
+    });
 
     return; 
-
-    // Upload fileReader
-    $("#imageInm").fileReader({
-        id: 'swfFile',
-        filereader:URL_BASE+'/static/js/otherArch/library/jquery/plugins/filereader.swf',
-        callback: function(){ console.log('arguments:',arguments[0]); }
-        //debugMode:true
-    });
-    $("#imageInm").on('change', function(evt) {
- 
-        for (var i = 0; i < evt.target.files.length; i++) {
-            console.log(evt.target.files[i]);
-        }
-        
-        $(".form-horizontal").ajaxForm({
-            target: '#preview',
-            beforeSubmit: function() {
-                
-                console.log('beforeSubmit:', arguments);
-            },
-            success: function() {
-                console.log('success:', arguments);
-            },
-            error: function() {
-                console.log('error:', arguments);
-            },
-        })/*.submit()*/;
-
-    });
 });
 //};

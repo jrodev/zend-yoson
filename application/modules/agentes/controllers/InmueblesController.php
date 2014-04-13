@@ -20,6 +20,23 @@ class Agentes_InmueblesController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        if ($this->getRequest()->isPost() && $this->getRequest()->isXmlHttpRequest()) {
+            $this->_helper->layout()->disableLayout(); 
+            $this->_helper->viewRenderer->setNoRender(true);
+            
+            $id  = $this->getRequest()->getPost('id', FALSE);
+            $est = $this->getRequest()->getPost('estado', FALSE);
+            flog('$id,$est:',array($id,$est));
+            if(!$id && !$value) throw new Exception("stateAction:field or value is empy!");
+            $moInm = new Application_Model_Agentes_Inmueble();
+            $res = $moInm->upd(array('id'=>$id,'estado'=>$est));
+            flog('$id,$est,$res:',array($id,$est,$res));
+            echo $res;
+            return;
+        }
+        $urlinmjs = JS_URL.'/application/modules/agente/pages/inmuebles.js';
+        $this->view->headScript()->appendFile( $urlinmjs, null);
+        
         $moInm = new Application_Model_Agentes_Inmueble();
         $page = (int)$this->getRequest()->getParam('page',1);
         $rowsPage = (int)$this->getRequest()->getParam('rows',$this->cantRegs);
@@ -307,7 +324,12 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         exit;
     }
     
-    /**
+    public function stateAction()
+    {
+
+    }
+
+        /**
      * @param string $rutaImg Ruta donde se guardara la imagen ($this->tempUpl."/$authtoken")
      * @param string $base64Image Imagen como cadena en base64
      * @param bool $isEdit Si es una edicion TRUE si es insercion FALSE.

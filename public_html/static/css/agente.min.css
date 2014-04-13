@@ -9,3 +9,5 @@ select.parking{width: 70px;}
 .help-inline b, .controls .help-block b{color: red; font-weight: bold; font-size: 16px;}
 /*.controls .help-block{display:inline;}*/
 .img-prev{height: 100px; margin: 5px; }
+
+.inm-status{width:100%;font-size:11px;height:25px;margin-bottom:0;}

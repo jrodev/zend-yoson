@@ -52,7 +52,7 @@ class Application_Plugin_SchemaAdmin extends Zend_Controller_Plugin_Abstract {
                     'active' => false,
                 ),
                 'inmuebles'=> array(
-                    'text' => 'Listado Inmuebles',
+                    'text' => 'Inmuebles',
                     'acts' => array(
                         'index'  => array('text'=>'Listar inmuebles' ,'menu'=>true , 'active'=>false),
                         'create' => array('text'=>'Nuevo inmueble'   ,'menu'=>false, 'active'=>false),
