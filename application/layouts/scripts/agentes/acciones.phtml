@@ -8,8 +8,9 @@
                                 <?php foreach($this->plg_acci as $acci=>$aVal): $act='';?>
                                 <?php if($aVal['active']){$act='class="active"';} echo "\n"; ?>
                                 <?php $pageYCant=($this->ctrl=='inmuebles' && $acci=='index')?'/1/5':''?>
+                                <?php $url=($acci!='edit')?("/agentes/$this->ctrl/$acci".$pageYCant):'#'?>
                                 <li <?php echo $act; ?>>
-                                    <a href="/agentes/<?php echo "$this->ctrl/$acci".$pageYCant ?>">
+                                    <a href="<?php echo $url?>">
                                         <?php echo $aVal['text']; ?>
                                     </a>
                                 </li>
