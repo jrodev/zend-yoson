@@ -55,8 +55,8 @@
                                 <td><?php echo $cd[$r['classDpto']];?></td>
                                 <td><?php echo $zn[$r['zonificacion']];?></td>
                                 <td><?php echo $r['fechEntrega'];?></td>
-                                <td style="text-align:center">
-                                    <img src="<?php echo CSS_URL.'/img/Progressbar.gif'?>" style="display:none" />
+                                <td>
+                                    <img src="<?php echo CSS_URL.'/img/Progressbar.gif'?>" style="display:none; margin: 3px auto" />
                                     <select id="sel<?php echo $r['id']?>" inm-id="<?php echo $r['id']?>" class="inm-status">
                                         Retirado Activo Reactivado Caducado
                                         <option value="0" <?php echo ($r['estado']==0)?'selected':''?>>Retirado</option>
@@ -67,8 +67,9 @@
                                 </td>
                                 <td>
                                     <?php $urlEdit = BASE_URL.'/agentes/inmuebles/edit/'.$r['id']?>
-                                    <a href="<?php echo $urlEdit?>" class="icon-pencil"></a> 
-                                    <a href="#" class="icon-trash"></a>
+                                    <a href="<?php echo $urlEdit?>" class="icon-pencil"></a>
+                                    <img src="<?php echo CSS_URL.'/img/loader.gif'?>" style="display:none" />
+                                    <a href="#" inm-id="<?php echo $r['id']?>" class="icon-trash"></a>
                                 </td>
                             </tr>
                             <?php endforeach;?>

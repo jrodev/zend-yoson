@@ -356,7 +356,28 @@ $(function(){
             success:function(sRowsAffec){
                 $this.css('display','block');
                 $imgLoading.css('display','none');
-                if($.trim(sRowsAffec)=='0') alert('ajax error!');
+                if($.trim(sRowsAffec)=='0') alert('ajax upd error!');
+            }
+        });
+    });
+    
+    // Eliminando un registro
+    $('.icon-trash').bind('click', function(){
+        $this = $(this);
+        $imgLoading = $this.parent().find('img');
+        $this.css('display','none');
+        $imgLoading.css('display','inline');
+        $.ajax({
+            url:URL_BASE+'/agentes/inmuebles/index',
+            type:"POST",
+            data:{id:$(this).attr('inm-id'),isDel:true},
+            success:function(sRowsAffec){
+                if($.trim(sRowsAffec)=='0') alert('ajax del error!');
+                else{
+                    $this.parents('tr').find('td').slideUp('slow',function(){
+                        $this.parents('tr').remove();
+                    });                  
+                }
             }
         });
     });

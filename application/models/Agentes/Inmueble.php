@@ -35,7 +35,7 @@ class Application_Model_Agentes_Inmueble extends Zend_Db_Table
     public function del($id)
     {
         if(!isset($id)) throw new Exception("id no isset!");
-        $this->delete('id = '.(int)$id);
+        return $this->delete('id = '.(int)$id);
     }
     
     public function getById($id=0, $cols='*')

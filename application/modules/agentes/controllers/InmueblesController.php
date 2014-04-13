@@ -23,13 +23,24 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         if ($this->getRequest()->isPost() && $this->getRequest()->isXmlHttpRequest()) {
             $this->_helper->layout()->disableLayout(); 
             $this->_helper->viewRenderer->setNoRender(true);
+            $moInm = new Application_Model_Agentes_Inmueble();
             
             $id  = $this->getRequest()->getPost('id', FALSE);
-            $est = $this->getRequest()->getPost('estado', FALSE);
+            $isDel = $this->getRequest()->getPost('isDel', FALSE);
+            
+            if(!$id) throw new Exception("indexAction:field id is empy!");
+            
+            if ($isDel) {
+                $res = $moInm->del((int)$id); flog('$id,$res:',array($id,$res));
+                echo $res;
+                return ;
+            }
+            
+            $est = $this->getRequest()->getPost('estado', FALSE); 
             flog('$id,$est:',array($id,$est));
-            if(!$id && !$value) throw new Exception("stateAction:field or value is empy!");
-            $moInm = new Application_Model_Agentes_Inmueble();
-            $res = $moInm->upd(array('id'=>$id,'estado'=>$est));
+            if(trim($est)==='') throw new Exception("stateAction:field estado is empy!");
+            
+            $res = $moInm->upd(array('id'=>$id,'estado'=>$est)); 
             flog('$id,$est,$res:',array($id,$est,$res));
             echo $res;
             return;
