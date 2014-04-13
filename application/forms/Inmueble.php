@@ -86,7 +86,7 @@ class Application_Form_Inmueble extends Twitter_Form {
                 1=>'Casa', 2=>'Casa de Campo', 3=>'Casa de Playa', 4=>'Departamento', 5=>'Depart. de Playa',
                 6=>'Dpto amoblado', 7=>'Oficinas /Edificio', 8=>'Oficinas/casa', 9=>'Tienda/Local', 
                 10=>'Local Industrial', 11=>'Venta de Aires', 12=>'Estacionamiento', 13=>'Terreno', 
-                14=>'Terr. Playa', 15=>'Terr. en habilitacion', 16=>'Terreno Agricola', 17=>'En construccion'
+                14=>'Terr. Playa', 15=>'Terr. en habilitacion', 16=>'Terreno Agricola', //17=>'En construccion'
             ),
         ))/*->setAttrib('placeholder', 'foo')*/;
         // Fecha de entrega
@@ -305,11 +305,12 @@ class Application_Form_Inmueble extends Twitter_Form {
         // Precio
         //$txtCantDorm = $this->createElement('text', 'cantDorm', array('label'=>'Dormitorios','class'=>'cant-dorm','maxlength'=>1));
         // Token
+        /*
         $myNs = new Zend_Session_Namespace('authtoken');
         $myNs->setExpirationSeconds(1800); // 30min
         $myNs->authtoken = $hash = md5(uniqid(rand(), 1)); flog("form hash:",$hash);
         $hdAuth = new Zend_Form_Element_Hidden('authtoken');
-        $hdAuth->setValue($hash)->setRequired('true')->removeDecorator('HtmlTag')->removeDecorator('Label');
+        $hdAuth->setValue($hash)->setRequired('true')->removeDecorator('HtmlTag')->removeDecorator('Label');*/
 
         $this->addElements(array(
             $txtPais, $txtDpto, $txtProvs, $txtDist, $txtUrb, $txtTipoUbi, $txtDir, $txtDet, $rdoEst, $hdUbicacion, 
@@ -323,7 +324,7 @@ class Application_Form_Inmueble extends Twitter_Form {
             $rdoClassDpto->setValue(1), $rdoZonific, $txtPisosAut, $txtCondInm, $rdoRejas->setValue('2'), $rdoVig24h->setValue('2'), 
             $rdoFrenteMar->setValue('2'), $rdoVistaMar->setValue('2'), $rdoFrenteParq->setValue('2'), $rdoAreaRecep, /*$rdoSalaRecep,*/ 
             $rdoAreaEspar, $rdoAreaBbq, $rdoAreaDepor, $rdoPermMasc, $rdoServAgua->setValue('1'), $rdoServDesague->setValue('1'), 
-            $rdoServElectr->setValue('1'), $rdoServGas->setValue('2'), $hdAuth,
+            $rdoServElectr->setValue('1'), $rdoServGas->setValue('2'), /*$hdAuth,*/
         ));
         
         $this->addElement('submit', 'guardar', array('label' => 'Guardar'));
@@ -331,5 +332,15 @@ class Application_Form_Inmueble extends Twitter_Form {
         
         return;
 
+    }
+    
+    public function addFormToken()
+    {
+        $myNs = new Zend_Session_Namespace('authtoken');
+        $myNs->setExpirationSeconds(1800); // 30min
+        $myNs->authtoken = $hash = md5(uniqid(rand(), 1)); flog("form hash:",$hash);
+        $hdAuth = new Zend_Form_Element_Hidden('authtoken');
+        $hdAuth->setValue($hash)->setRequired('true')->removeDecorator('HtmlTag')->removeDecorator('Label');
+        $this->addElement($hdAuth);
     }
 }

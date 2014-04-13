@@ -1,37 +1,90 @@
-                    
-                    <table class="table table-bordered table-hover">
+
+                    <?php
+                    //var_dump($this->rows[0]);
+                    // Tipo departamento
+                    $ti = array('',
+                        'Casa', 'Casa campo', 'Casa playa', 'dpto', 'dpto playa', 'dpto amoblado', 'offic/edif', 
+                        'offic/casa', 'tienda/local', 'local industrial', 'venta aires', 'Estacionam.', 'Terreno', 
+                        'Terr. playa', 'Terr. en habilitacion', 'Terr. agricola'
+                    );
+                    //Clase dpto
+                    $cd = array(''=>'No aplicable','Flat','Duplex','Triplex','PentHouse','Otros');
+                    //Zonificacion
+                    $zn = array('Residencial','Comercial','Ofc. Admin.','Industrial','Otros');
+                    ?>
+
+                    <div style="margin-top: 18px;" class="btn-toolbar">
+                        <div class="btn-group">
+                            <button class="btn btn-primary">registros</button>
+                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php echo sprintf($this->thisUrl, $this->page, 5) ?>">5</a></li>
+                                <li><a href="<?php echo sprintf($this->thisUrl, $this->page, 10) ?>">10</a></li>
+                                <li><a href="<?php echo sprintf($this->thisUrl, $this->page, 15) ?>">15</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-hover" style="font-size: 11px;">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
+                                <th>id</th>
+                                <th>Prov.</th>
+                                <th>Dist.</th>
+                                <th>Precio</th>
+                                <th>Transac.</th>
+                                <th>Tipo.</th>
+                                <th>Clase</th>
+                                <th>Zonific.</th>
+                                <th>Entrega</th>
+                                <th>Estado</th>
+                                <th>editar</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach($this->rows as $r):?>
                             <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                                <td><?php echo $r['id'];?></td>
+                                <td><?php echo $r['nomProv'];?></td>
+                                <td><?php echo $r['nomDist'];?></td>
+                                <td><?php echo (($r['precioInm']==1)?'S/.':'$.').$r['precio']?></td>
+                                <?php $trans = array('','Estreno','Reventa','Construcción','Alquiler')?>
+                                <td><?php echo $trans[$r['transaccion']]?></td>
+                                <td><?php echo $ti[$r['tipoImn']];?></td>
+                                <td><?php echo $cd[$r['classDpto']];?></td>
+                                <td><?php echo $zn[$r['zonificacion']];?></td>
+                                <td><?php echo $r['fechEntrega'];?></td>
+                                <td>
+                                    <select id="sel<?php echo $r['id']?>" 
+                                        style="width:100%;font-size:11px;height:25px;margin-bottom:0;">
+                                        Retirado Activo Reactivado Caducado
+                                        <option value="0" <?php echo ($r['estado']==0)?'selected':''?>>Retirado</option>
+                                        <option value="1" <?php echo ($r['estado']==1)?'selected':''?>>Activo</option>
+                                        <option value="2" <?php echo ($r['estado']==2)?'selected':''?>>Reactiv.</option>
+                                        <option value="3" <?php echo ($r['estado']==3)?'selected':''?>>Caducado</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <?php $urlEdit = BASE_URL.'/agentes/inmuebles/edit/'.$r['id']?>
+                                    <a href="<?php echo $urlEdit?>" class="icon-pencil"></a> 
+                                    <a href="#" class="icon-trash"></a>
+                                </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@TwBootstrap</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Jacob</td>
-                                <td>Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            <?php endforeach;?>
                         </tbody>
                     </table>
+
+                    <div class="pagination" style="text-align: right">
+                        <ul>
+                            <?php $disabled = ((int)$this->page==1)?' class="disabled"':''?>
+                            <li<?php echo $disabled?>>
+                                <a href="<?php echo sprintf($this->thisUrl, (int)$this->page-1, $this->rowsPage)?>">«</a>
+                            </li>
+                            <?php for($i=1; $i<=(int)$this->cantPages; $i++):?>
+                            <?php $active = ((int)$this->page==$i)?' class="active"':'' ?>
+                            <?php $link = sprintf($this->thisUrl, $i, $this->rowsPage) ?>
+                            <li<?php echo $active?>><a href="<?php echo $link?>"><?php echo $i?></a></li>
+                            <?php endfor;?>
+                            <li><a href="<?php echo sprintf($this->thisUrl, (int)$this->page+1, $this->rowsPage)?>">»</a></li>
+                        </ul>
+                    </div>

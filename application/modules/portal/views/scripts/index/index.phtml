@@ -1,6 +1,6 @@
             <?php /* Busqueda General, Busqueda por mapa y ultimos inmuebles */ ?>
             <?php
-            //var_dump($this->rows[0]);
+            //var_dump($this->casas); exit;
             $t = array('','Estreno', 'Reventa',  'En construcción', 'Alquiler');
             $ti = array('',
                 'Casa', 'Casa campo', 'Casa playa', 'dpto', 'dpto playa', 'dpto amoblado', 'offic/edif', 
@@ -16,12 +16,12 @@
                     <?php echo $this->partial('index/partials/lastAds.phtml', array()) //Ultimos avisos agregados ?>
                 </div>
             </div>
-            <div class="row-fluid"><h3 class="tit-blue-h3">CASAS</h3></div>
+            <div class="row-fluid"><h3 class="tit-blue-h3">DEPARTAMENTOS</h3></div>
             <div class="content-casas row-fluid">
                 <span class="span12">
                     <ul class="thumbnails">
-                        <?php $i=1; foreach($this->rows as $r): ?>
-                        <?php if($r['tipoImn']==1):?>
+                        <?php $i=1; foreach($this->dptos as $r): ?>
+                        <?php //if($r['tipoImn']==1):?>
                         <li class="span3 <?php if($i>1 and ($i-1)%4==0){?>iniRow<?php } ?> witget">
                             <div class="thumbnail">
                                 <?php
@@ -36,18 +36,18 @@
                                 </div>
                             </div>
                         </li>
-                        <?php $i++; endif;?>
+                        <?php $i++; //endif;?>
                         <?php endforeach;?>
                     </ul>
                 </span>
             </div>
 
-            <div class="row-fluid"><h3 class="tit-blue-h3">DEPARTAMENTOS</h3></div>
+            <div class="row-fluid"><h3 class="tit-blue-h3">CASAS</h3></div>
             <div class="content-dptos row-fluid">
                 <span class="span12">
                     <ul class="thumbnails">
-                        <?php $i=1; foreach($this->rows as $r): ?>
-                        <?php if($r['tipoImn']==4):?>
+                        <?php $i=1; foreach($this->casas as $r): ?>
+                        <?php //if($r['tipoImn']==4):?>
                         <li class="span3 <?php if($i>1 and ($i-1)%4==0){?>iniRow<?php } ?> witget">
                             <div class="thumbnail">
                                 <?php
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </li>
-                        <?php $i++; endif;?>
+                        <?php $i++; //endif;?>
                         <?php endforeach;?>
                     </ul>
                 </span>

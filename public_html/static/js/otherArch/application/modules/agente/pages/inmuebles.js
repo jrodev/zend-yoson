@@ -176,6 +176,10 @@ var SelDep = (function(Sb){
 $(function(){
     // adicionado en el controller
     window.vars = window.vars||{}; 
+    
+    // Menu desplegable para listado de cantidad de registros por pagina
+    $('.dropdown-toggle').dropdown();
+    
     // Resolviendo bug de Description inline para los radios buttons en ZendForm
     //$('.radio').parent().find('.help-block').removeClass('help-block').addClass('help-inline');
     $('.help-block').removeClass('help-block').addClass('help-inline');
@@ -277,6 +281,7 @@ $(function(){
             if(isAjx){
                 var arrSrc = srcImg.split('/');
                 var nomImg = arrSrc[arrSrc.length-1];
+                if(window.vars.edit) nomImg=nomImg.split('-')[1];
                 var images = $.trim($('#imageInm').val())?$.trim($('#imageInm').val()).split('|'):[];
                 images.push(nomImg); console.log('images:',images);
                 $('#imageInm').val(images.join('|'));
@@ -291,7 +296,8 @@ $(function(){
         var strImgs = $.trim($('#imageInm').val());
         if(strImgs){
             var aNamesImgs = strImgs.split('|'); //var imgUri = 'static/uploads/inm/';
-            for(var i=0;i<aNamesImgs.length; i++) createImg(aNamesImgs[i]);
+            var sufix = window.vars.edit?'small-':'';
+            for(var i=0;i<aNamesImgs.length; i++) createImg(sufix+aNamesImgs[i]);
         }
 
         // we just want to show the result into the div

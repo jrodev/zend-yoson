@@ -55,7 +55,8 @@ class Application_Plugin_SchemaAdmin extends Zend_Controller_Plugin_Abstract {
                     'text' => 'Listado Inmuebles',
                     'acts' => array(
                         'index'  => array('text'=>'Listar inmuebles' ,'menu'=>true , 'active'=>false),
-                        'create' => array('text'=>'Nuevo inmueble'   ,'menu'=>false, 'active'=>false),                        
+                        'create' => array('text'=>'Nuevo inmueble'   ,'menu'=>false, 'active'=>false),
+                        'edit'   => array('text'=>'Editando inmueble','menu'=>false, 'active'=>false),
                     ),
                     'active' => false,
                 ),
@@ -82,6 +83,7 @@ class Application_Plugin_SchemaAdmin extends Zend_Controller_Plugin_Abstract {
             $this->_view->ctrl = $ctrl;
             $this->_view->plg_secc=$SeccAcc[$modu];
             $this->_view->plg_acci=$SeccAcc[$modu][$ctrl]['acts'];
+            //var_dump($SeccAcc[$modu][$ctrl]['acts']);
         }
     }
 }

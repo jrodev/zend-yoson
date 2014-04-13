@@ -63,9 +63,12 @@ h3.tit-blue-h3{  font-size: 17px; margin: 0; padding: 0; }  /*tit-last-ad*/
 select#dist, select#opc, select#tipo, select#prec{ width: 100px; }
 
 /*Home - witget*/
-.witget .caption h5{ margin: 0 !important;}
+.witget .caption h5{ margin: 0 !important; height: 38px; overflow: hidden; }
 .witget .caption{padding:8px 2px 0 !important;}
-.witget .caption p{ margin: 5px 0 !important; line-height:15px !important; font-size: 12px !important; }
+.witget .caption p{
+    margin: 5px 0 !important; line-height:15px !important; 
+    font-size: 12px !important; height: 41px;
+}
 .witget a.btn-primary{float:right !important;}
 
 /*Home - footer*/
