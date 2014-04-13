@@ -6,9 +6,9 @@
                                 <?php if($this->plg_secc and !isset($this->errCode)): ?>
                                     <?php foreach($this->plg_secc as $sec=>$aVal):  ?>
                                     <?php $act=''; if($aVal['active']){$act='class="active"';} echo "\n";?>
-                                    <?php $pageYCant=($sec=='inmuebles')?'/1/5':'';?>
+                                    <?php $pageYCant=($sec=='inmuebles')?'/1/5':''?>
                                     <li <?php echo $act; ?>>
-                                        <a href="/agentes/<?php echo $sec ?>/index<?php echo $pageYCant ?>">
+                                        <a href="/agentes/<?php echo $sec ?>/index<?php echo $pageYCant?>">
                                             <?php echo $aVal['text']; ?>
                                         </a>
                                     </li>

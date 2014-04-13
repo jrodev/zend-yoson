@@ -7,8 +7,11 @@
                                 if($this->plg_acci and !isset($this->errCode)): ?>
                                 <?php foreach($this->plg_acci as $acci=>$aVal): $act='';?>
                                 <?php if($aVal['active']){$act='class="active"';} echo "\n"; ?>
+                                <?php $pageYCant=($this->ctrl=='inmuebles' && $acci=='index')?'/1/5':''?>
                                 <li <?php echo $act; ?>>
-                                    <a href="/agentes/<?php echo "$this->ctrl/$acci" ?>"><?php echo $aVal['text']; ?></a>
+                                    <a href="/agentes/<?php echo "$this->ctrl/$acci".$pageYCant ?>">
+                                        <?php echo $aVal['text']; ?>
+                                    </a>
                                 </li>
                                 <?php endforeach; ?>
                             <?php endif; echo "\n"; ?>
