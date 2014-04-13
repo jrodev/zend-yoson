@@ -23,12 +23,13 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         $moInm = new Application_Model_Agentes_Inmueble();
         $page = (int)$this->getRequest()->getParam('page',1);
         $rowsPage = (int)$this->getRequest()->getParam('rows',$this->cantRegs);
-        
+
         $rows = (int)$moInm->getCountRows('inmueble');
         $cantPages = (int)($rows/$rowsPage) + (($rows%$rowsPage)?1:0);
 
         $this->view->rows = $moInm->getAll($page, $rowsPage);
         
+        // suponiendo que la url siempre llega de esta forma: .../agentes/inmuebles/index/x/y
         $thisUrl = BASE_URL.$this->getRequest()->getRequestUri();
         $aUrl = explode('/', $thisUrl);
         $aUrl[count($aUrl)-1] = '%s';
