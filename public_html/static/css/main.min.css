@@ -11,7 +11,7 @@ h3.tit-blue-h3{  font-size: 17px; margin: 0; padding: 0; }  /*tit-last-ad*/
 #frm-search-gral .row{margin-left: auto !important;}
 #frm-search-gral .span12 > label{font-weight: bold; }
 #frm-search-gral .row-fluid{margin-bottom: 15px;}
-.lbl-search{display: inline-block;} /*usado en lbl de: home - search - sel provincia*/
+.lbl-search{display: inline-block; margin-top:5px; *float:left; float:left\9} /*usado en lbl de: home - search - sel provincia*/
 #search-prov, .distritos{ width: 150px; }
 
 /*Tuneo bootstrapT0*/
@@ -20,10 +20,17 @@ h3.tit-blue-h3{  font-size: 17px; margin: 0; padding: 0; }  /*tit-last-ad*/
 /*Busqueda gral tuneo bootstrap*/
 #search .tab-content{
     overflow: inherit !important;
+    /*Interactua con bg-form (mas abajo)*/
+    position: absolute; color: rgb(255, 255, 255);
+    *overflow: hidden;  /*para ie7*/
+    overflow: hidden\9; /*para ie8*/
+    z-index: 2;
 }
 #search #frm-search-gral .row-fluid{
-    border: 1px solid #DDD;
-    width: 96% !important;
+    border: 1px solid #7A7A7A;
+    width: 98%;
+    *width: 96%;
+    width: 96%\9;
     padding: 10px;
 }
 
@@ -53,11 +60,11 @@ h3.tit-blue-h3{  font-size: 17px; margin: 0; padding: 0; }  /*tit-last-ad*/
 #estadoInm div.span2{ padding-top: 15px !important; }
 
 /*Home - Mapa*/
-#gmap{ width:700px; height:450px; /*float:left;*/ }
+#gmap{ width:680px; height:470px; margin:0 10px; /*float:left;*/ }
 #gmap img { max-width: none !important; vertical-align: baseline !important; }
 #gmap label{width: auto; display:inline;}
 #tblMap{ border: 0px solid #333; }
-#tblMap td{ /*padding:3px;*/ }
+/*#tblMap td{ padding:3px; }*/
 
 /*Home - width combox*/
 select#dist, select#opc, select#tipo, select#prec{ width: 100px; }
@@ -101,3 +108,26 @@ footer{
     transition: all .2s;
     transform: scale(1.10);
 }
+
+/* background gris form*/
+.bg-form{
+    height:528px; z-index:1; opacity:0.59; background:none repeat scroll 0px 0px rgb(21, 21, 23);
+    -moz-opacity: 0.59; opacity:.59; filter: alpha(opacity=59); border-radius:0 5px 5px; 
+}
+body{
+    background-color: #FFFFFF;
+    background-image: url("http://local.zendyoson.pe:82/static/css/img/bgbody.jpg");
+    background-position: 0 49px;
+    background-repeat: no-repeat;
+    /*font-size: 14px;*/
+}
+
+#dist1,#dist2,#dist3{float:right;}
+.nav-tabs > li > a{ background:#ccc; color:#999; }
+.tab-form-search{ *width:700px; width:700px\9; }
+.nav-search{ margin-bottom:0; border-bottom:0; } /*chancando lo de .nav*/
+.first-panel-search{ margin-top:10px; }
+tr#sels-map td{ padding-top:10px; }
+#estac{float:right;}
+
+#frm-search-gral .row-fluid{ border-radius:5px; }

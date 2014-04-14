@@ -30,7 +30,7 @@ class Portal_IndexController extends Zend_Controller_Action
         //var_dump($inmueble->getAll()); exit;
         $this->view->casas = $inmueble->getAll( 1,20,'DESC','*',array('tipoImn IN (?)',array(1,2,3)) );
         $this->view->dptos = $inmueble->getAll( 1,20,'DESC','*',array('tipoImn IN (?)',array(4,5,6)) ); 
-        flog('$inmueble->getAll():',$inmueble->getAll());
+        //flog('$inmueble->getAll():',$inmueble->getAll());
     }
 
     public function resultmapAction()

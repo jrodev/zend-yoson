@@ -1,13 +1,13 @@
                     <div class="tabbable">
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-search nav-tabs">
                             <li class="active"><a href="#1" data-toggle="tab"><b>Busqueda por Mapa</b></a></li>
                             <li><a href="#2" data-toggle="tab"><b>Busqueda General</b></a></li>
                         </ul>
                         <div class="tab-content">
                             <!-- Busqueda por Mapa -->
-                            <div class="tab-pane active" id="1">
+                            <div class="tab-pane tab-form-search active" id="1">
                                 <form id="frm-search-gral" class="form-horizontal">
-                                    <div class="row-fluid">
+                                    <div class="row-fluid first-panel-search">
                                         <div class="span12">                                          
                                             <label class="lbl-search">Provincia: </label>
                                             <select id="search-prov" name="search-prov">	    
@@ -110,13 +110,22 @@
                                         <div class="span10">
                                             <div class="row-fluid row-end">
                                                 <div class="span4">
-                                                    Ascensor: <select><option>Si</option></select>
+                                                    Ascensor: 
+                                                    <select id="ascensor" name="ascensor">
+                                                        <option>Si</option>
+                                                    </select>
                                                 </div>
                                                 <div class="span4">
-                                                    Garage: <select><option>1</option></select>
+                                                    Garage: 
+                                                    <select id="garages" name="garages">
+                                                        <option>1</option>
+                                                    </select>
                                                 </div>
                                                 <div class="span4">
-                                                    Estacionamientos: <select><option>1</option></select>
+                                                    Estacionamientos: 
+                                                    <select id="estac" name="estac">
+                                                        <option>1</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,7 +136,7 @@
                             <!-- Busqueda General -->
                             <div class="tab-pane" id="2">
                                 <table id="tblMap" align="center" border='0px' cellpadding="0" cellspacing="0">
-                                    <tr>
+                                    <tr id="sels-map">
                                         <td>
                                             <span>Distrito : </span>
                                             <select id="dist" name="dist">	    
@@ -170,4 +179,5 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="bg-form"></div>
                     </div>
