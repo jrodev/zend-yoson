@@ -116,7 +116,7 @@ footer{
 }
 body{
     background-color: #FFFFFF;
-    background-image: url("http://local.zendyoson.pe:82/static/css/img/bgbody.jpg");
+    background-image: url("img/bgbody.jpg");
     background-position: 0 49px;
     background-repeat: no-repeat;
     /*font-size: 14px;*/
