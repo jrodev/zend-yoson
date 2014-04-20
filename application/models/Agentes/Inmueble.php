@@ -66,7 +66,26 @@ class Application_Model_Agentes_Inmueble extends Zend_Db_Table
         return $db->fetchAll($sel);
     }
     
-    public function getCountRows($table=false)
+    public function getInmuebles($page=1, $cant=20, $ord='DESC', $cols='*', $whr=FALSE)
+    {
+        $db = $this->getDefaultAdapter();
+        $sel = $db->select();
+        $sel->from(array('i'=>$this->_name), $cols)
+            ->join(array('p' =>'pais'), 'i.pais=p.id'  , array('nomPais'=>'nombre'))//p.nombre
+            ->join(array('dp'=>'dpto'), 'i.dpto=dp.id' , array('nomDpto'=>'nombre'))//dp.nombre
+            ->join(array('pr'=>'prov'), 'i.prov=pr.id' , array('nomProv'=>'nombre'))//pr.nombre
+            ->join(array('di'=>'dist'), 'i.dist=di.id' , array('nomDist'=>'nombre'))//di.nombre
+            ->where('i.activo=1')
+        ;
+        if($whr && is_array($whr)){
+            foreach($whr as $k=>$v) $sel->where($k,$v);
+        }
+        $sel->order("i.fechareg $ord")->limitPage($page, $cant);
+        echo $sel; exit;
+        return $db->fetchAll($sel);
+    }
+
+        public function getCountRows($table=false)
     {
         if(!$table) return 0;
         $db = $this->getDefaultAdapter();

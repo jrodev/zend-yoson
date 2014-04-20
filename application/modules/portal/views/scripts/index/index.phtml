@@ -10,10 +10,23 @@
             ?>
             <div class="row-fluid">
                 <div id="search" class="span9">
-                    <?php echo $this->partial('index/partials/search.phtml', array()) //Buscador General y por mapa ?>
+                    <?php echo $this->partial('index/partials/search.phtml', array('ubDptos'=>$this->ubDptos)) //Buscador General y por mapa ?>
                 </div>
                 <div id="lastAds" class="span3">
-                    <?php echo $this->partial('index/partials/lastAds.phtml', array()) //Ultimos avisos agregados ?>
+                    <h3 id="titLastAds" class="tit-blue-h3">Ultimos Avisos</h3>
+                    <div id="ultsInm">
+                        <div id="carouselv">
+                            <?php $i=10; while($i--):?>
+                            <div>
+                                <span class="scroll-desc">
+                                    <a href="#">Venta inmueble en San Isidro</a>
+                                </span>
+                                <img alt="" src="http://local.zendyoson.pe:82/static/uploads/inm/usu2/inm41/small-534641af4c73e.jpg" /><br />
+                            </div>
+                            <?php endwhile;?>
+                        </div>
+                    </div>
+                    <?php //echo $this->partial('index/partials/lastAds.phtml', array()) //Ultimos avisos agregados ?>
                 </div>
             </div>
             <div class="row-fluid"><h3 class="tit-blue-h3">DEPARTAMENTOS</h3></div>

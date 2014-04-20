@@ -18,19 +18,26 @@ class Portal_IndexController extends Zend_Controller_Action
         // action body
         $this->view->headLink()->appendStylesheet(CSS_URL.'/bst.datepicker/base'.MIN.'.css');
         $this->view->headLink()->appendStylesheet(CSS_URL.'/bst.datepicker/clean'.MIN.'.css');
+        $this->view->headLink()->appendStylesheet(CSS_URL.'/jqCarousel2.0.css');
         //$this->view->headScript()->appendFile(JS_URL.'/library/class/jq.FileReader'.MIN.'.js');
         $this->view->headScript()->appendFile(JS_URL.'/library/datepicker'.MIN.'.js');
-        $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false');
         $this->view->headScript()->appendFile(JS_URL.'/library/class/utilMaps.js');
+        //$this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false');
+        $this->view->headScript()->appendFile(JS_URL.'/library/jquery/plugins/jqCarousel2.0.js');
         $this->view->headScript()->appendFile(JS_URL.'/application/modules/portal/pages/index.min.js');
         //Zend_Debug::dump($this->getRequest()->getParams());
         $this->view->assign('var', "indexAction");
         
         $inmueble = new Application_Model_Agentes_Inmueble();
-        //var_dump($inmueble->getAll()); exit;
+        $ubigeo   = new Application_Model_Agentes_Ubigeo();
+        
+        // listado de casas y departamentos
         $this->view->casas = $inmueble->getAll( 1,20,'DESC','*',array('tipoImn IN (?)',array(1,2,3)) );
-        $this->view->dptos = $inmueble->getAll( 1,20,'DESC','*',array('tipoImn IN (?)',array(4,5,6)) ); 
-        //flog('$inmueble->getAll():',$inmueble->getAll());
+        $this->view->dptos = $inmueble->getAll( 1,20,'DESC','*',array('tipoImn IN (?)',array(4,5,6)) );
+        
+        // Ubigeo: Departamentos
+        $this->view->ubDptos = $ubigeo->getDptos();
+
     }
 
     public function resultmapAction()
@@ -123,4 +130,22 @@ class Portal_IndexController extends Zend_Controller_Action
         return Zend_Json::encode(array('val1'=>'value1', 'val2'=>'value2'));
     }
 
+    public function provAction()
+    {
+        $ubigeo = new Application_Model_Agentes_Ubigeo();
+        $idDpto = $this->_request->getQuery('idDpto');
+        $res = $ubigeo->getProvs($idDpto);
+        echo Zend_Json::encode(array('status'=>'ok', 'data'=>$res));
+        exit;
+    }
+    
+    public function distAction()
+    {
+        $ubigeo = new Application_Model_Agentes_Ubigeo();
+        $idProv = $this->_request->getQuery('idProv');
+        $res = $ubigeo->getDists($idProv);
+        echo Zend_Json::encode(array('status'=>'ok', 'data'=>$res));
+        exit;
+    }
+    
 }
