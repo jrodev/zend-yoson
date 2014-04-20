@@ -55,7 +55,7 @@ h3.tit-blue-h3{  font-size: 17px; margin: 0; padding: 0; }  /*tit-last-ad*/
 }
 
 /*Home: Estado de inmueble*/
-#estadoInm select{ width: 60px !important; }
+#estadoInm select{ width: 56px !important; }
 
 /*Home: boton submit*/
 #estadoInm div.span2{ padding-top: 15px !important; text-align:right; }

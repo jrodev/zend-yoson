@@ -22,7 +22,7 @@ class Portal_IndexController extends Zend_Controller_Action
         //$this->view->headScript()->appendFile(JS_URL.'/library/class/jq.FileReader'.MIN.'.js');
         $this->view->headScript()->appendFile(JS_URL.'/library/datepicker'.MIN.'.js');
         $this->view->headScript()->appendFile(JS_URL.'/library/class/utilMaps.js');
-        //$this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false');
+        $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false');
         $this->view->headScript()->appendFile(JS_URL.'/library/jquery/plugins/jqCarousel2.0.js');
         $this->view->headScript()->appendFile(JS_URL.'/application/modules/portal/pages/index.min.js');
         //Zend_Debug::dump($this->getRequest()->getParams());
