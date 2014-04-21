@@ -1,0 +1,47 @@
+                            
+                            <?php echo "\n".$this->headLink() ?>
+                            <script src="<?php echo JS_URL ?>/library/jquery/jquery<?php echo MIN ?>.js"></script>
+                            <?php echo "\n".$this->headScript() ?>
+                            <?php var_dump('fooooooooo'); exit;?>
+                            <table id="tblMap" align="center" border='0px' cellpadding="0" cellspacing="0">
+                                <tr id="sels-map">
+                                    <td>
+                                        <span>Distrito : </span>
+                                        <select id="dist" name="dist">	    
+                                            <option value="11">Callao</option>
+                                            <option value="12">Bellavista</option>
+                                            <option value="13">Ventanilla</option>
+                                            <option value="14">La Punta</option>
+                                            <option value="15">La Perla</option>
+                                            <!-- ... Etc Etc ... -->
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <span>Opcion : </span>
+                                        <select name="opc" id="opc">
+                                            <option value="Estreno">Estreno</option>
+                                            <option value="Reventa">Reventa</option>
+                                            <option value="Alquiler">Alquiler</option>
+                                            <!-- ... Etc Etc ... -->
+                                        </select>                                                                  
+                                    </td>
+                                    <td>
+                                        <span>Tipo : </span>
+                                        <select name="tipo" id="tipo">
+                                            <option value="casa">Casa</option>
+                                            <option value="dpto">Dpto</option>
+                                            <option value="terreno">Terreno</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <span>Precio : </span>
+                                        <select name="prec" id="prec">
+                                            <option value="20000">$20,000</option>
+                                            <option value="20000-50000">$20,000 - $50,000</option>
+                                            <option value="50000-80000">$50,000 - $80,000</option>
+                                            <option value="80000-mas">$80,000 - a mas</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr><td colspan='4'><div id="gmap"></div></td></tr>
+                            </table>

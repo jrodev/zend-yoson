@@ -42,8 +42,16 @@ class Portal_IndexController extends Zend_Controller_Action
         $this->view->lastAds = $inmueble->getAll(1,12,'DESC','*');
 
     }
+    
+    public function rendermapAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false');
+        $this->view->headScript()->appendFile(JS_URL.'/application/modules/portal/pages/index.min.js');
+    }
 
-    public function resultmapAction()
+        public function resultmapAction()
     {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
