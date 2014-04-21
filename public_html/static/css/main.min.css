@@ -95,7 +95,7 @@ footer{
 
 /* Home - departamentos - imagenes */
 .content-dptos .thumbnail img{
-    height: 135px !important;
+    /*height: 135px !important;*/
 }
 
 .content-casas .caption, .content-dptos .caption{
@@ -118,9 +118,9 @@ footer{
     height:528px; z-index:1; opacity:0.59; background:none repeat scroll 0px 0px rgb(21, 21, 23);
     -moz-opacity: 0.59; opacity:.59; filter: alpha(opacity=59); border-radius:0 5px 5px; 
 }
-body{
+bg-body{
     background-color: #FFFFFF;
-    background-image: url("img/bgbody.jpg");
+    /*background-image: url("img/bgbody.jpg");*/ /*por js*/
     background-position: 0 49px;
     background-repeat: no-repeat;
     /*font-size: 14px;*/
