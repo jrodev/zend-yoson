@@ -1,24 +1,24 @@
-                    
-                    <h3 class="tit-blue-h3">Ultimos Avisos</h3>
-                    <div class="accordion" id="ultsInm">
-                        <?php 
-                        $list = array("Departamento - lima","Casa - La Molina","Oficina - La Victoria","Terreno - Sta. Anita","Casa campo - Huaral","Oficina - Breña","Casa - Ate Vitarte","Terreno - Sta. Anita"/*,"Estacionamiento - Huaral"*/);
-                        $c = count($list); $i=0;
-                        ?>
-                        <?php while($i<$c): ?>
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#ultsInm" href="#list<?php echo $i ?>">
-                                    <?php echo $list[$i] ?>
-                                </a>
+                    <?php 
+                    $list = array("Departamento - lima","Casa - La Molina","Oficina - La Victoria","Terreno - Sta. Anita","Casa campo - Huaral","Oficina - Breña","Casa - Ate Vitarte","Terreno - Sta. Anita"/*,"Estacionamiento - Huaral"*/);
+                    $c = count($list); $i=0;
+                    ?>                    
+                    <h3 id="titLastAds" class="tit-blue-h3">Ultimos Avisos</h3>
+                    <div id="ultsInm">
+                        <div id="carouselv">
+                            <?php foreach($this->lastAds as $r): ?>
+                            <?php
+                            $trans  = $this->trans[$r['transaccion']];
+                            $tipo   = $this->tipo[$r['tipoImn']];
+                            $tit    = ucfirst($r['nomProv']).": $trans de $tipo en ".$r['nomDist'];
+                            $aImg   = explode('|',$r['imageInm']);
+                            $urlImg = STAT_URL.'/uploads/inm/usu'.$r['idUsu'].'/inm'.$r['id'].'/small-'.$aImg[0];
+                            ?>
+                            <div>
+                                <span class="scroll-desc">
+                                    <a href="#"><?php echo $tit?></a>
+                                </span>
+                                <img class="loading2" src="<?php echo $this->imgLoader?>" data-src="<?php echo $urlImg?>" alt="" /><br />
                             </div>
-                            <div id="list<?php echo $i ?>" class="accordion-body collapse<?php echo ($i==0)?" in":"" ?>" style="height: <?php echo ($i++==0)?"auto":"0px" ?>;">
-                                <div class="accordion-inner">
-                                    <img src="<?php echo STAT_URL?>/img/design/no_disponible.jpg" width="100%" />
-                                    <p>texto descripcion <?php echo $i ?></p>
-                                    <a href="#">Mas detalles...</a>
-                                </div>
-                            </div>
+                            <?php endforeach;?>
                         </div>
-                        <?php endwhile;?>
                     </div>

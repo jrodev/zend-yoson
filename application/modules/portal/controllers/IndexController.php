@@ -37,6 +37,9 @@ class Portal_IndexController extends Zend_Controller_Action
         
         // Ubigeo: Departamentos
         $this->view->ubDptos = $ubigeo->getDptos();
+        
+        // Ubigeo: LastAds
+        $this->view->lastAds = $inmueble->getAll(1,12,'DESC','*');
 
     }
 

@@ -1,5 +1,6 @@
 /*globals*/
 .row-end{margin-bottom: 0 !important;}
+.loading{margin:63px auto;} .loading2{margin:51px 67px; width:32px !important; border:0 !important;}
 /*HOME*/
 .span3.logo{padding: 10px;}
 h3.tit-blue-h3{  font-size: 17px; margin: 0; padding: 0; }  /*tit-last-ad*/
@@ -55,7 +56,9 @@ h3.tit-blue-h3{  font-size: 17px; margin: 0; padding: 0; }  /*tit-last-ad*/
 }
 
 /*Home: Estado de inmueble*/
-#estadoInm select{ width: 56px !important; }
+#estadoInm select{
+    width: 55px !important;
+}
 
 /*Home: boton submit*/
 #estadoInm div.span2{ padding-top: 15px !important; text-align:right; }
