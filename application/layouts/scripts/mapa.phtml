@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6" lang="es"><![endif]-->
+<!--[if IE 7]><html class="ie7" lang="es"><![endif]-->
+<!--[if IE 8]><html class="ie8" lang="es"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="es"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="es"><!--<![endif]-->
+    <head>
+        <?php echo $this->partial('portal/head.phtml', array('mapa'=>$this->mapa)) ?>
+    </head>
+    <style>
+        #sels-map td span{color:#fff;}
+        body{background-color:transparent !important; text-align:center;}
+    </style>
+    <body>
+        <?php //echo $this->partial('portal/header.phtml', array()); ?>
+        <!--div class="container"-->
+        <?php echo $this->layout()->content ?>
+        <!--/div-->
+        <?php //echo $this->partial('portal/footer.phtml', array('foo2'=>'')); ?>
+    </body>
+</html>

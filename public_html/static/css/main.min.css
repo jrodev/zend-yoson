@@ -144,3 +144,5 @@ tr#sels-map td{ padding-top:10px; }
 .scroll-desc a { color:#C1C1C1; text-decoration:none; }
 
 .scroll-desc a:hover, .scroll-desc a:focus { color:#FFF; text-decoration:underline; }
+
+#imgLoader{margin:250px 340px; }

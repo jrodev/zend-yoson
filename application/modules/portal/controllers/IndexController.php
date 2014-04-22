@@ -45,10 +45,12 @@ class Portal_IndexController extends Zend_Controller_Action
     
     public function rendermapAction()
     {
-        $this->_helper->viewRenderer->setNoRender();
-        $this->_helper->layout->disableLayout();
+        $this->_helper->_layout->setLayout('mapa');
+        $this->view->mapa = TRUE;
+        $this->view->headScript()->appendFile(JS_URL.'/library/class/utilMaps.js');
         $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false');
-        $this->view->headScript()->appendFile(JS_URL.'/application/modules/portal/pages/index.min.js');
+        $this->view->headScript()->appendFile(JS_URL.'/application/modules/portal/pages/maps.js');
+
     }
 
         public function resultmapAction()
