@@ -1,0 +1,232 @@
+            <?php
+            $t = array('','Estreno', 'Reventa',  'En construcción', 'Alquiler');
+            $ti = array('',
+                'Casa', 'Casa campo', 'Casa playa', 'departamento', 'dpto. playa', 'dpto. amoblado', 'offic/edif', 
+                'offic/casa', 'tienda/local', 'local industrial', 'venta aires', 'Estacionam.', 'Terreno', 
+                'Terr. playa', 'Terr. en habilitacion', 'terreno agricola'
+            );
+            ?>
+            <div class="row-fluid">
+                <div class="span3">
+                    <form action="<?php echo BASE_URL?>/portal/busqueda/resultados" id="frmFilters" class="well" style="width:206px;">
+                        <style>
+                            #tbl-frm{ width:100%; }
+                            #tbl-frm .first-row td{ width:50%; font-size:12px; }
+                            #tbl-frm .first-row td input[type="checkbox"]{ margin: 0 0 4px; }
+                            #tbl-frm .second-row td{ width:33%; }
+                            #tbl-frm tr td select{ width:100%; }
+                        </style>
+                        <table id="tbl-frm">
+                            <tr class="first-row">
+                                <!--td><label>Departam.:</label></td-->
+                                <td colspan="3">
+                                    <select id="search-dpto" name="search-dpto">
+                                        <option value="">Dpto.</option>
+                                        <?php foreach($this->ubDptos as $r): ?>
+                                        <option value="<?php echo $r['key']?>"><?php echo $r['value']?></option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </td>
+                                <td colspan="3">
+                                    <select id="search-prov" name="search-prov" disabled>
+                                        <option value="">Prov.</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="second-row">
+                                <!--td><label>Provincias:</label></td-->
+                                <td colspan="2">
+                                    <select id="dist1" name="dist1" class="distritos" disabled>	    
+                                        <option value="">Dist1</option>
+                                    </select>
+                                </td>
+                                <td colspan="2">
+                                    <select id="dist2" name="dist2" class="distritos" disabled>	    
+                                        <option value="">Dist2</option>
+                                    </select>
+                                </td>
+                                <td colspan="2">
+                                    <select id="dist3" name="dist3" class="distritos" disabled>	    
+                                        <option value="">Dist3</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="6">
+                                    <div id="date-range">
+                                        <div id="date-range-field" style="width:100%"><span> </span><a href="#">▼</a></div>
+                                        <div id="datepicker-calendar"></div>
+                                    </div><br /><br />
+                                    <input type="hidden" id="fechaIni" name="fechaIni" />
+                                    <input type="hidden" id="fechaFin" name="fechaFin" />
+                                </td>
+                            </tr>
+                            <?php
+                            $tr = isset($this->transac)?$this->transac:array();
+                            $chk1 = in_array('1',$tr)?'checked':'';
+                            $chk2 = in_array('2',$tr)?'checked':'';
+                            $chk3 = in_array('3',$tr)?'checked':'';
+                            $chk4 = in_array('4',$tr)?'checked':'';
+                            ?>
+                            <tr class="first-row">
+                                <td colspan="3">
+                                    <input type="checkbox" id="chkEstreno" name="transac[]" value="1" <?php echo $chk1?> /> Estreno
+                                </td>
+                                <td colspan="3">
+                                    <input type="checkbox" id="chkReventa" name="transac[]" value="2" <?php echo $chk2?> /> Reventa 
+                                </td>
+                            </tr>
+                            <tr class="first-row">
+                                <td colspan="3">
+                                    <input type="checkbox" id="chkConstruc" name="transac[]" value="3" <?php echo $chk3?> /> Construc.
+                                </td>
+                                <td colspan="3">
+                                    <input type="checkbox" id="chkAlquiler" name="transac[]" value="4" <?php echo $chk4?> /> Alquiler 
+                                </td>
+                            </tr><tr><td colspan="6"><br /></td></tr>
+                            
+                            <?php
+                            $tipo = isset($this->tipo)?$this->tipo:array();
+                            $chk5 = in_array('1',$tipo)?'checked':'';
+                            $chk6 = in_array('2',$tipo)?'checked':'';
+                            $chk7 = in_array('3',$tipo)?'checked':'';
+                            $chk8 = in_array('5',$tipo)?'checked':'';
+                            $chk9 = in_array('6',$tipo)?'checked':'';
+                            ?>
+                            <tr class="first-row">
+                                <td colspan="3">
+                                    <input type="checkbox" id="chkCasa" name="tipo[]" value="1" <?php echo $chk5?> /> Casa 
+                                </td>
+                                <td colspan="3">
+                                    <input type="checkbox" id="chkCampo" name="tipo[]" value="2" <?php echo $chk6?> /> Casa campo
+                                </td>
+                            </tr>
+                            <tr class="first-row">
+                                <td colspan="3">
+                                    <input type="checkbox" id="chkPlaya" name="tipo[]" value="3" <?php echo $chk7?> /> Casa Playa
+                                </td>
+                                <td colspan="3">
+                                    <input type="checkbox" id="chkDptoPlaya" name="tipo[]" value="5" <?php echo $chk8?> /> Dpto. Playa
+                                </td>
+                            </tr>
+                            <tr class="first-row">
+                                <td colspan="3">
+                                    <input type="checkbox" id="chkDptoAmob" name="tipo[]" value="6" <?php echo $chk9?> /> Dpto. Amob.<br />
+                                </td>
+                                <td colspan="3"></td>
+                            </tr>
+                            </tr><tr><td colspan="6"><br /></td></tr>
+                            
+                            <?php
+                            $tm = isset($this->more)?$this->more:array('','','');//var_dump($tm);
+                            ?>
+                            <tr class="second-row">
+                                <td colspan="2">
+                                    <select id="dormtrs" name="dormtrs">
+                                        <option value="">Dormitorios</option>
+                                        <?php for($i=1;$i<9;$i++): ?>
+                                        <?php $chk=($i==(int)$tm[0])?'selected':'';?>
+                                        <option value="<?php echo $i?>" <?php echo $chk?>>
+                                            <?php echo $i?>
+                                        </option>
+                                        <?php endfor;?>
+                                    </select>
+                                </td>
+                                <td colspan="2">
+                                    <select id="garages" name="garages">
+                                        <option value="">Garages</option>
+                                        <?php for($i=1;$i<5;$i++): ?>
+                                        <?php $chk=($i==(int)$tm[1])?'selected':'';?>
+                                        <option value="<?php echo $i?>" <?php echo $chk?>>
+                                            <?php echo $i?>
+                                        </option>
+                                        <?php endfor;?>
+                                    </select>
+                                </td>
+                                <td colspan="2">
+                                    <select id="estac" name="estac">
+                                        <option value="">Estacionamientos</option>
+                                        <?php for($i=1;$i<5;$i++): ?>
+                                        <?php $chk=($i==(int)$tm[2])?'selected':'';?>
+                                        <option value="<?php echo $i?>" <?php echo $chk?>>
+                                            <?php echo $i?>
+                                        </option>
+                                        <?php endfor;?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="text-align:center">
+                                    <input type="submit" value="BUSCAR" class="btn btn-primary">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="span9">
+                    <div id="result-accordion" class="accordion">
+                        
+                        <?php if(!count($this->inmRes)):?>
+                        <h2 style="text-align:center">No hay resultados</h2>
+                        <?php endif;?>
+                        
+                        <?php foreach ($this->inmRes as $r):?>
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <div class="panel-inm">
+                                    <div class="img-inm">
+                                        <?php
+                                        $aImg   = explode('|',$r['imageInm']);
+                                        $urlImg = STAT_URL.'/uploads/inm/usu'.$r['idUsu'].'/inm'.$r['id'].'/small-'.$aImg[0];
+                                        ?>
+                                        <img src="<?php echo $urlImg?>" width="150" />
+                                    </div>
+                                    <div class="det-inm">
+                                        <div class="tit-inm">
+                                            <?php
+                                            // var_dump(isset($t[$r['transaccion']]),isset($ti[$r['tipoImn']]),$r['tipoImn']);
+                                            $tit = $t[$r['transaccion']].' de '.$ti[$r['tipoImn']].' en '.strtolower($r['nomDpto']).' - '.strtolower($r['nomProv']).' - '.strtolower($r['nomDist']);
+                                            ?>
+                                            <a href="#"><?php echo $tit?></a>
+                                            <?php
+                                            $tipo = ($r['precioInm']=='1')?'S/.':'USD';
+                                            $prec = $tipo." ".$r['precio'];
+                                            ?>
+                                            <span><?php echo $prec?></span>
+                                            <div style="clear:both"></div>
+                                        </div>
+                                        <div class="cont-det">
+                                            <div class="panel-cont">
+                                                <p><b>Estado :</b> <?php echo $t[$r['transaccion']]?></p>
+                                                <p><b>Area Total :</b> <?php echo $r['areaTotal']?> m<sup>2</sup></p>
+                                                <p class="end"><b>Area Const. :</b> <?php echo $r['areaConst']?> m<sup>2</sup></p>
+                                            </div>
+                                            <div class="panel-cont">
+                                                <p><b>Dromitorios :</b> <?php echo $r['cantDorm']?></p>
+                                                <p><b>Ba&ntilde;os :</b> <?php echo $r['cantBanCom']?></p>
+                                                <p class="end"><b>Cuarto servicios :</b> <?php echo $r['cantCuarServ']?></p>
+                                            </div>
+                                            <div class="panel-cont">
+                                                <p><b>Estacionamiento :</b> <?php echo $r['estac']?></p>
+                                                <p><b>Terraza :</b> <?php echo $r['terraza']?></p>
+                                                <p class="end">
+                                                    <a href="#collapse<?php echo $r['id'];?>" data-parent="#result-accordion" 
+                                                       data-toggle="collapse" class="accordion-toggle">
+                                                        desplegar mas detalles ▼
+                                                    </a>                                                    
+                                                </p>
+                                            </div>                                      
+                                        </div>
+                                    </div>
+                                    <div style="clear:both;"></div>
+                                </div>
+                            </div>
+                            <div class="accordion-body collapse" id="collapse<?php echo $r['id'];?>">
+                                <div class="accordion-inner"><?php echo $r['detalle']?></div>
+                            </div>
+                        </div>
+                        <?php endforeach;?>
+                    </div>
+                </div>
+            </div>

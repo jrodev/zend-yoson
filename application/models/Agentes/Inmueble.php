@@ -6,7 +6,14 @@
 class Application_Model_Agentes_Inmueble extends Zend_Db_Table 
 {
     protected $_name = 'inmueble';
-    
+    public $trans = array('','Estreno', 'Reventa',  'En construcción', 'Alquiler');
+    public $tipo  = array('',
+        'Casa', 'Casa campo', 'Casa playa', 'departamento', 'dpto. playa', 'dpto. amoblado', 'offic/edif', 
+        'offic/casa', 'tienda/local', 'local industrial', 'venta aires', 'Estacionam.', 'Terreno', 
+        'Terr. playa', 'Terr. en habilitacion', 'terreno agricola'
+    );
+
+
     public function get($id)
     {
         if(!isset($id)) throw new Exception("id no isset!");
@@ -77,11 +84,11 @@ class Application_Model_Agentes_Inmueble extends Zend_Db_Table
             ->join(array('di'=>'dist'), 'i.dist=di.id' , array('nomDist'=>'nombre'))//di.nombre
             ->where('i.activo=1')
         ;
-        if($whr && is_array($whr)){
+        if($whr && is_array($whr) && count($whr)){
             foreach($whr as $k=>$v) $sel->where($k,$v);
         }
         $sel->order("i.fechareg $ord")->limitPage($page, $cant);
-        echo $sel; exit;
+        //echo $sel; exit;
         return $db->fetchAll($sel);
     }
 

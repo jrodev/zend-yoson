@@ -2,34 +2,48 @@
         <table id="tblMap" align="center" border='0px' cellpadding="0" cellspacing="0">
             <tr id="sels-map">
                 <td>
-                    <span>Distrito : </span>
-                    <select id="dist" name="dist">	    
-                        <option value="11">Callao</option>
-                        <option value="12">Bellavista</option>
-                        <option value="13">Ventanilla</option>
-                        <option value="14">La Punta</option>
-                        <option value="15">La Perla</option>
-                        <!-- ... Etc Etc ... -->
+                    <span>Dpto.:</span>
+                    <select id="dpto" name="dpto">	    
+                        <option value="">Seleccione</option>
+                        <?php foreach($this->ubDptos as $r): ?>
+                        <option value="<?php echo $r['key']?>"><?php echo $r['value']?></option>
+                        <?php endforeach;?>
                     </select>
                 </td>
                 <td>
-                    <span>Opcion : </span>
+                    <span>Prov.:</span>
+                    <select id="prov" name="prov">	    
+                        <option value="">Seleccione</option>
+                    </select>
+                </td>
+                <td>
+                    <span>Dist.:</span>
+                    <select id="dist" name="dist">	    
+                        <option value="11">Seleccione</option>
+                    </select>
+                </td>
+                <td>
+                    <span>Estado:</span>
                     <select name="opc" id="opc">
-                        <option value="Estreno">Estreno</option>
-                        <option value="Reventa">Reventa</option>
-                        <option value="Alquiler">Alquiler</option>
-                        <!-- ... Etc Etc ... -->
+                        <option value="">Todos</option>
+                        <option value="1">Estreno</option>
+                        <option value="2">Reventa</option>
+                        <option value="3">Construccion</option>
+                        <option value="4">Alquiler</option>
                     </select>                                                                  
                 </td>
                 <td>
-                    <span>Tipo : </span>
+                    <span>Tipo:</span>
                     <select name="tipo" id="tipo">
-                        <option value="casa">Casa</option>
-                        <option value="dpto">Dpto</option>
-                        <option value="terreno">Terreno</option>
+                        <option value="">Todos</option>
+                        <option value="1">Casa</option>
+                        <option value="2">Casa campo</option>
+                        <option value="3">Casa playa</option>
+                        <option value="5">Dpto. playa</option>
+                        <option value="6">Dpto. Amoblado</option>
                     </select>
                 </td>
-                <td>
+                <!--td>
                     <span>Precio : </span>
                     <select name="prec" id="prec">
                         <option value="20000">$20,000</option>
@@ -37,7 +51,7 @@
                         <option value="50000-80000">$50,000 - $80,000</option>
                         <option value="80000-mas">$80,000 - a mas</option>
                     </select>
-                </td>
+                </td-->
             </tr>
-            <tr><td colspan='4'><div id="gmap"></div></td></tr>
+            <tr><td colspan='5'><div id="gmap"></div></td></tr>
         </table>

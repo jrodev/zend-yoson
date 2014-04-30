@@ -307,7 +307,7 @@ class Agentes_InmueblesController extends Zend_Controller_Action
         }
         $frmInm->populate($dataPopulate);
         $jsParams['uriUpl'] = BASE_URL.'/'.$uriUpl[1].'/usu'.$this->idUsu.'/inm'.$idInm; // url imgs
-        $this->view->err = $codErr; 
+        $this->view->err = $codErr;
         $this->view->headScript()->appendScript('window.vars='.json_encode($jsParams).';'); // vars js
     }
     

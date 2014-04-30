@@ -50,10 +50,14 @@ class Portal_IndexController extends Zend_Controller_Action
         $this->view->headScript()->appendFile(JS_URL.'/library/class/utilMaps.js');
         $this->view->headScript()->appendFile('http://maps.google.com/maps/api/js?sensor=false');
         $this->view->headScript()->appendFile(JS_URL.'/application/modules/portal/pages/maps.js');
-
+        
+        $ubg = new Application_Model_Agentes_Ubigeo();
+        
+        // Ubigeo: Departamentos
+        $this->view->ubDptos = $ubg->getDptos();
     }
 
-        public function resultmapAction()
+    public function resultmapAction()
     {
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
@@ -84,10 +88,35 @@ class Portal_IndexController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
         
+        $inm = new Application_Model_Agentes_Inmueble();
+        
         $dist=$this->getRequest()->getParam("dist"); 
-        $opc =$this->getRequest()->getParam("opc"); 
+        $opc =$this->getRequest()->getParam("opc");  //estado
         $tipo=$this->getRequest()->getParam("tipo"); 
-        $prec=$this->getRequest()->getParam("prec");
+        //$prec=$this->getRequest()->getParam("prec");
+        $whr = array();
+        if($dist) $whr["i.dist='$dist'"]='';
+        if($opc) $whr["i.transaccion=$opc"]='';
+        if($tipo) $whr["i.tipoImn=$tipo"]='';
+        $cols = array('id','idUsu','transaccion','tipoImn','precio','precioInm','ubicacion','direc','detalle','imageInm');
+        $inms = $inm->getInmuebles(1,500,'DESC',$cols,$whr);
+        
+        $rspta=array(); $ti=$inm->tipo; $tr=$inm->trans;
+        foreach ($inms as $r){
+            $aImg   = explode('|',$r['imageInm']);
+            $rspta[] = array(
+                'tit' => $tr[$r['transaccion']].' de '.$ti[$r['tipoImn']].' en '.strtolower($r['nomDpto']).
+                       ' - '.strtolower($r['nomProv']).' - '.strtolower($r['nomDist']),
+                'img' => STAT_URL.'/uploads/inm/usu'.$r['idUsu'].'/inm'.$r['id'].'/small-'.$aImg[0],
+                'prec'=> (($r['precioInm']==1)?'S/.':'USD.').$r['precio'],
+                'ubi' => $r['ubicacion'],
+                'dir' => $r['direc'],
+                'lnk' => '#',
+                'det' => $r['detalle'],
+            );
+        }
+        echo json_encode($rspta);
+        exit;
         /*
         .....
         ALGORITMO SELECT MYSQL CON PHP

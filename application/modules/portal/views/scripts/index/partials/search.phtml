@@ -17,11 +17,11 @@
                                                         <?php foreach($this->ubDptos as $r): ?>
                                                         <option value="<?php echo $r['key']?>"><?php echo $r['value']?></option>
                                                         <?php endforeach;?>
-                                                    </select>                                            
+                                                    </select>
                                                 </div>
                                                 <div class="span6 span-prov">
                                                     <label class="lbl-search">Provincia: </label>
-                                                    <select id="search-prov" name="search-prov">
+                                                    <select id="search-prov" name="search-prov" disabled>
                                                         <option value="">Seleccionar departamento</option>
                                                     </select>
                                                 </div>
@@ -34,20 +34,20 @@
                                             <div class="row">
                                                 <div class="span4">
                                                     <label class="lbl-search">Distrito1: </label>
-                                                    <select id="dist1" name="dist1" class="distritos">	    
+                                                    <select id="dist1" name="dist1" class="distritos" disabled>	    
                                                         <option value="">Seleccionar provincias</option>
                                                     </select>
                                                     <!--span class="help-inline">Error! corrija el texto!.</span-->
                                                 </div>
                                                 <div class="span4">
                                                     <label class="lbl-search">Distrito2: </label>
-                                                    <select id="dist2" name="dist2" class="distritos">	    
+                                                    <select id="dist2" name="dist2" class="distritos" disabled>	    
                                                         <option value="">Seleccionar</option>
                                                     </select> 
                                                 </div>
                                                 <div class="span4">
                                                     <label class="lbl-search">Distrito3: </label>
-                                                    <select id="dist3" name="dist3" class="distritos" disabled="">	    
+                                                    <select id="dist3" name="dist3" class="distritos" disabled>	    
                                                         <option value="">Seleccionar</option>
                                                     </select> 
                                                 </div>
@@ -133,21 +133,28 @@
                                     <div id="estadoInm" class="row-fluid">
                                         <div class="span10">
                                             <div class="row-fluid row-end">
-                                                <div class="span4">Ascensor:<select id="ascensor" name="ascensor">
-                                                        <option value="1" selected>No</option>
-                                                        <option value="2">Si</option>
+                                                <div class="span4">Dormitorios:<select id="dormtrs" name="dormtrs">
+                                                        <option value="" selected>seleccionar</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="4">5</option>
+                                                        <option value="4">6</option>
+                                                        <option value="4">7</option>
+                                                        <option value="4">8</option>
                                                     </select>
                                                 </div>
                                                 <div class="span4">Garage:<select id="garages" name="garages">
-                                                        <option value="0" selected>ninguno</option>
+                                                        <option value="" selected>ninguno</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
                                                         <option value="4">4</option>
                                                     </select>
                                                 </div>
-                                                <div class="span4">Estacionamientos:<select id="estac" name="estac">
-                                                        <option value="0" selected>ninguno</option>
+                                                <div class="span4">Estacionamiento:<select id="estac" name="estac">
+                                                        <option value="" selected>ninguno</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
